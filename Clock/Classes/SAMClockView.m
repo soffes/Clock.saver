@@ -146,8 +146,8 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 			NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
 			NSRange range = NSMakeRange(0, string.length);
 			[string addAttribute:NSForegroundColorAttributeName value:handColor range:range];
-			[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.035885167f) * self.layer.contentsScale] range:range];
-			[string addAttribute:NSKernAttributeName value:@(ceilf(width * -0.006379585f) * self.layer.contentsScale) range:range];
+			[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.071770334f)] range:range];
+			[string addAttribute:NSKernAttributeName value:@(ceilf(width * -0.01275917f)) range:range];
 
 			CGSize stringSize = [string size];
 			CGFloat angle = -((CGFloat)i / 12.0f * twoPi) + angleOffset;
@@ -179,8 +179,8 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 		NSString *text = [NSString stringWithFormat:@"%i", (int)comps.day];
 		NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
 		NSRange range = NSMakeRange(0, string.length);
-		[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.022328549f) * self.layer.contentsScale] range:range];
-		[string addAttribute:NSKernAttributeName value:@(ceilf(width * -0.006379585f) * self.layer.contentsScale) range:range];
+		[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.044657098f)] range:range];
+		[string addAttribute:NSKernAttributeName value:@(ceilf(width * -0.01275917f)) range:range];
 
 		CGRect stringFrame = dateFrame;
 		stringFrame.size = [string size];
