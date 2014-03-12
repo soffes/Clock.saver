@@ -46,7 +46,7 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 - (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview {
 	if ((self = [super initWithFrame:frame isPreview:isPreview])) {
 		[self setAnimationTimeInterval:1.0 / 4.0];
-		self.drawsTicks = YES;
+		self.wantsLayer = YES;
 
 		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
 		[defaults registerDefaults:@{
@@ -133,18 +133,22 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 	// Numbers
 	if (self.drawsNumbers) {
 		NSDictionary *attributes = @{
-			NSFontNameAttribute: [NSFont fontWithName:@"Helvetica" size:40.0f],
-			NSForegroundColorAttributeName: handColor
+			NSForegroundColorAttributeName: handColor,
+			NSKernAttributeName: @(ceilf(width * -0.006379585f) * self.layer.contentsScale)
 		};
-		CGFloat textRadius = frame.size.width / 2.4f;
+		CGFloat textRadius = frame.size.width * 0.402711324f;
 
 		for (NSUInteger i = 0; i < 12; i++) {
 			NSString *text = [NSString stringWithFormat:@"%i", ((int)i - 12 % 12) ?: 12];
-			NSAttributedString *string = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+			NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+			[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.03907496f) * self.layer.contentsScale] range:NSMakeRange(0, string.length)];
 			CGSize stringSize = [string size];
 			CGFloat angle = -((CGFloat)i / 12.0f * twoPi) + angleOffset;
+			CGRect rect = CGRectMake(center.x + cosf(angle) * (textRadius - (stringSize.width / 2.0f)), center.y + sinf(angle) * (textRadius - (stringSize.height / 2.0f)), stringSize.width, stringSize.height);
+			rect.origin.x -= stringSize.width / 2.0f;
+			rect.origin.y -= stringSize.height / 2.0f;
 
-			[string drawInRect:CGRectMake(center.x + cosf(angle) * (textRadius - stringSize.width), center.y + sinf(angle) * (textRadius - stringSize.height), stringSize.width, stringSize.height)];
+			[string drawInRect:rect];
 		}
 	}
 
@@ -166,16 +170,16 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 	angle = -(twoPi * (CGFloat)comps.second / 60.0f) + angleOffset;
 	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.009569378f), ceilf(width * 0.391547049f)) angle:angle lineCapStyle:NSSquareLineCapStyle];
 
-	// Seconds nub
+	// Counterweight
 	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.028708134f), -ceilf(width * 0.076555024f)) angle:angle lineCapStyle:NSRoundLineCapStyle];
 
-	// Seconds nub circle
+	// Counterweight circle
 	CGFloat nubSize = ceilf(width * 0.052631579f);
 	frame = CGRectMake(ceilf((size.width - nubSize) / 2.0f), ceilf((size.height - nubSize) / 2.0f), nubSize, nubSize);
 	path = [NSBezierPath bezierPathWithOvalInRect:frame];
 	[path fill];
 
-	// Center
+	// Screw
 	CGFloat dotSize = ceilf(width * 0.006379585f);
 	[[NSColor blackColor] setFill];
 	frame = CGRectMake(ceilf((size.width - dotSize) / 2.0f), ceilf((size.height - dotSize) / 2.0f), dotSize, dotSize);
@@ -201,6 +205,13 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 
 #pragma mark - Private
 
+- (CGRect)clockFrameForBounds:(CGRect)bounds {
+	CGSize size = bounds.size;
+	CGFloat clockSize = MIN(size.width, size.height) * 0.55f;
+	return CGRectMake(ceilf((size.width - clockSize) / 2.0f), ceilf((size.height - clockSize) / 2.0f), clockSize, clockSize);
+}
+
+
 // The size's height is the hand length. The size's width is the hand width, duh.
 - (void)drawHandWithSize:(CGSize)size angle:(CGFloat)angle lineCapStyle:(NSLineCapStyle)lineCapStyle {
 	CGRect frame = [self clockFrameForBounds:self.bounds];
@@ -213,13 +224,6 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 	path.lineWidth = size.width;
 	path.lineCapStyle = lineCapStyle;
 	[path stroke];
-}
-
-
-- (CGRect)clockFrameForBounds:(CGRect)bounds {
-	CGSize size = bounds.size;
-	CGFloat clockSize = MIN(size.width, size.height) * 0.55f;
-	return CGRectMake(ceilf((size.width - clockSize) / 2.0f), ceilf((size.height - clockSize) / 2.0f), clockSize, clockSize);
 }
 
 
