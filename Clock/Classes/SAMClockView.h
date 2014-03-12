@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <ScreenSaver/ScreenSaver.h>
 
-extern NSString *const SAMClockStyleDidChangeNotificationName;
+extern NSString *const SAMClockConfigurationDidChangeNotificationName;
 
 typedef NS_ENUM(NSUInteger, SAMClockViewStyle) {
 	SAMClockViewStyleDark,
@@ -19,5 +19,6 @@ typedef NS_ENUM(NSUInteger, SAMClockViewStyle) {
 @interface SAMClockView : ScreenSaverView
 
 @property (nonatomic) SAMClockViewStyle clockStyle;
+@property (nonatomic) BOOL drawsTicks;
 
 @end

@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SAMClockConfigureWindowController">
             <connections>
                 <outlet property="stylePicker" destination="NFD-3L-sd7" id="UEf-Q7-7PJ"/>
+                <outlet property="tickMarksCheckbox" destination="xc8-5y-KE7" id="PVJ-PJ-Y4L"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="bJd-bg-h8t"/>
             </connections>
         </customObject>
@@ -16,21 +17,21 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="300" height="130"/>
+            <rect key="contentRect" x="196" y="240" width="300" height="170"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="170"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFD-3L-sd7">
-                        <rect key="frame" x="138" y="81" width="75" height="26"/>
+                        <rect key="frame" x="105" y="126" width="75" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Jhk-ZJ-EGw">
+                        <popUpButtonCell key="cell" type="push" title="Dark" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fOk-Rv-Vkx" id="Jhk-ZJ-EGw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="eZ3-QA-JZ5">
                                 <items>
-                                    <menuItem title="Dark" id="fOk-Rv-Vkx"/>
+                                    <menuItem title="Dark" state="on" id="fOk-Rv-Vkx"/>
                                     <menuItem title="Light" tag="1" id="fWx-Sf-rX7"/>
                                 </items>
                             </menu>
@@ -40,7 +41,7 @@
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMp-6i-pzR">
-                        <rect key="frame" x="89" y="87" width="38" height="17"/>
+                        <rect key="frame" x="63" y="131" width="38" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Style:" id="Imw-dx-G77">
                             <font key="font" metaFont="system"/>
@@ -49,7 +50,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NoK-Mg-VIN">
-                        <rect key="frame" x="227" y="12" width="59" height="32"/>
+                        <rect key="frame" x="227" y="13" width="59" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r3a-m7-9kX">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -62,15 +63,25 @@ DQ
                             <action selector="close:" target="-2" id="VIE-x7-CgN"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bs1-ju-Ih4">
-                        <rect key="frame" x="18" y="52" width="264" height="17"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xc8-5y-KE7">
+                        <rect key="frame" x="105" y="93" width="125" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Inspired by the Braun BN0032." id="udg-9U-CaY">
-                            <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                        <buttonCell key="cell" type="check" title="Show tick marks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Nnd-Yn-VLb">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="changeTickMarks:" target="-2" id="5Rj-ds-IWZ"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLS-9e-hxk">
+                        <rect key="frame" x="105" y="59" width="115" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Show numbers" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="bVr-t9-MiD">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
         </window>

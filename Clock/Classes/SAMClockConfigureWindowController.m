@@ -23,6 +23,7 @@
 
 	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"com.samsoffes.clock"];
 	[self.stylePicker selectItemAtIndex:[defaults integerForKey:@"SAMClockStyle"]];
+	self.tickMarksCheckbox.state = [defaults boolForKey:@"SAMClockTickMarks"];
 }
 
 
@@ -36,7 +37,16 @@
 	[defaults setInteger:[self.stylePicker indexOfSelectedItem] forKey:@"SAMClockStyle"];
 	[defaults synchronize];
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockStyleDidChangeNotificationName object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
+}
+
+
+- (IBAction)changeTickMarks:(id)sender {
+	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"com.samsoffes.clock"];
+	[defaults setBool:[self.tickMarksCheckbox state] forKey:@"SAMClockTickMarks"];
+	[defaults synchronize];
+
+	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
 }
 
 @end

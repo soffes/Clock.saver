@@ -11,8 +11,10 @@
 @interface SAMClockConfigureWindowController : NSWindowController
 
 @property IBOutlet NSPopUpButton *stylePicker;
+@property IBOutlet NSButton *tickMarksCheckbox;
 
 - (IBAction)close:(id)sender;
 - (IBAction)changeStyle:(id)sender;
+- (IBAction)changeTickMarks:(id)sender;
 
 @end

@@ -46,6 +46,7 @@
 		21592F4818CB7D4A00931D75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		21592F5C18CB7F3D00931D75 /* ClockTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClockTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21592F7718CB7F3D00931D75 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		2160288E18D035A200494FE5 /* AppKitScripting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKitScripting.framework; path = System/Library/Frameworks/AppKitScripting.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +159,7 @@
 		21592F4018CB7D4A00931D75 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2160288E18D035A200494FE5 /* AppKitScripting.framework */,
 				21592F4118CB7D4A00931D75 /* Cocoa.framework */,
 				21592F4318CB7D4A00931D75 /* ScreenSaver.framework */,
 				21592F7718CB7F3D00931D75 /* XCTest.framework */,
