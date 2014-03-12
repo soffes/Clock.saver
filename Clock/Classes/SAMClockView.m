@@ -16,7 +16,6 @@ NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 
 @interface SAMClockView ()
-@property (nonatomic) BOOL preview;
 @property (nonatomic, readonly) SAMClockConfigureWindowController *configureWindowController;
 @end
 
@@ -47,7 +46,6 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 - (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview {
 	if ((self = [super initWithFrame:frame isPreview:isPreview])) {
 		[self setAnimationTimeInterval:1.0 / 4.0];
-		self.preview = isPreview;
 		self.drawsTicks = YES;
 
 		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
@@ -100,6 +98,7 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 	// Clock background
 	[clockBackgroundColor setFill];
 	CGRect frame = [self clockFrameForBounds:self.bounds];
+	CGFloat width = frame.size.width;
 	NSBezierPath *path = [NSBezierPath bezierPathWithOvalInRect:frame];
 	path.lineWidth = 4.0f;
 	[path fill];
@@ -110,21 +109,22 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 
 	if (self.drawsTicks) {
 		// Ticks divider
+		CGFloat dividerPosition = 0.074960128f;
 		[[backgroundColor colorWithAlphaComponent:0.05f] setStroke];
-		path = [NSBezierPath bezierPathWithOvalInRect:CGRectInset(frame, frame.size.width * 0.1f, frame.size.width * 0.1f)];
+		path = [NSBezierPath bezierPathWithOvalInRect:CGRectInset(frame, frame.size.width * dividerPosition, frame.size.width * dividerPosition)];
 		path.lineWidth = 1.0f;
 		[path stroke];
 
 		// Ticks
-		CGFloat tickLength = frame.size.width * 0.05f;
-		CGFloat tickRadius = frame.size.width / 2.1f;
+		CGFloat tickLength = ceilf(width * -0.049441786f);
+		CGFloat tickRadius = ceilf(width * 0.437799043f);
 		for (NSUInteger i = 0; i < 60; i++) {
 			BOOL large = (i % 5) == 0;
 			CGFloat angle = -((CGFloat)i / 60.0f * twoPi) + angleOffset;
 			NSBezierPath *path = [NSBezierPath bezierPath];
 			[path moveToPoint:CGPointMake(center.x + cosf(angle) * (tickRadius - tickLength), center.y + sinf(angle) * (tickRadius - tickLength))];
 			[path lineToPoint:CGPointMake(center.x + cosf(angle) * tickRadius, center.y + sinf(angle) * tickRadius)];
-			path.lineWidth = large ? 2.0f : 1.0f;
+			path.lineWidth = ceilf(width * (large ? 0.009569378f : 0.004784689f));
 			[large ? handColor : [handColor colorWithAlphaComponent:0.5f] setStroke];
 			[path stroke];
 		}
@@ -154,24 +154,31 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 	// Hours
 	[[handColor colorWithAlphaComponent:0.7f] setStroke];
 	CGFloat angle = -(twoPi * ((CGFloat)comps.hour + ((CGFloat)comps.minute / 60.0f)) / 12.0f) + angleOffset;
-	[self drawHandWithSize:CGSizeMake(self.preview ? 3.0f : 6.0f, frame.size.width * 0.5f * 0.49f) angle:angle];
+	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.023125997f), ceilf(width * 0.263955343f)) angle:angle lineCapStyle:NSSquareLineCapStyle];
 
 	// Minutes
 	[handColor setStroke];
 	angle = -(twoPi * (CGFloat)comps.minute / 60.0f) + angleOffset;
-	[self drawHandWithSize:CGSizeMake(self.preview ? 2.0f : 4.0f, frame.size.width * 0.5f * 0.7f) angle:angle];
+	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.014354067f), ceilf(width * 0.391547049f)) angle:angle lineCapStyle:NSSquareLineCapStyle];
 
 	// Seconds
 	[secondsColor set];
 	angle = -(twoPi * (CGFloat)comps.second / 60.0f) + angleOffset;
-	[self drawHandWithSize:CGSizeMake(self.preview ? 1.0f : 2.0f, frame.size.width * 0.5f * 0.75f) angle:angle];
+	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.009569378f), ceilf(width * 0.391547049f)) angle:angle lineCapStyle:NSSquareLineCapStyle];
 
 	// Seconds nub
-	[self drawHandWithSize:self.preview ? CGSizeMake(2.0f, -4.0f) : CGSizeMake(4.0f, -8.0f) angle:angle];
+	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.028708134f), -ceilf(width * 0.076555024f)) angle:angle lineCapStyle:NSRoundLineCapStyle];
 
 	// Seconds nub circle
-	CGFloat nubSize = self.preview ? 3.0f : 10.0f;
-	frame = CGRectMake(roundf((size.width - nubSize) / 2.0f), roundf((size.height - nubSize) / 2.0f), nubSize, nubSize);
+	CGFloat nubSize = ceilf(width * 0.052631579f);
+	frame = CGRectMake(ceilf((size.width - nubSize) / 2.0f), ceilf((size.height - nubSize) / 2.0f), nubSize, nubSize);
+	path = [NSBezierPath bezierPathWithOvalInRect:frame];
+	[path fill];
+
+	// Center
+	CGFloat dotSize = ceilf(width * 0.006379585f);
+	[[NSColor blackColor] setFill];
+	frame = CGRectMake(ceilf((size.width - dotSize) / 2.0f), ceilf((size.height - dotSize) / 2.0f), dotSize, dotSize);
 	path = [NSBezierPath bezierPathWithOvalInRect:frame];
 	[path fill];
 }
@@ -195,7 +202,7 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 #pragma mark - Private
 
 // The size's height is the hand length. The size's width is the hand width, duh.
-- (void)drawHandWithSize:(CGSize)size angle:(CGFloat)angle {
+- (void)drawHandWithSize:(CGSize)size angle:(CGFloat)angle lineCapStyle:(NSLineCapStyle)lineCapStyle {
 	CGRect frame = [self clockFrameForBounds:self.bounds];
 	CGPoint center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
 	CGPoint point = CGPointMake(center.x + cosf(angle) * size.height, center.y + sinf(angle) * size.height);
@@ -204,14 +211,15 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 	[path moveToPoint:center];
 	[path lineToPoint:point];
 	path.lineWidth = size.width;
+	path.lineCapStyle = lineCapStyle;
 	[path stroke];
 }
 
 
 - (CGRect)clockFrameForBounds:(CGRect)bounds {
 	CGSize size = bounds.size;
-	CGFloat clockSize = MIN(size.width, size.height) * 0.5;
-	return CGRectMake(roundf((size.width - clockSize) / 2.0f), roundf((size.height - clockSize) / 2.0f), clockSize, clockSize);
+	CGFloat clockSize = MIN(size.width, size.height) * 0.55f;
+	return CGRectMake(ceilf((size.width - clockSize) / 2.0f), ceilf((size.height - clockSize) / 2.0f), clockSize, clockSize);
 }
 
 
