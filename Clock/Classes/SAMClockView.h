@@ -16,17 +16,19 @@ extern NSString *const SAMClockStyleDefaultsKey;
 extern NSString *const SAMClockTickMarksDefaultsKey;
 extern NSString *const SAMClockNumbersDefaultsKey;
 extern NSString *const SAMClockDateDefaultsKey;
+extern NSString *const SAMClockLogoDefaultsKey;
 
-typedef NS_ENUM(NSUInteger, SAMClockViewStyle) {
-	SAMClockViewStyleLightFace,
-	SAMClockViewStyleDarkFace
+typedef NS_ENUM(NSUInteger, SAMClockFaceStyle) {
+	SAMClockFaceStyleLight,
+	SAMClockFaceStyleDark
 };
 
 @interface SAMClockView : ScreenSaverView
 
-@property (nonatomic) SAMClockViewStyle clockStyle;
+@property (nonatomic) SAMClockFaceStyle faceStyle;
 @property (nonatomic) BOOL drawsTicks;
 @property (nonatomic) BOOL drawsNumbers;
 @property (nonatomic) BOOL drawsDate;
+@property (nonatomic) BOOL drawsLogo;
 
 @end

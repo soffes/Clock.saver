@@ -15,9 +15,11 @@ NSString *const SAMClockStyleDefaultsKey = @"SAMClockStyle";
 NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 NSString *const SAMClockDateDefaultsKey = @"SAMClockDate";
+NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 
 @interface SAMClockView ()
 @property (nonatomic, readonly) SAMClockConfigureWindowController *configureWindowController;
+@property (nonatomic) NSImage *logoImage;
 @end
 
 @implementation SAMClockView
@@ -51,9 +53,11 @@ NSString *const SAMClockDateDefaultsKey = @"SAMClockDate";
 
 		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
 		[defaults registerDefaults:@{
+			SAMClockStyleDefaultsKey: @(SAMClockFaceStyleLight),
 			SAMClockTickMarksDefaultsKey: @YES,
 			SAMClockNumbersDefaultsKey: @YES,
-			SAMClockDateDefaultsKey: @YES
+			SAMClockDateDefaultsKey: @YES,
+			SAMClockLogoDefaultsKey: @NO
 		}];
 
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configurationDidChange:) name:SAMClockConfigurationDidChangeNotificationName object:nil];
@@ -83,7 +87,7 @@ NSString *const SAMClockDateDefaultsKey = @"SAMClockDate";
 	NSColor *clockBackgroundColor;
 	NSColor *secondsColor = [NSColor colorWithCalibratedRed:0.965 green:0.773 blue:0.180 alpha:1];
 
-	if (self.clockStyle == SAMClockViewStyleLightFace) {
+	if (self.faceStyle == SAMClockFaceStyleLight) {
 		backgroundColor = [NSColor blackColor];
 		handColor = [NSColor colorWithCalibratedRed:0.039f green:0.039f blue:0.043f alpha:1.0f];
 		clockBackgroundColor = [NSColor colorWithCalibratedRed:0.996f green:0.996f blue:0.996f alpha:1.0f];
@@ -199,6 +203,15 @@ NSString *const SAMClockDateDefaultsKey = @"SAMClockDate";
 		[path fill];
 	}
 
+	// Logo
+	if (self.logoImage) {
+		NSImage *image = self.logoImage;
+		CGSize imageSize = image.size;
+		imageSize.width = ceilf(width * 0.156299841f);
+		imageSize.height *= (imageSize.width / image.size.width);
+		[image drawInRect:CGRectMake(roundf((size.width - imageSize.width) / 2.0f), frame.origin.y + ceilf(width * 0.622009569f), imageSize.width, imageSize.height)];
+	}
+
 	// Hours
 	[[handColor colorWithAlphaComponent:0.7f] setStroke];
 	CGFloat angle = -(twoPi * ((CGFloat)comps.hour + ((CGFloat)comps.minute / 60.0f)) / 12.0f) + angleOffset;
@@ -274,10 +287,17 @@ NSString *const SAMClockDateDefaultsKey = @"SAMClockDate";
 - (void)configurationDidChange:(NSNotification *)notification {
 	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
 
-	self.clockStyle = [defaults integerForKey:SAMClockStyleDefaultsKey];
+	self.faceStyle = [defaults integerForKey:SAMClockStyleDefaultsKey];
 	self.drawsTicks = [defaults boolForKey:SAMClockTickMarksDefaultsKey];
 	self.drawsNumbers = [defaults boolForKey:SAMClockNumbersDefaultsKey];
 	self.drawsDate = [defaults boolForKey:SAMClockDateDefaultsKey];
+	self.drawsLogo = [defaults boolForKey:SAMClockLogoDefaultsKey];
+
+	if (self.drawsLogo) {
+		self.logoImage = self.faceStyle == SAMClockFaceStyleLight ? [NSImage imageNamed:@"braun-dark"] : [NSImage imageNamed:@"braun-light"];
+	} else {
+		self.logoImage = nil;
+	}
 }
 
 @end

@@ -14,6 +14,7 @@
 @property IBOutlet NSButton *tickMarksCheckbox;
 @property IBOutlet NSButton *numbersCheckbox;
 @property IBOutlet NSButton *dateCheckbox;
+@property IBOutlet NSButton *logoCheckbox;
 
 - (IBAction)close:(id)sender;
 
@@ -21,5 +22,6 @@
 - (IBAction)changeTickMarks:(id)sender;
 - (IBAction)changeNumbers:(id)sender;
 - (IBAction)changeDate:(id)sender;
+- (IBAction)changeLogo:(id)sender;
 
 @end
