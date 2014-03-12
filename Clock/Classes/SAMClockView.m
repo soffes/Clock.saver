@@ -192,14 +192,13 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 		CGFloat y = CGRectGetMaxY(dateFrame) + ceilf(width * 0.015948963f);
 		CGFloat height = ceilf(width * 0.022328549f);
 		CGFloat pointDip = ceilf(width * 0.009569378f);
-		CGFloat hangOver = ceilf(width * 0.001594896f);
 
 		NSBezierPath *path = [NSBezierPath bezierPath];
-		[path moveToPoint:CGPointMake(CGRectGetMinX(dateFrame) - hangOver, y)];
-		[path lineToPoint:CGPointMake(CGRectGetMinX(dateFrame) - hangOver, y - height)];
+		[path moveToPoint:CGPointMake(CGRectGetMinX(dateFrame), y)];
+		[path lineToPoint:CGPointMake(CGRectGetMinX(dateFrame), y - height)];
 		[path lineToPoint:CGPointMake(CGRectGetMidX(dateFrame), y - height - pointDip)];
-		[path lineToPoint:CGPointMake(CGRectGetMaxX(dateFrame) + hangOver, y - height)];
-		[path lineToPoint:CGPointMake(CGRectGetMaxX(dateFrame) + hangOver, y)];
+		[path lineToPoint:CGPointMake(CGRectGetMaxX(dateFrame), y - height)];
+		[path lineToPoint:CGPointMake(CGRectGetMaxX(dateFrame), y)];
 		[path lineToPoint:CGPointMake(CGRectGetMidX(dateFrame), y - pointDip)];
 		[path fill];
 	}
