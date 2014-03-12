@@ -160,7 +160,8 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 	}
 
 	// Get time components
-	NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
+	NSDate *date = [NSDate date];
+	NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:date];
 
 	// Date
 	if (self.drawsDate) {
@@ -294,9 +295,13 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 	self.drawsLogo = [defaults boolForKey:SAMClockLogoDefaultsKey];
 
 	if (self.drawsLogo) {
+#if DEMO
+		self.logoImage = [NSImage imageNamed:self.faceStyle == SAMClockFaceStyleLight ? @"braun-dark" : @"braun-light"];
+#else
 		NSBundle *bundle = [NSBundle bundleWithIdentifier:SAMClockDefaultsModuleName];
 		NSString *path = [bundle pathForResource:self.faceStyle == SAMClockFaceStyleLight ? @"braun-dark" : @"braun-light" ofType:@"pdf"];
 		self.logoImage = [[NSImage alloc] initWithContentsOfFile:path];
+#endif
 	} else {
 		self.logoImage = nil;
 	}

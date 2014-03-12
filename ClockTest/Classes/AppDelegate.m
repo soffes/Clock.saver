@@ -33,12 +33,7 @@
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	NSBundle *clockBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"Clock" ofType:@"saver"]];
-	[clockBundle load];
-
-	Class principalClass = [clockBundle principalClass];
-
-	self.clockView = [[principalClass alloc] init];
+	self.clockView = [[SAMClockView alloc] init];
 	self.clockView.frame = [self.window.contentView bounds];
 	self.clockView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	[self.window.contentView addSubview:self.clockView];
