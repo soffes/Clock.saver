@@ -8,5 +8,12 @@
 
 #import <ScreenSaver/ScreenSaver.h>
 
+typedef NS_ENUM(NSUInteger, ClockViewStyle) {
+	ClockViewStyleWhite,
+	ClockViewStyleBlack
+};
+
 @interface ClockView : ScreenSaverView
+
+@property (nonatomic) ClockViewStyle clockStyle;
 @end
