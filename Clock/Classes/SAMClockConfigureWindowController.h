@@ -12,9 +12,12 @@
 
 @property IBOutlet NSPopUpButton *stylePicker;
 @property IBOutlet NSButton *tickMarksCheckbox;
+@property IBOutlet NSButton *numbersCheckbox;
 
 - (IBAction)close:(id)sender;
+
 - (IBAction)changeStyle:(id)sender;
 - (IBAction)changeTickMarks:(id)sender;
+- (IBAction)changeNumbers:(id)sender;
 
 @end

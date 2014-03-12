@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SAMClockConfigureWindowController">
             <connections>
+                <outlet property="numbersCheckbox" destination="xLS-9e-hxk" id="NOY-yG-Eg2"/>
                 <outlet property="stylePicker" destination="NFD-3L-sd7" id="UEf-Q7-7PJ"/>
                 <outlet property="tickMarksCheckbox" destination="xc8-5y-KE7" id="PVJ-PJ-Y4L"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="bJd-bg-h8t"/>
@@ -14,17 +15,17 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Clock" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="300" height="170"/>
+            <rect key="contentRect" x="196" y="240" width="300" height="156"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="170"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="156"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFD-3L-sd7">
-                        <rect key="frame" x="105" y="126" width="105" height="26"/>
+                        <rect key="frame" x="105" y="112" width="105" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Light Face" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fOk-Rv-Vkx" id="Jhk-ZJ-EGw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -41,7 +42,7 @@
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMp-6i-pzR">
-                        <rect key="frame" x="63" y="131" width="38" height="17"/>
+                        <rect key="frame" x="63" y="118" width="38" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Style:" id="Imw-dx-G77">
                             <font key="font" metaFont="system"/>
@@ -50,7 +51,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NoK-Mg-VIN">
-                        <rect key="frame" x="227" y="13" width="59" height="32"/>
+                        <rect key="frame" x="214" y="13" width="72" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r3a-m7-9kX">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -64,7 +65,7 @@ DQ
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xc8-5y-KE7">
-                        <rect key="frame" x="105" y="93" width="125" height="18"/>
+                        <rect key="frame" x="105" y="87" width="125" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show tick marks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Nnd-Yn-VLb">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -75,12 +76,15 @@ DQ
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLS-9e-hxk">
-                        <rect key="frame" x="105" y="59" width="115" height="18"/>
+                        <rect key="frame" x="105" y="61" width="115" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Show numbers" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="bVr-t9-MiD">
+                        <buttonCell key="cell" type="check" title="Show numbers" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bVr-t9-MiD">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="changeNumbers:" target="-2" id="xWg-nb-IK6"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

@@ -13,6 +13,7 @@ NSString *const SAMClockConfigurationDidChangeNotificationName = @"SAMClockConfi
 NSString *const SAMClockDefaultsModuleName = @"com.samsoffes.clock";
 NSString *const SAMClockStyleDefaultsKey = @"SAMClockStyle";
 NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
+NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 
 @interface SAMClockView ()
 @property (nonatomic) BOOL preview;
@@ -50,7 +51,10 @@ NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 		self.drawsTicks = YES;
 
 		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
-		[defaults registerDefaults:@{SAMClockTickMarksDefaultsKey: @YES}];
+		[defaults registerDefaults:@{
+			SAMClockTickMarksDefaultsKey: @YES,
+//			SAMClockNumbersDefaultsKey: @YES
+		}];
 
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configurationDidChange:) name:SAMClockConfigurationDidChangeNotificationName object:nil];
 		[self configurationDidChange:nil];
@@ -121,8 +125,26 @@ NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 			[path moveToPoint:CGPointMake(center.x + cosf(angle) * (tickRadius - tickLength), center.y + sinf(angle) * (tickRadius - tickLength))];
 			[path lineToPoint:CGPointMake(center.x + cosf(angle) * tickRadius, center.y + sinf(angle) * tickRadius)];
 			path.lineWidth = large ? 2.0f : 1.0f;
-			[large ? handColor : [handColor colorWithAlphaComponent:0.7f] setStroke];
+			[large ? handColor : [handColor colorWithAlphaComponent:0.5f] setStroke];
 			[path stroke];
+		}
+	}
+
+	// Numbers
+	if (self.drawsNumbers) {
+		NSDictionary *attributes = @{
+			NSFontNameAttribute: [NSFont fontWithName:@"Helvetica" size:40.0f],
+			NSForegroundColorAttributeName: handColor
+		};
+		CGFloat textRadius = frame.size.width / 2.4f;
+
+		for (NSUInteger i = 0; i < 12; i++) {
+			NSString *text = [NSString stringWithFormat:@"%i", ((int)i - 12 % 12) ?: 12];
+			NSAttributedString *string = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+			CGSize stringSize = [string size];
+			CGFloat angle = -((CGFloat)i / 12.0f * twoPi) + angleOffset;
+
+			[string drawInRect:CGRectMake(center.x + cosf(angle) * (textRadius - stringSize.width), center.y + sinf(angle) * (textRadius - stringSize.height), stringSize.width, stringSize.height)];
 		}
 	}
 
@@ -198,6 +220,7 @@ NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 
 	self.clockStyle = [defaults integerForKey:SAMClockStyleDefaultsKey];
 	self.drawsTicks = [defaults boolForKey:SAMClockTickMarksDefaultsKey];
+	self.drawsNumbers = [defaults boolForKey:SAMClockNumbersDefaultsKey];
 }
 
 @end
