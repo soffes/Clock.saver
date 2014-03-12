@@ -8,17 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		21375CB518D0B29300EB5E5C /* braun-dark.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB418D0B29300EB5E5C /* braun-dark.pdf */; };
-		21375CB618D0B32800EB5E5C /* braun-dark.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB418D0B29300EB5E5C /* braun-dark.pdf */; };
 		21375CB818D0B4BE00EB5E5C /* braun-light.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB718D0B4BE00EB5E5C /* braun-light.pdf */; };
-		21375CB918D0B4BE00EB5E5C /* braun-light.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB718D0B4BE00EB5E5C /* braun-light.pdf */; };
 		2156238118D0191800DF57B5 /* SAMClockConfigureWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2156237618D0191800DF57B5 /* SAMClockConfigureWindowController.h */; };
 		2156238218D0191800DF57B5 /* SAMClockConfigureWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2156237718D0191800DF57B5 /* SAMClockConfigureWindowController.m */; };
-		2156238318D0191800DF57B5 /* SAMClockConfigureWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2156237718D0191800DF57B5 /* SAMClockConfigureWindowController.m */; };
 		2156238418D0191800DF57B5 /* SAMClockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2156237818D0191800DF57B5 /* SAMClockView.h */; };
 		2156238518D0191800DF57B5 /* SAMClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2156237918D0191800DF57B5 /* SAMClockView.m */; };
-		2156238618D0191800DF57B5 /* SAMClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2156237918D0191800DF57B5 /* SAMClockView.m */; };
 		2156238A18D0191800DF57B5 /* SAMClockConfiguration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2156237E18D0191800DF57B5 /* SAMClockConfiguration.xib */; };
-		2156238B18D0191800DF57B5 /* SAMClockConfiguration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2156237E18D0191800DF57B5 /* SAMClockConfiguration.xib */; };
 		2156239C18D0191D00DF57B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2156239318D0191D00DF57B5 /* AppDelegate.m */; };
 		2156239D18D0191D00DF57B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2156239618D0191D00DF57B5 /* main.m */; };
 		2156239E18D0191D00DF57B5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2156239818D0191D00DF57B5 /* MainMenu.xib */; };
@@ -26,7 +21,31 @@
 		21592F4218CB7D4A00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
 		21592F4418CB7D4A00931D75 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4318CB7D4A00931D75 /* ScreenSaver.framework */; };
 		21592F5D18CB7F3D00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
+		21B5AA7D18D0B9DA00A7D798 /* Clock.saver in CopyFiles */ = {isa = PBXBuildFile; fileRef = 21592F3E18CB7D4A00931D75 /* Clock.saver */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		21B5AA7918D0B93F00A7D798 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21592F3418CB7D4A00931D75 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21592F3D18CB7D4A00931D75;
+			remoteInfo = Clock;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		21B5AA7C18D0B9D100A7D798 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				21B5AA7D18D0B9DA00A7D798 /* Clock.saver in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		21375CB418D0B29300EB5E5C /* braun-dark.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "braun-dark.pdf"; sourceTree = "<group>"; };
@@ -99,10 +118,10 @@
 		2156237C18D0191800DF57B5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				21375CB718D0B4BE00EB5E5C /* braun-light.pdf */,
 				2156237D18D0191800DF57B5 /* Clock-Info.plist */,
-				21375CB418D0B29300EB5E5C /* braun-dark.pdf */,
 				2156237E18D0191800DF57B5 /* SAMClockConfiguration.xib */,
+				21375CB418D0B29300EB5E5C /* braun-dark.pdf */,
+				21375CB718D0B4BE00EB5E5C /* braun-light.pdf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -227,10 +246,12 @@
 				21592F5818CB7F3D00931D75 /* Sources */,
 				21592F5918CB7F3D00931D75 /* Frameworks */,
 				21592F5A18CB7F3D00931D75 /* Resources */,
+				21B5AA7C18D0B9D100A7D798 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				21B5AA7A18D0B93F00A7D798 /* PBXTargetDependency */,
 			);
 			name = ClockTest;
 			productName = ClockTest;
@@ -281,10 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2156239E18D0191D00DF57B5 /* MainMenu.xib in Resources */,
-				21375CB618D0B32800EB5E5C /* braun-dark.pdf in Resources */,
 				215623A018D0191D00DF57B5 /* Images.xcassets in Resources */,
-				2156238B18D0191800DF57B5 /* SAMClockConfiguration.xib in Resources */,
-				21375CB918D0B4BE00EB5E5C /* braun-light.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,14 +332,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2156238318D0191800DF57B5 /* SAMClockConfigureWindowController.m in Sources */,
-				2156238618D0191800DF57B5 /* SAMClockView.m in Sources */,
 				2156239D18D0191D00DF57B5 /* main.m in Sources */,
 				2156239C18D0191D00DF57B5 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		21B5AA7A18D0B93F00A7D798 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21592F3D18CB7D4A00931D75 /* Clock */;
+			targetProxy = 21B5AA7918D0B93F00A7D798 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2156239818D0191D00DF57B5 /* MainMenu.xib */ = {
