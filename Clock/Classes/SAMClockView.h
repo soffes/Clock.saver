@@ -11,9 +11,13 @@
 
 extern NSString *const SAMClockConfigurationDidChangeNotificationName;
 
+extern NSString *const SAMClockDefaultsModuleName;
+extern NSString *const SAMClockStyleDefaultsKey;
+extern NSString *const SAMClockTickMarksDefaultsKey;
+
 typedef NS_ENUM(NSUInteger, SAMClockViewStyle) {
-	SAMClockViewStyleDark,
-	SAMClockViewStyleLight
+	SAMClockViewStyleLightFace,
+	SAMClockViewStyleDarkFace
 };
 
 @interface SAMClockView : ScreenSaverView

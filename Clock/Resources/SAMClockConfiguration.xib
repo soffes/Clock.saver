@@ -24,15 +24,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFD-3L-sd7">
-                        <rect key="frame" x="105" y="126" width="75" height="26"/>
+                        <rect key="frame" x="105" y="126" width="105" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Dark" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fOk-Rv-Vkx" id="Jhk-ZJ-EGw">
+                        <popUpButtonCell key="cell" type="push" title="Light Face" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fOk-Rv-Vkx" id="Jhk-ZJ-EGw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="eZ3-QA-JZ5">
                                 <items>
-                                    <menuItem title="Dark" state="on" id="fOk-Rv-Vkx"/>
-                                    <menuItem title="Light" tag="1" id="fWx-Sf-rX7"/>
+                                    <menuItem title="Light Face" state="on" id="fOk-Rv-Vkx"/>
+                                    <menuItem title="Dark Face" tag="1" id="fWx-Sf-rX7"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>

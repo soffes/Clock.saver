@@ -21,9 +21,9 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 
-	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"com.samsoffes.clock"];
-	[self.stylePicker selectItemAtIndex:[defaults integerForKey:@"SAMClockStyle"]];
-	self.tickMarksCheckbox.state = [defaults boolForKey:@"SAMClockTickMarks"];
+	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
+	[self.stylePicker selectItemAtIndex:[defaults integerForKey:SAMClockStyleDefaultsKey]];
+	self.tickMarksCheckbox.state = [defaults boolForKey:SAMClockTickMarksDefaultsKey];
 }
 
 
@@ -33,8 +33,8 @@
 
 
 - (IBAction)changeStyle:(id)sender {
-	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"com.samsoffes.clock"];
-	[defaults setInteger:[self.stylePicker indexOfSelectedItem] forKey:@"SAMClockStyle"];
+	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
+	[defaults setInteger:[self.stylePicker indexOfSelectedItem] forKey:SAMClockStyleDefaultsKey];
 	[defaults synchronize];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
@@ -42,8 +42,8 @@
 
 
 - (IBAction)changeTickMarks:(id)sender {
-	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"com.samsoffes.clock"];
-	[defaults setBool:[self.tickMarksCheckbox state] forKey:@"SAMClockTickMarks"];
+	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
+	[defaults setBool:[self.tickMarksCheckbox state] forKey:SAMClockTickMarksDefaultsKey];
 	[defaults synchronize];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];

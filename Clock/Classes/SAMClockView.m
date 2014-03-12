@@ -10,6 +10,9 @@
 #import "SAMClockConfigureWindowController.h"
 
 NSString *const SAMClockConfigurationDidChangeNotificationName = @"SAMClockConfigurationDidChangeNotification";
+NSString *const SAMClockDefaultsModuleName = @"com.samsoffes.clock";
+NSString *const SAMClockStyleDefaultsKey = @"SAMClockStyle";
+NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 
 @interface SAMClockView ()
 @property (nonatomic) BOOL preview;
@@ -46,8 +49,8 @@ NSString *const SAMClockConfigurationDidChangeNotificationName = @"SAMClockConfi
 		self.preview = isPreview;
 		self.drawsTicks = YES;
 
-		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"com.samsoffes.clock"];
-		[defaults registerDefaults:@{@"SAMClockTickMarks": @YES}];
+		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
+		[defaults registerDefaults:@{SAMClockTickMarksDefaultsKey: @YES}];
 
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configurationDidChange:) name:SAMClockConfigurationDidChangeNotificationName object:nil];
 		[self configurationDidChange:nil];
@@ -76,7 +79,7 @@ NSString *const SAMClockConfigurationDidChangeNotificationName = @"SAMClockConfi
 	NSColor *clockBackgroundColor;
 	NSColor *secondsColor = [NSColor colorWithCalibratedRed:0.965 green:0.773 blue:0.180 alpha:1];
 
-	if (self.clockStyle == SAMClockViewStyleDark) {
+	if (self.clockStyle == SAMClockViewStyleLightFace) {
 		backgroundColor = [NSColor blackColor];
 		handColor = [NSColor colorWithCalibratedRed:0.039f green:0.039f blue:0.043f alpha:1.0f];
 		clockBackgroundColor = [NSColor colorWithCalibratedRed:0.996f green:0.996f blue:0.996f alpha:1.0f];
@@ -191,10 +194,10 @@ NSString *const SAMClockConfigurationDidChangeNotificationName = @"SAMClockConfi
 
 
 - (void)configurationDidChange:(NSNotification *)notification {
-	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"com.samsoffes.clock"];
+	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
 
-	self.clockStyle = [defaults integerForKey:@"SAMClockStyle"];
-	self.drawsTicks = [defaults boolForKey:@"SAMClockTickMarks"];
+	self.clockStyle = [defaults integerForKey:SAMClockStyleDefaultsKey];
+	self.drawsTicks = [defaults boolForKey:SAMClockTickMarksDefaultsKey];
 }
 
 @end
