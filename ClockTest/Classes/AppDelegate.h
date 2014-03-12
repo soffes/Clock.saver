@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 Sam Soffes. All rights reserved.
 //
 
-@class ClockView;
+@class SAMClockView;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property IBOutlet ClockView *clockView;
+@property IBOutlet SAMClockView *clockView;
+
+- (IBAction)showConfiguration:(id)sender;
 
 @end
