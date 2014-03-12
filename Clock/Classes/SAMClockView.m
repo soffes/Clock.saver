@@ -141,7 +141,7 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 		for (NSUInteger i = 0; i < 12; i++) {
 			NSString *text = [NSString stringWithFormat:@"%i", ((int)i - 12 % 12) ?: 12];
 			NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-			[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.03907496f) * self.layer.contentsScale] range:NSMakeRange(0, string.length)];
+			[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.035885167f) * self.layer.contentsScale] range:NSMakeRange(0, string.length)];
 			CGSize stringSize = [string size];
 			CGFloat angle = -((CGFloat)i / 12.0f * twoPi) + angleOffset;
 			CGRect rect = CGRectMake(center.x + cosf(angle) * (textRadius - (stringSize.width / 2.0f)), center.y + sinf(angle) * (textRadius - (stringSize.height / 2.0f)), stringSize.width, stringSize.height);
