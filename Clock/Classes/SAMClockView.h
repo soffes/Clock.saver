@@ -15,6 +15,7 @@ extern NSString *const SAMClockDefaultsModuleName;
 extern NSString *const SAMClockStyleDefaultsKey;
 extern NSString *const SAMClockTickMarksDefaultsKey;
 extern NSString *const SAMClockNumbersDefaultsKey;
+extern NSString *const SAMClockDateDefaultsKey;
 
 typedef NS_ENUM(NSUInteger, SAMClockViewStyle) {
 	SAMClockViewStyleLightFace,
@@ -26,5 +27,6 @@ typedef NS_ENUM(NSUInteger, SAMClockViewStyle) {
 @property (nonatomic) SAMClockViewStyle clockStyle;
 @property (nonatomic) BOOL drawsTicks;
 @property (nonatomic) BOOL drawsNumbers;
+@property (nonatomic) BOOL drawsDate;
 
 @end

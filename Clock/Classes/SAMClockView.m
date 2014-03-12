@@ -14,6 +14,7 @@ NSString *const SAMClockDefaultsModuleName = @"com.samsoffes.clock";
 NSString *const SAMClockStyleDefaultsKey = @"SAMClockStyle";
 NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
+NSString *const SAMClockDateDefaultsKey = @"SAMClockDate";
 
 @interface SAMClockView ()
 @property (nonatomic, readonly) SAMClockConfigureWindowController *configureWindowController;
@@ -51,7 +52,8 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
 		[defaults registerDefaults:@{
 			SAMClockTickMarksDefaultsKey: @YES,
-//			SAMClockNumbersDefaultsKey: @YES
+			SAMClockNumbersDefaultsKey: @YES,
+			SAMClockDateDefaultsKey: @YES
 		}];
 
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configurationDidChange:) name:SAMClockConfigurationDidChangeNotificationName object:nil];
@@ -130,18 +132,19 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 		}
 	}
 
+
 	// Numbers
 	if (self.drawsNumbers) {
-		NSDictionary *attributes = @{
-			NSForegroundColorAttributeName: handColor,
-			NSKernAttributeName: @(ceilf(width * -0.006379585f) * self.layer.contentsScale)
-		};
 		CGFloat textRadius = frame.size.width * 0.402711324f;
 
 		for (NSUInteger i = 0; i < 12; i++) {
 			NSString *text = [NSString stringWithFormat:@"%i", ((int)i - 12 % 12) ?: 12];
-			NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-			[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.035885167f) * self.layer.contentsScale] range:NSMakeRange(0, string.length)];
+			NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
+			NSRange range = NSMakeRange(0, string.length);
+			[string addAttribute:NSForegroundColorAttributeName value:handColor range:range];
+			[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.035885167f) * self.layer.contentsScale] range:range];
+			[string addAttribute:NSKernAttributeName value:@(ceilf(width * -0.006379585f) * self.layer.contentsScale) range:range];
+
 			CGSize stringSize = [string size];
 			CGFloat angle = -((CGFloat)i / 12.0f * twoPi) + angleOffset;
 			CGRect rect = CGRectMake(center.x + cosf(angle) * (textRadius - (stringSize.width / 2.0f)), center.y + sinf(angle) * (textRadius - (stringSize.height / 2.0f)), stringSize.width, stringSize.height);
@@ -154,6 +157,47 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 
 	// Get time components
 	NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
+
+	// Date
+	if (self.drawsDate) {
+		NSColor *dateArrowColor = [NSColor colorWithCalibratedRed:0.847f green:0.227f blue:0.286f alpha:1.0f];
+		NSColor *dateBackgroundColor = [NSColor colorWithCalibratedRed:0.894f green:0.933f blue:0.965f alpha:1.0f];
+
+		CGFloat dateWidth = ceilf(width * 0.057416268f);
+		CGRect dateFrame = CGRectIntegral(CGRectMake(frame.origin.x + ((width - dateWidth) / 2.0f), frame.origin.y + (width * 0.199362041f), dateWidth, width * 0.071770335f));
+
+		[dateBackgroundColor setFill];
+		[NSBezierPath fillRect:dateFrame];
+
+		[handColor setFill];
+
+		NSString *text = [NSString stringWithFormat:@"%i", (int)comps.day];
+		NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
+		NSRange range = NSMakeRange(0, string.length);
+		[string addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"HelveticaNeue-Light" size:ceilf(width * 0.022328549f) * self.layer.contentsScale] range:range];
+		[string addAttribute:NSKernAttributeName value:@(ceilf(width * -0.006379585f) * self.layer.contentsScale) range:range];
+
+		CGRect stringFrame = dateFrame;
+		stringFrame.size = [string size];
+		stringFrame.origin.x += (dateFrame.size.width - stringFrame.size.width) / 2.0f;
+		stringFrame.origin.y += width * 0.003189793f;
+		[string drawInRect:CGRectIntegral(stringFrame)];
+
+		[dateArrowColor setFill];
+		CGFloat y = CGRectGetMaxY(dateFrame) + ceilf(width * 0.015948963f);
+		CGFloat height = ceilf(width * 0.022328549f);
+		CGFloat pointDip = ceilf(width * 0.009569378f);
+		CGFloat hangOver = ceilf(width * 0.001594896f);
+
+		NSBezierPath *path = [NSBezierPath bezierPath];
+		[path moveToPoint:CGPointMake(CGRectGetMinX(dateFrame) - hangOver, y)];
+		[path lineToPoint:CGPointMake(CGRectGetMinX(dateFrame) - hangOver, y - height)];
+		[path lineToPoint:CGPointMake(CGRectGetMidX(dateFrame), y - height - pointDip)];
+		[path lineToPoint:CGPointMake(CGRectGetMaxX(dateFrame) + hangOver, y - height)];
+		[path lineToPoint:CGPointMake(CGRectGetMaxX(dateFrame) + hangOver, y)];
+		[path lineToPoint:CGPointMake(CGRectGetMidX(dateFrame), y - pointDip)];
+		[path fill];
+	}
 
 	// Hours
 	[[handColor colorWithAlphaComponent:0.7f] setStroke];
@@ -233,6 +277,7 @@ NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 	self.clockStyle = [defaults integerForKey:SAMClockStyleDefaultsKey];
 	self.drawsTicks = [defaults boolForKey:SAMClockTickMarksDefaultsKey];
 	self.drawsNumbers = [defaults boolForKey:SAMClockNumbersDefaultsKey];
+	self.drawsDate = [defaults boolForKey:SAMClockDateDefaultsKey];
 }
 
 @end

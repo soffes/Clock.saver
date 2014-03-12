@@ -13,11 +13,13 @@
 @property IBOutlet NSPopUpButton *stylePicker;
 @property IBOutlet NSButton *tickMarksCheckbox;
 @property IBOutlet NSButton *numbersCheckbox;
+@property IBOutlet NSButton *dateCheckbox;
 
 - (IBAction)close:(id)sender;
 
 - (IBAction)changeStyle:(id)sender;
 - (IBAction)changeTickMarks:(id)sender;
 - (IBAction)changeNumbers:(id)sender;
+- (IBAction)changeDate:(id)sender;
 
 @end
