@@ -212,19 +212,23 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 		[image drawInRect:CGRectMake(roundf((size.width - imageSize.width) / 2.0f), frame.origin.y + ceilf(width * 0.622009569f), imageSize.width, imageSize.height)];
 	}
 
+	CGFloat seconds = (CGFloat)comps.second / 60.0f;
+	CGFloat minutes = (seconds / 60.0f) + ((CGFloat)comps.minute / 60.0f);
+	CGFloat hours = (minutes / 60.0f) + ((CGFloat)comps.hour / 12.0f);
+
 	// Hours
 	[[handColor colorWithAlphaComponent:0.7f] setStroke];
-	CGFloat angle = -(twoPi * ((CGFloat)comps.hour + ((CGFloat)comps.minute / 60.0f)) / 12.0f) + angleOffset;
+	CGFloat angle = -(twoPi * hours) + angleOffset;
 	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.023125997f), ceilf(width * 0.263955343f)) angle:angle lineCapStyle:NSSquareLineCapStyle];
 
 	// Minutes
 	[handColor setStroke];
-	angle = -(twoPi * (CGFloat)comps.minute / 60.0f) + angleOffset;
+	angle = -(twoPi * minutes) + angleOffset;
 	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.014354067f), ceilf(width * 0.391547049f)) angle:angle lineCapStyle:NSSquareLineCapStyle];
 
 	// Seconds
 	[secondsColor set];
-	angle = -(twoPi * (CGFloat)comps.second / 60.0f) + angleOffset;
+	angle = -(twoPi * seconds) + angleOffset;
 	[self drawHandWithSize:CGSizeMake(ceilf(width * 0.009569378f), ceilf(width * 0.391547049f)) angle:angle lineCapStyle:NSSquareLineCapStyle];
 
 	// Counterweight
