@@ -9,74 +9,61 @@
 #import "SAMClockConfigureWindowController.h"
 #import "SAMClockView.h"
 
-#import <ScreenSaver/ScreenSaver.h>
 
 @implementation SAMClockConfigureWindowController
 
-- (NSString *)windowNibName {
-	return @"SAMClockConfiguration";
-}
-
+#pragma mark - NSObject
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
 
 	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
-	[self.stylePicker selectItemAtIndex:[defaults integerForKey:SAMClockStyleDefaultsKey]];
+	[self.faceStylePicker selectItemAtIndex:[defaults integerForKey:SAMClockStyleDefaultsKey]];
+	[self.backgroundStylePicker selectItemAtIndex:[defaults integerForKey:SAMClockBackgroundStyleDefaultsKey]];
 	self.tickMarksCheckbox.state = [defaults boolForKey:SAMClockTickMarksDefaultsKey];
 	self.numbersCheckbox.state = [defaults boolForKey:SAMClockNumbersDefaultsKey];
 	self.dateCheckbox.state = [defaults boolForKey:SAMClockDateDefaultsKey];
 	self.logoCheckbox.state = [defaults boolForKey:SAMClockLogoDefaultsKey];
 }
 
+#pragma mark - NSWindowController
+
+- (NSString *)windowNibName {
+	return @"SAMClockConfiguration";
+}
+
+
+#pragma mark - Actions
 
 - (IBAction)close:(id)sender {
 	[NSApp endSheet:self.window];
 }
 
 
-- (IBAction)changeStyle:(id)sender {
+- (IBAction)popUpChanged:(id)sender {
 	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
-	[defaults setInteger:[self.stylePicker indexOfSelectedItem] forKey:SAMClockStyleDefaultsKey];
+	[defaults setInteger:[sender indexOfSelectedItem] forKey:[self defaultsKeyForControl:sender]];
 	[defaults synchronize];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
 }
 
 
-- (IBAction)changeTickMarks:(id)sender {
+- (IBAction)checkboxChanged:(id)sender {
 	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
-	[defaults setBool:[self.tickMarksCheckbox state] forKey:SAMClockTickMarksDefaultsKey];
+	[defaults setBool:[sender state] forKey:[self defaultsKeyForControl:sender]];
 	[defaults synchronize];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
 }
 
 
-- (IBAction)changeNumbers:(id)sender; {
-	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
-	[defaults setBool:[self.numbersCheckbox state] forKey:SAMClockNumbersDefaultsKey];
-	[defaults synchronize];
+#pragma mark - Private
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
-}
-
-
-- (IBAction)changeDate:(id)sender {
-	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
-	[defaults setBool:[self.dateCheckbox state] forKey:SAMClockDateDefaultsKey];
-	[defaults synchronize];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
-}
-
-
-- (IBAction)changeLogo:(id)sender {
-	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
-	[defaults setBool:[self.logoCheckbox state] forKey:SAMClockLogoDefaultsKey];
-	[defaults synchronize];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:SAMClockConfigurationDidChangeNotificationName object:nil];
+- (NSString *)defaultsKeyForControl:(id)sender {
+	NSArray *keys = @[SAMClockStyleDefaultsKey, SAMClockBackgroundStyleDefaultsKey, SAMClockTickMarksDefaultsKey,
+					  SAMClockNumbersDefaultsKey, SAMClockDateDefaultsKey, SAMClockLogoDefaultsKey];
+	return keys[[sender tag]];
 }
 
 @end

@@ -7,12 +7,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SAMClockConfigureWindowController">
             <connections>
-                <outlet property="dateCheckbox" destination="zad-MX-bCq" id="Ko9-EB-M13"/>
-                <outlet property="logoCheckbox" destination="Akz-2A-8bB" id="UAM-Ia-edF"/>
-                <outlet property="numbersCheckbox" destination="xLS-9e-hxk" id="NOY-yG-Eg2"/>
-                <outlet property="stylePicker" destination="NFD-3L-sd7" id="UEf-Q7-7PJ"/>
-                <outlet property="tickMarksCheckbox" destination="xc8-5y-KE7" id="PVJ-PJ-Y4L"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="bJd-bg-h8t"/>
+                <outlet property="backgroundStylePicker" destination="OBY-IK-3JG" id="BaQ-ab-orl"/>
+                <outlet property="dateCheckbox" destination="zad-MX-bCq" id="hYb-wq-DHV"/>
+                <outlet property="faceStylePicker" destination="NFD-3L-sd7" id="enI-FS-srL"/>
+                <outlet property="logoCheckbox" destination="Akz-2A-8bB" id="ElJ-Kd-Efi"/>
+                <outlet property="numbersCheckbox" destination="xLS-9e-hxk" id="tPR-Um-XaK"/>
+                <outlet property="tickMarksCheckbox" destination="xc8-5y-KE7" id="TjE-a7-iIV"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="IP1-5C-C2c"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -20,14 +21,14 @@
         <window title="Clock" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="300" height="206"/>
+            <rect key="contentRect" x="196" y="240" width="300" height="232"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="206"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="232"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFD-3L-sd7">
-                        <rect key="frame" x="105" y="162" width="105" height="26"/>
+                        <rect key="frame" x="120" y="188" width="145" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Light Face" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fOk-Rv-Vkx" id="Jhk-ZJ-EGw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -40,13 +41,13 @@
                             </menu>
                         </popUpButtonCell>
                         <connections>
-                            <action selector="changeStyle:" target="-2" id="byI-g1-fv5"/>
+                            <action selector="popUpChanged:" target="-2" id="Uq5-nh-4kR"/>
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMp-6i-pzR">
-                        <rect key="frame" x="63" y="168" width="38" height="17"/>
+                        <rect key="frame" x="78" y="194" width="36" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Style:" id="Imw-dx-G77">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Face:" id="Imw-dx-G77">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -63,53 +64,79 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="close:" target="-2" id="VIE-x7-CgN"/>
+                            <action selector="close:" target="-2" id="aiV-7h-fkB"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xc8-5y-KE7">
-                        <rect key="frame" x="105" y="137" width="125" height="18"/>
+                    <button fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="xc8-5y-KE7">
+                        <rect key="frame" x="120" y="137" width="125" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show tick marks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Nnd-Yn-VLb">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="changeTickMarks:" target="-2" id="5Rj-ds-IWZ"/>
+                            <action selector="checkboxChanged:" target="-2" id="DLM-dh-OOI"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLS-9e-hxk">
-                        <rect key="frame" x="105" y="111" width="115" height="18"/>
+                    <button fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="xLS-9e-hxk">
+                        <rect key="frame" x="120" y="111" width="115" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show numbers" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bVr-t9-MiD">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="changeNumbers:" target="-2" id="xWg-nb-IK6"/>
+                            <action selector="checkboxChanged:" target="-2" id="akm-FE-86G"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zad-MX-bCq">
-                        <rect key="frame" x="105" y="85" width="87" height="18"/>
+                    <button fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="zad-MX-bCq">
+                        <rect key="frame" x="120" y="85" width="87" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show date" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="NfQ-3S-eZO">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="changeDate:" target="-2" id="vx0-w9-efV"/>
+                            <action selector="checkboxChanged:" target="-2" id="02a-tD-cqv"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Akz-2A-8bB">
-                        <rect key="frame" x="105" y="59" width="128" height="18"/>
+                    <button fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="Akz-2A-8bB">
+                        <rect key="frame" x="120" y="59" width="128" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show Braun logo" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="fQ1-f1-DKB">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="changeLogo:" target="-2" id="GSU-vn-5GH"/>
+                            <action selector="checkboxChanged:" target="-2" id="9gQ-uJ-GpK"/>
                         </connections>
                     </button>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="OBY-IK-3JG">
+                        <rect key="frame" x="120" y="162" width="145" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="Dark Background" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="f4b-67-6WC" id="H3Y-x2-MoN">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" title="OtherViews" id="6MQ-h7-1hJ">
+                                <items>
+                                    <menuItem title="Light Background" id="kXr-1a-8bs"/>
+                                    <menuItem title="Dark Background" state="on" tag="1" id="f4b-67-6WC"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <connections>
+                            <action selector="popUpChanged:" target="-2" id="ryO-dB-maU"/>
+                        </connections>
+                    </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NoZ-BX-PoG">
+                        <rect key="frame" x="33" y="168" width="83" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Background:" id="cXx-qc-tgV">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
         </window>

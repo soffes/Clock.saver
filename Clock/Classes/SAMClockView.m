@@ -12,6 +12,7 @@
 NSString *const SAMClockConfigurationDidChangeNotificationName = @"SAMClockConfigurationDidChangeNotification";
 NSString *const SAMClockDefaultsModuleName = @"com.samsoffes.clock";
 NSString *const SAMClockStyleDefaultsKey = @"SAMClockStyle";
+NSString *const SAMClockBackgroundStyleDefaultsKey = @"SAMClockBackgroundStyleDefaults";
 NSString *const SAMClockTickMarksDefaultsKey = @"SAMClockTickMarks";
 NSString *const SAMClockNumbersDefaultsKey = @"SAMClockNumbers";
 NSString *const SAMClockDateDefaultsKey = @"SAMClockDate";
@@ -53,7 +54,8 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 
 		ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
 		[defaults registerDefaults:@{
-			SAMClockStyleDefaultsKey: @(SAMClockFaceStyleLight),
+			SAMClockStyleDefaultsKey: @(SAMClockStyleLight),
+			SAMClockStyleDefaultsKey: @(SAMClockStyleDark),
 			SAMClockTickMarksDefaultsKey: @YES,
 			SAMClockNumbersDefaultsKey: @YES,
 			SAMClockDateDefaultsKey: @YES,
@@ -87,14 +89,19 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 	NSColor *clockBackgroundColor;
 	NSColor *secondsColor = [NSColor colorWithCalibratedRed:0.965 green:0.773 blue:0.180 alpha:1];
 
-	if (self.faceStyle == SAMClockFaceStyleLight) {
-		backgroundColor = [NSColor blackColor];
+	if (self.faceStyle == SAMClockStyleLight) {
 		handColor = [NSColor colorWithCalibratedRed:0.039f green:0.039f blue:0.043f alpha:1.0f];
 		clockBackgroundColor = [NSColor colorWithCalibratedRed:0.996f green:0.996f blue:0.996f alpha:1.0f];
 	} else {
 		backgroundColor = [NSColor whiteColor];
 		handColor = [NSColor colorWithCalibratedRed:0.988f green:0.992f blue:0.988f alpha:1.0f];
 		clockBackgroundColor = [NSColor colorWithCalibratedRed:0.129f green:0.125f blue:0.141f alpha:1.0f];
+	}
+
+	if (self.backgroundStyle == SAMClockStyleLight) {
+		backgroundColor = self.faceStyle == SAMClockStyleDark ? [NSColor whiteColor] : [NSColor colorWithCalibratedRed:0.996f green:0.996f blue:0.996f alpha:1.0f];
+	} else {
+		backgroundColor = self.faceStyle == SAMClockStyleLight ? [NSColor blackColor] : [NSColor colorWithCalibratedRed:0.129f green:0.125f blue:0.141f alpha:1.0f];
 	}
 
 	// Screen background
@@ -292,6 +299,7 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 	ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:SAMClockDefaultsModuleName];
 
 	self.faceStyle = [defaults integerForKey:SAMClockStyleDefaultsKey];
+	self.backgroundStyle = [defaults integerForKey:SAMClockBackgroundStyleDefaultsKey];
 	self.drawsTicks = [defaults boolForKey:SAMClockTickMarksDefaultsKey];
 	self.drawsNumbers = [defaults boolForKey:SAMClockNumbersDefaultsKey];
 	self.drawsDate = [defaults boolForKey:SAMClockDateDefaultsKey];
@@ -299,7 +307,7 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 
 	if (self.drawsLogo) {
 #if DEMO
-		self.logoImage = [NSImage imageNamed:self.faceStyle == SAMClockFaceStyleLight ? @"braun-dark" : @"braun-light"];
+		self.logoImage = [NSImage imageNamed:self.faceStyle == SAMClockStyleLight ? @"braun-dark" : @"braun-light"];
 #else
 		NSBundle *bundle = [NSBundle bundleWithIdentifier:SAMClockDefaultsModuleName];
 		NSString *path = [bundle pathForResource:self.faceStyle == SAMClockFaceStyleLight ? @"braun-dark" : @"braun-light" ofType:@"pdf"];
