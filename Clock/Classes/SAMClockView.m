@@ -310,7 +310,7 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 		self.logoImage = [NSImage imageNamed:self.faceStyle == SAMClockStyleLight ? @"braun-dark" : @"braun-light"];
 #else
 		NSBundle *bundle = [NSBundle bundleWithIdentifier:SAMClockDefaultsModuleName];
-		NSString *path = [bundle pathForResource:self.faceStyle == SAMClockFaceStyleLight ? @"braun-dark" : @"braun-light" ofType:@"pdf"];
+		NSString *path = [bundle pathForResource:self.faceStyle == SAMClockStyleLight ? @"braun-dark" : @"braun-light" ofType:@"pdf"];
 		self.logoImage = [[NSImage alloc] initWithContentsOfFile:path];
 #endif
 	} else {
