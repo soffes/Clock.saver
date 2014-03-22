@@ -220,8 +220,8 @@ NSString *const SAMClockLogoDefaultsKey = @"SAMClockLogo";
 	}
 
 	CGFloat seconds = (CGFloat)comps.second / 60.0f;
-	CGFloat minutes = (seconds / 60.0f) + ((CGFloat)comps.minute / 60.0f);
-	CGFloat hours = (minutes / 60.0f) + ((CGFloat)comps.hour / 12.0f);
+	CGFloat minutes = ((CGFloat)comps.minute / 60.0f) + (seconds / 60.0f);
+	CGFloat hours = ((CGFloat)comps.hour / 12.0f) + ((minutes / 60.0f) * (60.0f / 12.0f));
 
 	// Hours
 	[[handColor colorWithAlphaComponent:0.7f] setStroke];
