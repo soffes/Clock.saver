@@ -17,15 +17,15 @@
 		21592F4418CB7D4A00931D75 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4318CB7D4A00931D75 /* ScreenSaver.framework */; };
 		21592F5D18CB7F3D00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
 		21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21623B3719779F16001BA4A9 /* AppDelegate.swift */; };
-		21623B4119779F16001BA4A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21623B3A19779F16001BA4A9 /* main.m */; };
 		21623B4219779F16001BA4A9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3C19779F16001BA4A9 /* MainMenu.xib */; };
 		21623B4419779F16001BA4A9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3F19779F16001BA4A9 /* Images.xcassets */; };
 		21EA95991976428A00E4370A /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* ClockView.swift */; };
 		21EA959B197642A500E4370A /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA959A197642A500E4370A /* Defines.swift */; };
 		21EA959C197645D600E4370A /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* ClockView.swift */; };
 		21EA959D197645DF00E4370A /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA959A197642A500E4370A /* Defines.swift */; };
-		21EA95A1197649BE00E4370A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
-		21EA95A2197649D800E4370A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
+		21F358441977A2F00080C74A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
+		21F358451977A31D0080C74A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
+		21F358731977A4EA0080C74A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F358721977A4EA0080C74A /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,14 +43,13 @@
 		21592F7718CB7F3D00931D75 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2160288E18D035A200494FE5 /* AppKitScripting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKitScripting.framework; path = System/Library/Frameworks/AppKitScripting.framework; sourceTree = SDKROOT; };
 		21623B3719779F16001BA4A9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		21623B3919779F16001BA4A9 /* ClockTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ClockTest-Prefix.pch"; sourceTree = "<group>"; };
-		21623B3A19779F16001BA4A9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		21623B3D19779F16001BA4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		21623B3E19779F16001BA4A9 /* ClockTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClockTest-Info.plist"; sourceTree = "<group>"; };
 		21623B3F19779F16001BA4A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		21EA95981976428A00E4370A /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		21EA959A197642A500E4370A /* Defines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureWindowController.swift; sourceTree = "<group>"; };
+		21F358721977A4EA0080C74A /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				21623B3619779F16001BA4A9 /* Classes */,
-				21623B3819779F16001BA4A9 /* Other Sources */,
 				21623B3B19779F16001BA4A9 /* Resources */,
+				21F358711977A4DF0080C74A /* Other Sources */,
 			);
 			path = ClockDemo;
 			sourceTree = "<group>";
@@ -163,15 +162,6 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		21623B3819779F16001BA4A9 /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				21623B3919779F16001BA4A9 /* ClockTest-Prefix.pch */,
-				21623B3A19779F16001BA4A9 /* main.m */,
-			);
-			path = "Other Sources";
-			sourceTree = "<group>";
-		};
 		21623B3B19779F16001BA4A9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,17 +172,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-/* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		21592F3A18CB7D4A00931D75 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+		21F358711977A4DF0080C74A /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				21F358721977A4EA0080C74A /* main.swift */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			path = "Other Sources";
+			sourceTree = "<group>";
 		};
-/* End PBXHeadersBuildPhase section */
+/* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
 		21592F3D18CB7D4A00931D75 /* Clock */ = {
@@ -201,9 +189,7 @@
 			buildPhases = (
 				21592F3818CB7D4A00931D75 /* Sources */,
 				21592F3918CB7D4A00931D75 /* Frameworks */,
-				21592F3A18CB7D4A00931D75 /* Headers */,
 				21592F3B18CB7D4A00931D75 /* Resources */,
-				21592F3C18CB7D4A00931D75 /* Rez */,
 			);
 			buildRules = (
 			);
@@ -284,22 +270,12 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXRezBuildPhase section */
-		21592F3C18CB7D4A00931D75 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXRezBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		21592F3818CB7D4A00931D75 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21EA95A1197649BE00E4370A /* ConfigureWindowController.swift in Sources */,
+				21F358451977A31D0080C74A /* ConfigureWindowController.swift in Sources */,
 				21EA95991976428A00E4370A /* ClockView.swift in Sources */,
 				21EA959B197642A500E4370A /* Defines.swift in Sources */,
 			);
@@ -309,10 +285,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21623B4119779F16001BA4A9 /* main.m in Sources */,
 				21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */,
-				21EA95A2197649D800E4370A /* ConfigureWindowController.swift in Sources */,
+				21F358731977A4EA0080C74A /* main.swift in Sources */,
 				21EA959C197645D600E4370A /* ClockView.swift in Sources */,
+				21F358441977A2F00080C74A /* ConfigureWindowController.swift in Sources */,
 				21EA959D197645DF00E4370A /* Defines.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,8 +411,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ClockDemo/Other Sources/ClockTest-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEMO=1",
@@ -454,8 +428,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ClockDemo/Other Sources/ClockTest-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=1";
 				INFOPLIST_FILE = "$(SRCROOT)/ClockDemo/Resources/ClockTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
