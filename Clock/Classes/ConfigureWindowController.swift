@@ -27,7 +27,7 @@ class ConfigureWindowController: NSWindowController {
 	override var windowNibName: String! {
 		return "Configuration"
 	}
-	
+
 	
 	// MARK: - NSObject
 	
