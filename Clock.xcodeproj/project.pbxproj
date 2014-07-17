@@ -19,10 +19,10 @@
 		21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21623B3719779F16001BA4A9 /* AppDelegate.swift */; };
 		21623B4219779F16001BA4A9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3C19779F16001BA4A9 /* MainMenu.xib */; };
 		21623B4419779F16001BA4A9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3F19779F16001BA4A9 /* Images.xcassets */; };
+		219E68F819782D5400805FEA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E68F719782D5400805FEA /* Defaults.swift */; };
+		219E68F919782E4100805FEA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E68F719782D5400805FEA /* Defaults.swift */; };
 		21EA95991976428A00E4370A /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* ClockView.swift */; };
-		21EA959B197642A500E4370A /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA959A197642A500E4370A /* Defines.swift */; };
 		21EA959C197645D600E4370A /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* ClockView.swift */; };
-		21EA959D197645DF00E4370A /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA959A197642A500E4370A /* Defines.swift */; };
 		21F358441977A2F00080C74A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
 		21F358731977A4EA0080C74A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F358721977A4EA0080C74A /* main.swift */; };
 		21F358741977A6960080C74A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
@@ -46,8 +46,8 @@
 		21623B3D19779F16001BA4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		21623B3E19779F16001BA4A9 /* ClockTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClockTest-Info.plist"; sourceTree = "<group>"; };
 		21623B3F19779F16001BA4A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		219E68F719782D5400805FEA /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		21EA95981976428A00E4370A /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
-		21EA959A197642A500E4370A /* Defines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureWindowController.swift; sourceTree = "<group>"; };
 		21F358721977A4EA0080C74A /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,7 +87,7 @@
 			children = (
 				21EA95981976428A00E4370A /* ClockView.swift */,
 				21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */,
-				21EA959A197642A500E4370A /* Defines.swift */,
+				219E68F719782D5400805FEA /* Defaults.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 			files = (
 				21F358741977A6960080C74A /* ConfigureWindowController.swift in Sources */,
 				21EA95991976428A00E4370A /* ClockView.swift in Sources */,
-				21EA959B197642A500E4370A /* Defines.swift in Sources */,
+				219E68F819782D5400805FEA /* Defaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,9 +287,9 @@
 			files = (
 				21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */,
 				21F358731977A4EA0080C74A /* main.swift in Sources */,
+				219E68F919782E4100805FEA /* Defaults.swift in Sources */,
 				21EA959C197645D600E4370A /* ClockView.swift in Sources */,
 				21F358441977A2F00080C74A /* ConfigureWindowController.swift in Sources */,
-				21EA959D197645DF00E4370A /* Defines.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

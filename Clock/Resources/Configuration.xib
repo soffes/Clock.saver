@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.7" systemVersion="14A283o" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.7"/>
@@ -7,13 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigureWindowController" customModule="Clock" customModuleProvider="target">
             <connections>
-                <outlet property="backgroundStylePicker" destination="OBY-IK-3JG" id="BaQ-ab-orl"/>
-                <outlet property="dateCheckbox" destination="zad-MX-bCq" id="hYb-wq-DHV"/>
-                <outlet property="faceStylePicker" destination="NFD-3L-sd7" id="enI-FS-srL"/>
-                <outlet property="logoCheckbox" destination="Akz-2A-8bB" id="ElJ-Kd-Efi"/>
-                <outlet property="numbersCheckbox" destination="xLS-9e-hxk" id="tPR-Um-XaK"/>
-                <outlet property="tickMarksCheckbox" destination="xc8-5y-KE7" id="TjE-a7-iIV"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="IP1-5C-C2c"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="IT0-lv-h4J"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -22,7 +16,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="300" height="232"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="300" height="232"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -40,7 +34,7 @@
                             </menu>
                         </popUpButtonCell>
                         <connections>
-                            <action selector="popUpChanged:" target="-2" id="Uq5-nh-4kR"/>
+                            <binding destination="HuX-6B-vHY" name="selectedIndex" keyPath="self.faceStyleIndex" id="XOT-kl-REm"/>
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMp-6i-pzR">
@@ -61,7 +55,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="close:" target="-2" id="aiV-7h-fkB"/>
+                            <action selector="close:" target="-2" id="lvG-Xx-jhG"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="xc8-5y-KE7">
@@ -71,7 +65,7 @@ DQ
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="checkboxChanged:" target="-2" id="DLM-dh-OOI"/>
+                            <binding destination="HuX-6B-vHY" name="value" keyPath="self.drawsTicks" id="KA9-tS-duP"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="xLS-9e-hxk">
@@ -81,7 +75,7 @@ DQ
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="checkboxChanged:" target="-2" id="akm-FE-86G"/>
+                            <binding destination="HuX-6B-vHY" name="value" keyPath="self.drawsNumbers" id="VjQ-xg-sbv"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="zad-MX-bCq">
@@ -91,7 +85,7 @@ DQ
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="checkboxChanged:" target="-2" id="02a-tD-cqv"/>
+                            <binding destination="HuX-6B-vHY" name="value" keyPath="self.drawsDate" id="D0s-fN-BQX"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="Akz-2A-8bB">
@@ -101,7 +95,7 @@ DQ
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="checkboxChanged:" target="-2" id="9gQ-uJ-GpK"/>
+                            <binding destination="HuX-6B-vHY" name="value" keyPath="self.drawsLogo" id="spX-66-rGX"/>
                         </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="OBY-IK-3JG">
@@ -117,7 +111,7 @@ DQ
                             </menu>
                         </popUpButtonCell>
                         <connections>
-                            <action selector="popUpChanged:" target="-2" id="ryO-dB-maU"/>
+                            <binding destination="HuX-6B-vHY" name="selectedIndex" keyPath="self.backgroundStyleIndex" id="oBN-Ad-efy"/>
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NoZ-BX-PoG">
@@ -131,6 +125,7 @@ DQ
                 </subviews>
             </view>
         </window>
+        <customObject id="HuX-6B-vHY" customClass="Defaults" customModule="Clock" customModuleProvider="target"/>
         <userDefaultsController representsSharedInstance="YES" id="dxc-qZ-11Z"/>
     </objects>
 </document>

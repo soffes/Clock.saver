@@ -9,6 +9,19 @@
 import Cocoa
 import ScreenSaver
 
+enum ClockStyle: Int {
+	case Light, Dark
+	
+	init(integer: Int) {
+		if integer == 1 {
+			self = .Dark
+			return
+		}
+		
+		self = .Light
+	}
+}
+
 class ClockView: ScreenSaverView {
 	
 	// MARK: - Properties
