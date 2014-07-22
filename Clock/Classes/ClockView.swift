@@ -31,7 +31,7 @@ class ClockView: ScreenSaverView {
 	var faceColor: NSColor!
 	let secondsColor = NSColor(calibratedRed: 0.965, green: 0.773, blue: 0.180, alpha: 1)
 	
-	@lazy var configureWindowController: ConfigureWindowController = {
+	lazy var configureWindowController: ConfigureWindowController = {
 		let controller = ConfigureWindowController()
 		controller.loadWindow()
 		return controller
@@ -113,17 +113,17 @@ class ClockView: ScreenSaverView {
 
 		// Hours
 		handColor.colorWithAlphaComponent(0.7).setStroke()
-		let hoursAngle = -(M_PI * 2.0 * hours) + M_PI_2
+		let hoursAngle = -(CGFloat(M_PI) * 2.0 * hours) + CGFloat(M_PI_2)
 		drawHand(length: 0.263955343, thickness: 0.023125997, angle: hoursAngle)
 		
 		// Minutes
 		handColor.setStroke()
-		let minutesAngle = -(M_PI * 2.0 * minutes) + M_PI_2;
+		let minutesAngle = -(CGFloat(M_PI) * 2.0 * minutes) + CGFloat(M_PI_2);
 		drawHand(length: 0.391547049, thickness: 0.014354067, angle: minutesAngle)
 	
 		// Seconds
 		secondsColor.set()
-		let secondsAngle = -(M_PI * 2.0 * seconds) + M_PI_2;
+		let secondsAngle = -(CGFloat(M_PI) * 2.0 * seconds) + CGFloat(M_PI_2);
 		drawHand(length: 0.391547049, thickness: 0.009569378, angle: secondsAngle)
 		
 		// Counterweight & screw
@@ -170,7 +170,7 @@ class ClockView: ScreenSaverView {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		
 		// Ticks divider
-		let dividerPosition = 0.074960128
+        let dividerPosition:CGFloat = 0.074960128
 		backgroundColor.colorWithAlphaComponent(0.05).setStroke()
 		let ticksFrame = CGRectInset(clockFrame, clockFrame.size.width * dividerPosition, clockFrame.size.width * dividerPosition)
 		let ticksPath = NSBezierPath(ovalInRect: ticksFrame)
@@ -183,7 +183,7 @@ class ClockView: ScreenSaverView {
 		for i in 0..<60 {
 			let isLarge = (i % 5) == 0
 			let progress = CGFloat(i) / 60.0
-			let angle = -(progress * M_PI * 2) + M_PI_2
+			let angle = -(progress * CGFloat(M_PI) * 2) + CGFloat(M_PI_2)
 			
 			let tickColor = isLarge ? handColor : handColor.colorWithAlphaComponent(0.5)
 			tickColor.setStroke()
@@ -217,7 +217,7 @@ class ClockView: ScreenSaverView {
 			])
 			
 			let stringSize = string.size
-			let angle = (CGFloat(i) / 12.0 * M_PI * 2) + M_PI_2
+			let angle = (CGFloat(i) / 12.0 * CGFloat(M_PI) * 2) + CGFloat(M_PI_2)
 			let rect = CGRect(
 				x: (center.x + cos(angle) * (textRadius - (stringSize.width / 2.0))) - (stringSize.width / 2.0),
 				y: center.y + sin(angle) * (textRadius - (stringSize.height / 2.0)) - (stringSize.height / 2.0),

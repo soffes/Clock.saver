@@ -28,6 +28,9 @@ class ConfigureWindowController: NSWindowController {
 		return "Configuration"
 	}
 
+    init() {
+        super.init()
+    }
 	
 	// MARK: - NSObject
 	
