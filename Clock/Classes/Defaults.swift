@@ -62,7 +62,7 @@ class Defaults: NSObject {
 	
 	// MARK: - Initializers
 
-	init() {
+	override init() {
 		faceStyleIndex = screenSaverDefaults.integerForKey(ClockStyleDefaultsKey)
 		backgroundStyleIndex = screenSaverDefaults.integerForKey(BackgroundStyleDefaultsKey)
 		drawsTicks = screenSaverDefaults.boolForKey(TickMarksDefaultsKey)

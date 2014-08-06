@@ -44,7 +44,7 @@ class ClockView: ScreenSaverView {
 	var faceColor: NSColor!
 	let secondsColor = NSColor(calibratedRed: 0.965, green: 0.773, blue: 0.180, alpha: 1)
 	
-	@lazy var configureWindowController: ConfigureWindowController = {
+	lazy var configureWindowController: ConfigureWindowController = {
 		let controller = ConfigureWindowController()
 		controller.loadWindow()
 		return controller
@@ -64,11 +64,11 @@ class ClockView: ScreenSaverView {
 	
 	// MARK: - Initializers
 	
-	convenience init() {
+	convenience override init() {
 		self.init(frame: CGRectZero, isPreview: false)
 	}
 	
-	init(frame: NSRect, isPreview: Bool) {
+	override init(frame: NSRect, isPreview: Bool) {
 		super.init(frame: frame, isPreview: isPreview)
 		
 		setAnimationTimeInterval(1.0 / 4.0)
@@ -87,6 +87,10 @@ class ClockView: ScreenSaverView {
 		configurationDidChange(nil)
 	}
 	
+	required init(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
@@ -354,7 +358,7 @@ class ClockView: ScreenSaverView {
 			logoImage = NSImage(contentsOfURL: imageURL)
 			
 			// For demo app
-			if !logoImage {
+			if logoImage == nil {
 				logoImage = NSImage(named: imageName)
 			}
 		}
