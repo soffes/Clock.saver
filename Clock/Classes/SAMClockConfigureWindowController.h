@@ -11,15 +11,4 @@
 
 @interface SAMClockConfigureWindowController : NSWindowController
 
-@property IBOutlet NSPopUpButton *faceStylePicker;
-@property IBOutlet NSPopUpButton *backgroundStylePicker;
-@property IBOutlet NSButton *tickMarksCheckbox;
-@property IBOutlet NSButton *numbersCheckbox;
-@property IBOutlet NSButton *dateCheckbox;
-@property IBOutlet NSButton *logoCheckbox;
-
-- (IBAction)popUpChanged:(id)sender;
-- (IBAction)checkboxChanged:(id)sender;
-- (IBAction)close:(id)sender;
-
 @end

@@ -26,6 +26,7 @@
 		21592F4218CB7D4A00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
 		21592F4418CB7D4A00931D75 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4318CB7D4A00931D75 /* ScreenSaver.framework */; };
 		21592F5D18CB7F3D00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
+		B30DD94E19AC5D75007F24A9 /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B30DD94D19AC5D6A007F24A9 /* Lato-Hairline.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		21592F5C18CB7F3D00931D75 /* ClockTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClockTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21592F7718CB7F3D00931D75 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2160288E18D035A200494FE5 /* AppKitScripting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKitScripting.framework; path = System/Library/Frameworks/AppKitScripting.framework; sourceTree = SDKROOT; };
+		B30DD94D19AC5D6A007F24A9 /* Lato-Hairline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Hairline.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 		21592F3318CB7D4A00931D75 = {
 			isa = PBXGroup;
 			children = (
+				B30DD94D19AC5D6A007F24A9 /* Lato-Hairline.ttf */,
 				2156237418D0191800DF57B5 /* Clock */,
 				2156239018D0191D00DF57B5 /* ClockTest */,
 				21592F4018CB7D4A00931D75 /* Frameworks */,
@@ -245,6 +248,11 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Sam Soffes";
+				TargetAttributes = {
+					21592F3D18CB7D4A00931D75 = {
+						DevelopmentTeam = HWZFLG9PNK;
+					};
+				};
 			};
 			buildConfigurationList = 21592F3718CB7D4A00931D75 /* Build configuration list for PBXProject "Clock" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -280,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B30DD94E19AC5D75007F24A9 /* Lato-Hairline.ttf in Resources */,
 				2156239E18D0191D00DF57B5 /* MainMenu.xib in Resources */,
 				2133640718D0BF3600CB22C7 /* braun-dark.pdf in Resources */,
 				215623A018D0191D00DF57B5 /* Images.xcassets in Resources */,
@@ -408,11 +417,13 @@
 		21592F5618CB7D4A00931D75 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Clock/Resources/Clock-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Debug;
@@ -420,11 +431,13 @@
 		21592F5718CB7D4A00931D75 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Clock/Resources/Clock-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Release;
