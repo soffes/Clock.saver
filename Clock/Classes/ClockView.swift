@@ -313,7 +313,7 @@ class ClockView: ScreenSaverView {
 
 			let graphicsContext = NSGraphicsContext.currentContext()
 			let cgImage = image.CGImageForProposedRect(nil, context: graphicsContext, hints: nil).takeUnretainedValue()
-			let context = graphicsContext.CGContext
+			let context: CGContext = unsafeBitCast(graphicsContext.graphicsPort, CGContext.self)
 
 			CGContextSaveGState(context)
 			CGContextClipToMask(context, logoRect, cgImage)
