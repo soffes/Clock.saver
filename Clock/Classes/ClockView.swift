@@ -298,13 +298,27 @@ class ClockView: ScreenSaverView {
 				width: imageWidth,
 				height: originalImageSize.height * imageWidth / originalImageSize.width
 			)
-
-			image.drawInRect(CGRect(
+			let logoRect = CGRect(
 				x: (bounds.size.width - imageSize.width) / 2.0,
 				y: clockFrame.origin.y + (clockWidth * 0.622009569),
 				width: imageSize.width,
 				height: imageSize.height
-			))
+			)
+
+			if faceStyle == .Dark {
+				NSColor.whiteColor().setFill()
+			} else {
+				NSColor.blackColor().setFill()
+			}
+
+			let graphicsContext = NSGraphicsContext.currentContext()
+			let cgImage = image.CGImageForProposedRect(nil, context: graphicsContext, hints: nil).takeUnretainedValue()
+			let context = graphicsContext.CGContext
+
+			CGContextSaveGState(context)
+			CGContextClipToMask(context, logoRect, cgImage)
+			CGContextFillRect(context, bounds)
+			CGContextRestoreGState(context)
 		}
 	}
 
@@ -350,14 +364,15 @@ class ClockView: ScreenSaverView {
 		drawsLogo = defaults.boolForKey(LogoDefaultsKey)
 		
 		if drawsLogo {
-			let imageName = faceStyle == ClockStyle.Light ? "braun-dark" : "braun-light"
-			let imageURL = NSBundle(identifier: BundleIdentifier).URLForResource(imageName, withExtension: "pdf")
+			let imageURL = NSBundle(identifier: BundleIdentifier).URLForResource("braun", withExtension: "pdf")
 			logoImage = NSImage(contentsOfURL: imageURL)
-			
+
 			// For demo app
 			if logoImage == nil {
-				logoImage = NSImage(named: imageName)
+				logoImage = NSImage(named: "braun")
 			}
+		} else {
+			logoImage = nil
 		}
 		
 		handColor = NSColor(calibratedRed: 0.039, green: 0.039, blue: 0.043, alpha: 1)
