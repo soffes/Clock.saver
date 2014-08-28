@@ -49,13 +49,13 @@ class Defaults: NSObject {
 	
 	var drawsDate: Bool {
 		didSet {
-			setBool(drawsNumbers, forKey: DateDefaultsKey)
+			setBool(drawsDate, forKey: DateDefaultsKey)
 		}
 	}
 	
 	var drawsLogo: Bool {
 		didSet {
-			setBool(drawsNumbers, forKey: LogoDefaultsKey)
+			setBool(drawsLogo, forKey: LogoDefaultsKey)
 		}
 	}
 	
