@@ -229,8 +229,8 @@ class ClockView: ScreenSaverView {
 		for i in 0..<12 {
 			let string = NSAttributedString(string: "\(12 - i)", attributes: [
 				NSForegroundColorAttributeName: handColor,
-				NSFontAttributeName: font,
-				NSKernAttributeName: clockWidth * -0.01275917
+				NSKernAttributeName: -2,
+				NSFontAttributeName: font
 			])
 			
 			let stringSize = string.size
@@ -265,16 +265,13 @@ class ClockView: ScreenSaverView {
 		let paragraph = NSMutableParagraphStyle()
 		paragraph.alignment = NSTextAlignment.CenterTextAlignment
 		
-		let kern = clockWidth * -0.01275917
-		
 		let string = NSAttributedString(string: "\(day)", attributes: [
 			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098),
-			NSKernAttributeName: kern,
+			NSKernAttributeName: -1,
 			NSParagraphStyleAttributeName: paragraph
 		])
 		
 		var stringFrame = dateFrame
-		stringFrame.origin.x += kern / 4.0
 		stringFrame.origin.y -= dateFrame.size.height * 0.12
 		string.drawInRect(stringFrame)
 		
