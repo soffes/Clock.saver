@@ -122,7 +122,7 @@ class ClockView: ScreenSaverView {
 		let comps = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.HourCalendarUnit | NSCalendarUnit.MinuteCalendarUnit | NSCalendarUnit.SecondCalendarUnit, fromDate: NSDate())
 		let seconds = Double(comps.second) / 60.0
 		let minutes = (Double(comps.minute) / 60.0) + (seconds / 60.0)
-		let hours = (Double(comps.hour) / 12.0) + ((Double(comps.minute) / 60.0) * (60.0 / 12.0))
+		let hours = (Double(comps.hour) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
 		
 		if drawsDate {
 			drawDate(comps.day)
