@@ -9,25 +9,28 @@
 import Cocoa
 import ScreenSaver
 
-enum ClockStyle: Int {
-	case Light, Dark
-	
-	init(integer: Int) {
-		if integer == 1 {
-			self = .Dark
-			return
-		}
-		
-		self = .Light
-	}
-}
-
 class ClockView: ScreenSaverView {
+
+	// MARK: - Types
+
+	enum Style: Int {
+		case Light, Dark
+
+		init(integer: Int) {
+			if integer == 1 {
+				self = .Dark
+				return
+			}
+
+			self = .Light
+		}
+	}
+
 	
 	// MARK: - Properties
 	
-	var faceStyle: ClockStyle = .Light
-	var backgroundStyle: ClockStyle = .Dark
+	var faceStyle: Style = .Light
+	var backgroundStyle: Style = .Dark
 	var drawsTicks = true
 	var drawsNumbers = true
 	var drawsDate = true
@@ -75,8 +78,8 @@ class ClockView: ScreenSaverView {
 		wantsLayer = true
 		
 		defaults.registerDefaults([
-			ClockStyleDefaultsKey: ClockStyle.Light.toRaw(),
-			BackgroundStyleDefaultsKey: ClockStyle.Dark.toRaw(),
+			ClockStyleDefaultsKey: Style.Light.toRaw(),
+			BackgroundStyleDefaultsKey: Style.Dark.toRaw(),
 			TickMarksDefaultsKey: true,
 			NumbersDefaultsKey: true,
 			DateDefaultsKey: true,
@@ -356,8 +359,8 @@ class ClockView: ScreenSaverView {
 	}
 	
 	func configurationDidChange(notification: NSNotification?) {
-		faceStyle = ClockStyle(integer: defaults.integerForKey(ClockStyleDefaultsKey))
-		backgroundStyle = ClockStyle(integer: defaults.integerForKey(BackgroundStyleDefaultsKey))
+		faceStyle = Style(integer: defaults.integerForKey(ClockStyleDefaultsKey))
+		backgroundStyle = Style(integer: defaults.integerForKey(BackgroundStyleDefaultsKey))
 		drawsTicks = defaults.boolForKey(TickMarksDefaultsKey)
 		drawsNumbers = defaults.boolForKey(NumbersDefaultsKey)
 		drawsDate = defaults.boolForKey(DateDefaultsKey)
@@ -378,19 +381,19 @@ class ClockView: ScreenSaverView {
 		handColor = NSColor(calibratedRed: 0.039, green: 0.039, blue: 0.043, alpha: 1)
 		faceColor = NSColor(calibratedWhite: 0.996, alpha: 1)
 		
-		if faceStyle == ClockStyle.Dark {
+		if faceStyle == Style.Dark {
 			handColor = NSColor(calibratedRed: 0.988, green: 0.992, blue: 0.988, alpha: 1)
 			faceColor = NSColor(calibratedRed: 0.129, green: 0.125, blue: 0.141, alpha: 1)
 		}
 		
 		backgroundColor = NSColor.whiteColor()
 		
-		if backgroundStyle == ClockStyle.Light {
-			if faceStyle == ClockStyle.Dark {
+		if backgroundStyle == Style.Light {
+			if faceStyle == Style.Dark {
 				backgroundColor = NSColor(calibratedWhite: 0.996, alpha: 1)
 			}
 		} else {
-			if faceStyle == ClockStyle.Light {
+			if faceStyle == Style.Light {
 				backgroundColor = NSColor.blackColor()
 			} else {
 				backgroundColor = NSColor(calibratedRed: 0.129, green: 0.125, blue: 0.141, alpha: 1)
