@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Sam Soffes. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import ScreenSaver
 
 class ClockView: ScreenSaverView {

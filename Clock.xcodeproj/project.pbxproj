@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2133640618D0BF3600CB22C7 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2156237E18D0191800DF57B5 /* Configuration.xib */; };
+		2147FD071A8BB6800048407C /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 2147FD041A8BB6800048407C /* thumbnail.png */; };
+		2147FD081A8BB6800048407C /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2147FD051A8BB6800048407C /* thumbnail@2x.png */; };
+		2147FD0A1A8BB93D0048407C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4618CB7D4A00931D75 /* AppKit.framework */; };
 		2156238A18D0191800DF57B5 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2156237E18D0191800DF57B5 /* Configuration.xib */; };
-		21592F4218CB7D4A00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
 		21592F4418CB7D4A00931D75 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4318CB7D4A00931D75 /* ScreenSaver.framework */; };
 		21592F5D18CB7F3D00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
 		21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21623B3719779F16001BA4A9 /* AppDelegate.swift */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2147FD041A8BB6800048407C /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
+		2147FD051A8BB6800048407C /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
 		2156237D18D0191800DF57B5 /* Clock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Clock-Info.plist"; sourceTree = "<group>"; };
 		2156237E18D0191800DF57B5 /* Configuration.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Configuration.xib; sourceTree = "<group>"; };
 		21592F3E18CB7D4A00931D75 /* Clock.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Clock.saver; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,8 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2147FD0A1A8BB93D0048407C /* AppKit.framework in Frameworks */,
 				21592F4418CB7D4A00931D75 /* ScreenSaver.framework in Frameworks */,
-				21592F4218CB7D4A00931D75 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +94,8 @@
 		2156237C18D0191800DF57B5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2147FD041A8BB6800048407C /* thumbnail.png */,
+				2147FD051A8BB6800048407C /* thumbnail@2x.png */,
 				21D56DFD19AF825A00C40125 /* braun.pdf */,
 				2156237D18D0191800DF57B5 /* Clock-Info.plist */,
 				2156237E18D0191800DF57B5 /* Configuration.xib */,
@@ -236,7 +242,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2156238A18D0191800DF57B5 /* Configuration.xib in Resources */,
+				2147FD081A8BB6800048407C /* thumbnail@2x.png in Resources */,
 				21D56DFE19AF825A00C40125 /* braun.pdf in Resources */,
+				2147FD071A8BB6800048407C /* thumbnail.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
