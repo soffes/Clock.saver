@@ -54,7 +54,7 @@ class ClockView: ScreenSaverView {
 	}()
 	
 	var defaults: ScreenSaverDefaults {
-		return ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as ScreenSaverDefaults
+		return ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as! ScreenSaverDefaults
 	}
 	
 	override var frame: CGRect {
@@ -73,25 +73,12 @@ class ClockView: ScreenSaverView {
 	
 	override init(frame: NSRect, isPreview: Bool) {
 		super.init(frame: frame, isPreview: isPreview)
-		
-		setAnimationTimeInterval(1.0 / 4.0)
-		wantsLayer = true
-		
-		defaults.registerDefaults([
-			ClockStyleDefaultsKey: Style.Light.toRaw(),
-			BackgroundStyleDefaultsKey: Style.Dark.toRaw(),
-			TickMarksDefaultsKey: true,
-			NumbersDefaultsKey: true,
-			DateDefaultsKey: true,
-			LogoDefaultsKey: false
-		])
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "configurationDidChange:", name: ConfigurationDidChangeNotificationName, object: nil)
-		configurationDidChange(nil)
+		initialize()
 	}
-	
-	required init(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
+
+	required init?(coder: NSCoder) {
+	    super.init(coder: coder)
+		initialize()
 	}
 
 	deinit {
@@ -167,8 +154,25 @@ class ClockView: ScreenSaverView {
 	
 	
 	// MARK: - Private
-		
-	func clockFrameForBounds(bounds: CGRect) -> CGRect {
+
+	private func initialize() {
+		setAnimationTimeInterval(1.0 / 4.0)
+		wantsLayer = true
+
+		defaults.registerDefaults([
+			ClockStyleDefaultsKey: Style.Light.rawValue,
+			BackgroundStyleDefaultsKey: Style.Dark.rawValue,
+			TickMarksDefaultsKey: true,
+			NumbersDefaultsKey: true,
+			DateDefaultsKey: true,
+			LogoDefaultsKey: false
+			])
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "configurationDidChange:", name: ConfigurationDidChangeNotificationName, object: nil)
+		configurationDidChange(nil)
+	}
+
+	private func clockFrameForBounds(bounds: CGRect) -> CGRect {
 		let size = bounds.size
 		let clockSize = min(size.width, size.height) * 0.55
 		
@@ -178,7 +182,7 @@ class ClockView: ScreenSaverView {
 		return rect
 	}
 	
-	func drawFaceBackground() {
+	private func drawFaceBackground() {
 		faceColor.setFill()
 		
 		let clockPath = NSBezierPath(ovalInRect: clockFrame)
@@ -186,7 +190,7 @@ class ClockView: ScreenSaverView {
 		clockPath.fill()
 	}
 	
-	func drawTicks() {
+	private func drawTicks() {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		
 		// Ticks divider
@@ -224,11 +228,11 @@ class ClockView: ScreenSaverView {
 		}
 	}
 	
-	func drawNumbers() {
+	private func drawNumbers() {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		
 		let textRadius = clockWidth * 0.402711324
-		let font = NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.071770334)
+		let font = NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.071770334)!
 		for i in 0..<12 {
 			let string = NSAttributedString(string: "\(12 - i)", attributes: [
 				NSForegroundColorAttributeName: handColor,
@@ -249,7 +253,7 @@ class ClockView: ScreenSaverView {
 		}
 	}
 	
-	func drawDate(day: Int) {
+	private func drawDate(day: Int) {
 		let dateArrowColor = NSColor(calibratedRed: 0.847, green: 0.227, blue: 0.286, alpha: 1)
 		let dateBackgroundColor = NSColor(calibratedRed: 0.894, green: 0.933, blue: 0.965, alpha: 1)
 		let dateWidth = clockWidth * 0.057416268
@@ -269,7 +273,7 @@ class ClockView: ScreenSaverView {
 		paragraph.alignment = NSTextAlignment.CenterTextAlignment
 		
 		let string = NSAttributedString(string: "\(day)", attributes: [
-			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098),
+			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
 			NSKernAttributeName: -1,
 			NSParagraphStyleAttributeName: paragraph
 		])
@@ -293,7 +297,7 @@ class ClockView: ScreenSaverView {
 		path.fill()
 	}
 	
-	func drawLogo() {
+	private func drawLogo() {
 		if let image = logoImage {
 			let originalImageSize = image.size
 			let imageWidth = clockWidth * 0.156299841
@@ -314,8 +318,8 @@ class ClockView: ScreenSaverView {
 				NSColor.blackColor().setFill()
 			}
 
-			let graphicsContext = NSGraphicsContext.currentContext()
-			let cgImage = image.CGImageForProposedRect(nil, context: graphicsContext, hints: nil).takeUnretainedValue()
+			let graphicsContext = NSGraphicsContext.currentContext()!
+			let cgImage = image.CGImageForProposedRect(nil, context: graphicsContext, hints: nil)?.takeUnretainedValue()
 			let context: CGContext = unsafeBitCast(graphicsContext.graphicsPort, CGContext.self)
 
 			CGContextSaveGState(context)
@@ -325,7 +329,7 @@ class ClockView: ScreenSaverView {
 		}
 	}
 
-	func drawHand(#length: CGFloat, thickness: CGFloat, angle: CGFloat, lineCapStyle: NSLineCapStyle = NSLineCapStyle.SquareLineCapStyle) {
+	private func drawHand(#length: CGFloat, thickness: CGFloat, angle: CGFloat, lineCapStyle: NSLineCapStyle = NSLineCapStyle.SquareLineCapStyle) {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		let end = CGPoint(
 			x: center.x + cos(angle) * clockWidth * length,
@@ -340,7 +344,7 @@ class ClockView: ScreenSaverView {
 		path.stroke()
 	}
 	
-	func drawHandAccessories(secondsAngle: CGFloat) {
+	private func drawHandAccessories(secondsAngle: CGFloat) {
 		secondsColor.set()
 		
 		// Counterweight
@@ -359,16 +363,17 @@ class ClockView: ScreenSaverView {
 	}
 	
 	func configurationDidChange(notification: NSNotification?) {
-		faceStyle = Style(integer: defaults.integerForKey(ClockStyleDefaultsKey))
-		backgroundStyle = Style(integer: defaults.integerForKey(BackgroundStyleDefaultsKey))
+		faceStyle = ClockView.Style(integer: defaults.integerForKey(ClockStyleDefaultsKey))
+		backgroundStyle = ClockView.Style(integer: defaults.integerForKey(BackgroundStyleDefaultsKey))
 		drawsTicks = defaults.boolForKey(TickMarksDefaultsKey)
 		drawsNumbers = defaults.boolForKey(NumbersDefaultsKey)
 		drawsDate = defaults.boolForKey(DateDefaultsKey)
 		drawsLogo = defaults.boolForKey(LogoDefaultsKey)
 		
 		if drawsLogo {
-			let imageURL = NSBundle(identifier: BundleIdentifier).URLForResource("braun", withExtension: "pdf")
-			logoImage = NSImage(contentsOfURL: imageURL)
+			if let imageURL = NSBundle(identifier: BundleIdentifier)?.URLForResource("braun", withExtension: "pdf") {
+				logoImage = NSImage(contentsOfURL: imageURL)
+			}
 
 			// For demo app
 			if logoImage == nil {

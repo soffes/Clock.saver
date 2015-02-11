@@ -9,6 +9,7 @@
 import Cocoa
 import ScreenSaver
 
+@NSApplicationMain
 class AppDelegate: NSObject {
 	
 	// MARK: - Properties
@@ -38,7 +39,7 @@ class AppDelegate: NSObject {
 
 
 extension AppDelegate: NSApplicationDelegate {
-	func applicationDidFinishLaunching(notification: NSNotification?) {
+	func applicationDidFinishLaunching(notification: NSNotification) {
 		// Add the clock view to the window
 		clockView.frame = window.contentView.bounds
 		window.contentView.addSubview(clockView)
@@ -51,7 +52,7 @@ extension AppDelegate: NSApplicationDelegate {
 
 
 extension AppDelegate: NSWindowDelegate {
-	func windowWillClose(notification: NSNotification!) {
+	func windowWillClose(notification: NSNotification) {
 		// Quit the app if the main window is closed
 		NSApplication.sharedApplication().terminate(window)
 	}

@@ -23,6 +23,6 @@ class ConfigureWindowController: NSWindowController {
 	// MARK: - Actions
 	
 	@IBAction func close(sender: AnyObject) {
-		NSApp.endSheet(window)
+		NSApp.endSheet(window!)
 	}
 }

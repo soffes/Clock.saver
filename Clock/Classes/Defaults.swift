@@ -21,7 +21,7 @@ class Defaults: NSObject {
 	
 	// MARK: - Properties
 	
-	let screenSaverDefaults: ScreenSaverDefaults = ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as ScreenSaverDefaults
+	let screenSaverDefaults: ScreenSaverDefaults = ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as! ScreenSaverDefaults
 	
 	var faceStyleIndex: Int {
 		didSet {
