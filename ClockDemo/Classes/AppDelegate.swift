@@ -16,9 +16,9 @@ class AppDelegate: NSObject {
 
 	@IBOutlet var window: NSWindow!
 	
-	let clockView: ScreenSaverView = {
-		let view = ClockView()
-		view.autoresizingMask = NSAutoresizingMaskOptions.ViewWidthSizable | NSAutoresizingMaskOptions.ViewHeightSizable
+	let view: ScreenSaverView = {
+		let view = MainView()
+		view.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
 		return view
 	}()
 	
@@ -26,7 +26,7 @@ class AppDelegate: NSObject {
 	// MARK: - Actions
 	
 	@IBAction func showConfiguration(sender: NSObject!) {
-		NSApp.beginSheet(clockView.configureSheet(), modalForWindow: window, modalDelegate: self, didEndSelector: "endSheet:", contextInfo: nil)
+		NSApp.beginSheet(view.configureSheet(), modalForWindow: window, modalDelegate: self, didEndSelector: "endSheet:", contextInfo: nil)
 	}
 	
 	
@@ -41,12 +41,12 @@ class AppDelegate: NSObject {
 extension AppDelegate: NSApplicationDelegate {
 	func applicationDidFinishLaunching(notification: NSNotification) {
 		// Add the clock view to the window
-		clockView.frame = window.contentView.bounds
-		window.contentView.addSubview(clockView)
+		view.frame = window.contentView.bounds
+		window.contentView.addSubview(view)
 		
 		// Start animating the clock
-		clockView.startAnimation()
-		NSTimer.scheduledTimerWithTimeInterval(clockView.animationTimeInterval(), target: clockView, selector: "animateOneFrame", userInfo: nil, repeats: true)
+		view.startAnimation()
+		NSTimer.scheduledTimerWithTimeInterval(view.animationTimeInterval(), target: view, selector: "animateOneFrame", userInfo: nil, repeats: true)
 	}
 }
 

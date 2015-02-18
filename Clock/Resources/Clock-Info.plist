@@ -27,6 +27,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2014-2015 Sam Soffes. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string>Clock.ClockView</string>
+	<string>Clock.MainView</string>
 </dict>
 </plist>

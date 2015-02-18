@@ -1,6 +1,6 @@
 //
-//  ConfigureWindowController.swift
-//  Clock
+//  PreferencesWindowController.swift
+//  Clock.saver
 //
 //  Created by Sam Soffes on 7/15/14.
 //  Copyright (c) 2014 Sam Soffes. All rights reserved.
@@ -9,14 +9,12 @@
 import Cocoa
 import ScreenSaver
 
-let ConfigurationDidChangeNotificationName = "SAMClockConfigurationDidChangeNotification"
-
-class ConfigureWindowController: NSWindowController {
+class PreferencesWindowController: NSWindowController {
 	
 	// MARK: - Properties
 	
 	override var windowNibName: String! {
-		return "Configuration"
+		return "Preferences"
 	}
 	
 	
