@@ -9,7 +9,7 @@
 import Cocoa
 import ScreenSaver
 
-protocol ClockStyle {
+protocol ClockStyle: Printable {
 	var backgroundColor: NSColor { get }
 	var faceColor: NSColor { get }
 	var hourColor: NSColor { get }

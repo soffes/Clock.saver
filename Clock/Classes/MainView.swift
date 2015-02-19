@@ -67,7 +67,7 @@ class MainView: ScreenSaverView {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: PreferencesDidChangeNotificationName, object: nil)
 		preferencesDidChange(nil)
 
-		clockView = BN0032(frame: bounds)
+		clockView = BN0111(frame: bounds)
 		clockView.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
 		addSubview(clockView)
 	}
