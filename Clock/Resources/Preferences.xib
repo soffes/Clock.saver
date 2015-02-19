@@ -30,6 +30,7 @@
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="eZ3-QA-JZ5">
                                 <items>
+                                    <menuItem title="BN0021" id="gt5-ws-PpE"/>
                                     <menuItem title="BN0032" state="on" tag="1" id="HjN-ml-lDS"/>
                                     <menuItem title="BN0111" id="gUz-ku-JrZ"/>
                                 </items>

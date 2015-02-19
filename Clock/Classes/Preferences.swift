@@ -17,6 +17,7 @@ let PreferencesDidChangeNotificationName = "SAMClockPreferencesDidChangeNotifica
 let ModelDidChangeNotificationName = "SAMClockModelDidChangeNotification"
 
 let models: [String: ClockView.Type] = [
+	"BN0021": BN0021.self,
 	"BN0032": BN0032.self,
 	"BN0111": BN0111.self
 ]

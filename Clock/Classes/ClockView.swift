@@ -123,7 +123,7 @@ class ClockView: NSView {
 		drawTicksDivider(color: style.backgroundColor.colorWithAlphaComponent(0.05), position: 0.074960128)
 
 		let color = style.minuteColor
-		drawTicks(minorColor: color.colorWithAlphaComponent(0.5), minorLength: 0.049441786, minorThickness: 0.004784689, majorColor: color, majorThickness: 0.009569378)
+		drawTicks(minorColor: color.colorWithAlphaComponent(0.5), minorLength: 0.049441786, minorThickness: 0.004784689, majorColor: color, majorThickness: 0.009569378, inset: 0.014)
 	}
 
 	func drawLogo() {
@@ -236,7 +236,7 @@ class ClockView: NSView {
 		ticksPath.stroke()
 	}
 
-	func drawTicks(#minorColor: NSColor, minorLength: Double, minorThickness: Double, majorColor _majorColor: NSColor? = nil, majorLength _majorLength: Double? = nil, majorThickness _majorThickness: Double? = nil) {
+	func drawTicks(#minorColor: NSColor, minorLength: Double, minorThickness: Double, majorColor _majorColor: NSColor? = nil, majorLength _majorLength: Double? = nil, majorThickness _majorThickness: Double? = nil, inset: Double = 0.0) {
 		let majorColor = _majorColor ?? minorColor
 		let majorLength = _majorLength ?? minorLength
 		let majorThickness = _majorThickness ?? minorThickness
@@ -244,10 +244,10 @@ class ClockView: NSView {
 
 		// Ticks
 		let clockWidth = clockFrame.size.width
-		let tickRadius = clockWidth * 0.437799043
+		let tickRadius = (clockWidth / 2.0) - (clockWidth * CGFloat(inset))
 		for i in 0..<60 {
 			let isMajor = (i % 5) == 0
-			let tickLength = clockWidth * -CGFloat(isMajor ? majorLength : minorLength)
+			let tickLength = clockWidth * CGFloat(isMajor ? majorLength : minorLength)
 			let progress = Double(i) / 60.0
 			let angle = CGFloat(-(progress * M_PI * 2) + M_PI_2)
 
