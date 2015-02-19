@@ -12,20 +12,24 @@ class BN0032: ClockView {
 	
 	// MARK: - Types
 
-	enum Style: String {
+	enum Style: String, ClockStyle {
 		case BKBKG = "BKBKG"
 		case WHBKG = "WHBKG"
 
 		var backgroundColor: NSColor {
+			return NSColor(calibratedRed: 0.129, green: 0.125, blue: 0.141, alpha: 1)
+		}
+
+		var faceColor: NSColor {
 			switch self {
 			case .BKBKG:
-				return NSColor(calibratedRed: 0.129, green: 0.125, blue: 0.141, alpha: 1)
+				return backgroundColor
 			case .WHBKG:
-				return NSColor(calibratedWhite: 0.996, alpha: 1)
+				return NSColor(white: 0.996, alpha: 1)
 			}
 		}
 
-		var hourHandColor: NSColor {
+		var hourColor: NSColor {
 			switch self {
 			case .BKBKG:
 				return NSColor(white: 0.7, alpha: 1)
@@ -34,7 +38,7 @@ class BN0032: ClockView {
 			}
 		}
 
-		var minuteHandColor: NSColor {
+		var minuteColor: NSColor {
 			switch self {
 			case .BKBKG:
 				return NSColor.whiteColor()
@@ -43,37 +47,21 @@ class BN0032: ClockView {
 			}
 		}
 
+		var secondColor: NSColor {
+			return yellowColor
+		}
+
 		var logoColor: NSColor {
-			return minuteHandColor
+			return minuteColor
 		}
 	}
-
-
-	// MARK: - Properties
-
-	var style: Style = .WHBKG
 
 
 	// MARK: - ClockView
 
 	override func initialize() {
 		super.initialize()
-
-		backgroundColor = style.backgroundColor
-	}
-
-	override func clockFrameForBounds(bounds: CGRect) -> CGRect {
-		let size = bounds.size
-		let clockSize = min(size.width, size.height) * 0.55
-
-		var rect = CGRect(x: (size.width - clockSize) / 2.0, y: (size.height - clockSize) / 2.0, width: clockSize, height: clockSize)
-		rect.integerize()
-
-		return rect
-	}
-
-	override func drawLogo() {
-		drawLogo(style.logoColor, width: 0.156299841, y: 0.622009569)
+		style = Style.BKBKG
 	}
 
 	override func drawDay(day: Int) {
@@ -118,34 +106,5 @@ class BN0032: ClockView {
 //		path.lineToPoint(CGPoint(x: dateFrame.maxX, y: y))
 //		path.lineToPoint(CGPoint(x: dateFrame.midX, y: y - pointDip))
 //		path.fill()
-	}
-
-	override func drawHours(angle: Double) {
-		style.hourHandColor.setStroke()
-		drawHand(length: 0.263955343, thickness: 0.023125997, angle: angle)
-	}
-
-	override func drawMinutes(angle: Double) {
-		style.minuteHandColor.setStroke()
-		drawHand(length: 0.391547049, thickness: 0.014354067, angle: angle)
-	}
-
-	override func drawSeconds(angle: Double) {
-		yellowColor.set()
-		drawHand(length: 0.391547049, thickness: 0.009569378, angle: angle)
-
-		// Counterweight
-		drawHand(length: -0.076555024, thickness: 0.028708134, angle: angle, lineCapStyle: NSLineCapStyle.RoundLineCapStyle)
-		let nubSize = clockFrame.size.width * 0.052631579
-		let nubFrame = CGRect(x: (bounds.size.width - nubSize) / 2.0, y: (bounds.size.height - nubSize) / 2.0, width: nubSize, height: nubSize)
-		NSBezierPath(ovalInRect: nubFrame).fill()
-
-		// Screw
-		let dotSize = clockFrame.size.width * 0.006379585
-		NSColor.blackColor().setFill()
-		var screwFrame = CGRect(x: (bounds.size.width - dotSize) / 2.0, y: (bounds.size.height - dotSize) / 2.0, width: dotSize, height: dotSize)
-		screwFrame.integerize()
-		let screwPath = NSBezierPath(ovalInRect: screwFrame)
-		screwPath.fill()
 	}
 }

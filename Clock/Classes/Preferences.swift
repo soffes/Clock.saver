@@ -19,7 +19,7 @@ class Preferences: NSObject {
 	
 	// MARK: - Properties
 	
-	private let defaults: ScreenSaverDefaults = ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as! ScreenSaverDefaults
+	private let defaults: NSUserDefaults = ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as! ScreenSaverDefaults
 	
 	var model: String {
 		get {
@@ -70,6 +70,6 @@ class Preferences: NSObject {
 	
 	private func save() {
 		defaults.synchronize()
-		NSNotificationCenter.defaultCenter().postNotificationName(PreferencesDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().postNotificationName(PreferencesDidChangeNotificationName, object: self)
 	}
 }
