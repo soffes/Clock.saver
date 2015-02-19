@@ -21,11 +21,18 @@ class AppDelegate: NSObject {
 		view.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
 		return view
 	}()
+
+
+	// MARK: - Initializers
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
 	
 	
 	// MARK: - Actions
 	
-	@IBAction func showConfiguration(sender: NSObject!) {
+	@IBAction func showPreferences(sender: NSObject!) {
 		NSApp.beginSheet(view.configureSheet(), modalForWindow: window, modalDelegate: self, didEndSelector: "endSheet:", contextInfo: nil)
 	}
 	
@@ -34,6 +41,11 @@ class AppDelegate: NSObject {
 	
 	func endSheet(sheet: NSWindow) {
 		sheet.close()
+	}
+
+	func preferencesDidChange(notification: NSNotification?) {
+		let preferences = (notification?.object as? Preferences) ?? Preferences()
+		window.title = "Clock.saver — \(preferences.modelName)\(preferences.styleName)"
 	}
 }
 
@@ -47,6 +59,9 @@ extension AppDelegate: NSApplicationDelegate {
 		// Start animating the clock
 		view.startAnimation()
 		NSTimer.scheduledTimerWithTimeInterval(view.animationTimeInterval(), target: view, selector: "animateOneFrame", userInfo: nil, repeats: true)
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: PreferencesDidChangeNotificationName, object: nil)
+		preferencesDidChange(nil)
 	}
 }
 
