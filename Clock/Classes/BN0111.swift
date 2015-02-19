@@ -37,11 +37,11 @@ class BN0111: ClockView {
 		var backgroundColor: NSColor {
 			switch self {
 			case .WHBLG:
-				return NSColor(SRGBRed: 0.380, green: 0.686, blue: 0.894, alpha: 1)
+				return NSColor(SRGBRed: 0.267, green: 0.682, blue: 0.918, alpha: 1)
 			case .BKORG:
-				return NSColor(SRGBRed: 0.816, green: 0.416, blue: 0.231, alpha: 1)
+				return NSColor(SRGBRed: 0.984, green: 0.427, blue: 0.137, alpha: 1)
 			case .WHGYG:
-				return NSColor(SRGBRed: 0.529, green: 0.545, blue: 0.553, alpha: 1)
+				return NSColor(SRGBRed: 0.804, green: 0.788, blue: 0.784, alpha: 1)
 			case .BKBKG:
 				return darkBackgroundColor
 			case .BKLGYG:
@@ -90,6 +90,6 @@ class BN0111: ClockView {
 
 	override func initialize() {
 		super.initialize()
-		style = Style.BKLGYG
+		style = Style.BKORG
 	}
 }
