@@ -13,9 +13,21 @@ class MainView: ScreenSaverView {
 
 	// MARK: - Properties
 
-	var clockView: ClockView!
+	private var clockView: ClockView? {
+		willSet {
+			let clockView = self.clockView
+			clockView?.removeFromSuperview()
+		}
 
-	let preferencesWindowController: PreferencesWindowController = {
+		didSet {
+			if let clockView = clockView {
+				clockView.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
+				addSubview(clockView)
+			}
+		}
+	}
+
+	private let preferencesWindowController: PreferencesWindowController = {
 		let controller = PreferencesWindowController()
 		controller.loadWindow()
 		return controller
@@ -42,7 +54,9 @@ class MainView: ScreenSaverView {
 	// MARK: - ScreenSaverView
 
 	override func animateOneFrame() {
-		clockView.setNeedsDisplayInRect(clockView.clockFrame)
+		if let clockView = clockView {
+			clockView.setNeedsDisplayInRect(clockView.clockFrame)
+		}
 	}
 
 	override func hasConfigureSheet() -> Bool {
@@ -66,15 +80,12 @@ class MainView: ScreenSaverView {
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: PreferencesDidChangeNotificationName, object: nil)
 		preferencesDidChange(nil)
-
-		clockView = BN0111(frame: bounds)
-		clockView.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
-		addSubview(clockView)
 	}
 
-
 	func preferencesDidChange(notification: NSNotification?) {
-		// TODO: Update model
-		setNeedsDisplayInRect(bounds)
+		let preferences = (notification?.object as? Preferences) ?? Preferences()
+		let view = preferences.model(frame: bounds)
+		view.styleName = preferences.styleName
+		clockView = view
 	}
 }

@@ -63,14 +63,32 @@ class BN0032: ClockView {
 		var logoColor: NSColor {
 			return minuteColor
 		}
+
+		static var defaultStyle: ClockStyle {
+			return Style.BKBKG
+		}
 	}
 
 
 	// MARK: - ClockView
 
+	override var styleName: String {
+		set {
+			style = Style(rawValue: newValue) ?? Style.defaultStyle
+		}
+
+		get {
+			return style.description
+		}
+	}
+
+	override class var styles: [ClockStyle] {
+		return [Style.BKBKG, Style.WHBKG]
+	}
+
 	override func initialize() {
 		super.initialize()
-		style = Style.WHBKG
+		style = Style.defaultStyle
 	}
 
 	override func drawDay(day: Int) {

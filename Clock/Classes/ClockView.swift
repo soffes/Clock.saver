@@ -10,12 +10,15 @@ import Cocoa
 import ScreenSaver
 
 protocol ClockStyle: Printable {
+	var rawValue: String { get }
 	var backgroundColor: NSColor { get }
 	var faceColor: NSColor { get }
 	var hourColor: NSColor { get }
 	var minuteColor: NSColor { get }
 	var secondColor: NSColor { get }
 	var logoColor: NSColor { get }
+
+	static var defaultStyle: ClockStyle { get }
 }
 
 class ClockView: NSView {
@@ -30,6 +33,19 @@ class ClockView: NSView {
 
 	var style: ClockStyle!
 
+	var styleName: String {
+		set {
+		}
+
+		get {
+			return style.description
+		}
+	}
+
+	class var styles: [ClockStyle] {
+		return []
+	}
+
 	override var frame: CGRect {
 		didSet {
 			setNeedsDisplayInRect(bounds)
@@ -43,7 +59,7 @@ class ClockView: NSView {
 		self.init(frame: CGRectZero)
 	}
 
-	override init(frame: NSRect) {
+	required override init(frame: NSRect) {
 		super.init(frame: frame)
 		initialize()
 	}

@@ -83,13 +83,31 @@ class BN0111: ClockView {
 		var logoColor: NSColor {
 			return minuteColor
 		}
+
+		static var defaultStyle: ClockStyle {
+			return Style.WHBLG
+		}
 	}
 
 
 	// MARK: - ClockView
 
+	override var styleName: String {
+		set {
+			style = Style(rawValue: newValue) ?? Style.defaultStyle
+		}
+
+		get {
+			return style.description
+		}
+	}
+
+	override class var styles: [ClockStyle] {
+		return [Style.WHBLG, Style.BKORG, Style.WHGYG, Style.BKBKG, Style.BKLGYG]
+	}
+
 	override func initialize() {
 		super.initialize()
-		style = Style.BKORG
+		style = Style.defaultStyle
 	}
 }

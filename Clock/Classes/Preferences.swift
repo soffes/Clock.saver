@@ -13,28 +13,48 @@ let BundleIdentifier = "com.samsoffes.clock"
 let ModelDefaultsKey = "SAMModel"
 let StyleDefaultsKey = "SAMStyle"
 let LogoDefaultsKey = "SAMClockLogo"
-let PreferencesDidChangeNotificationName = "SAMClockConfigurationDidChangeNotification"
+let PreferencesDidChangeNotificationName = "SAMClockPreferencesDidChangeNotification"
+let ModelDidChangeNotificationName = "SAMClockModelDidChangeNotification"
+
+let models: [String: ClockView.Type] = [
+	"BN0032": BN0032.self,
+	"BN0111": BN0111.self
+]
+
+let defaultModel = BN0032.self
 
 class Preferences: NSObject {
 	
 	// MARK: - Properties
 	
 	private let defaults: NSUserDefaults = ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as! ScreenSaverDefaults
+
+	var model: ClockView.Type {
+		return models[modelName] ?? defaultModel
+	}
 	
-	var model: String {
+	var modelName: String {
 		get {
-			return defaults.objectForKey(ModelDefaultsKey) as! String
+			return defaults.stringForKey(ModelDefaultsKey) ?? "BN0032"
 		}
 
 		set {
 			defaults.setObject(newValue, forKey: ModelDefaultsKey)
 			save()
+
+			NSNotificationCenter.defaultCenter().postNotificationName(ModelDidChangeNotificationName, object: model)
 		}
 	}
 
-	var style: String {
+	var style: ClockStyle {
+		let styles = model.styles
+		let index = find(styles.map({ $0.rawValue }), styleName) ?? styles.startIndex
+		return styles[index]
+	}
+
+	var styleName: String {
 		get {
-			return defaults.objectForKey(StyleDefaultsKey) as! String
+			return defaults.stringForKey(StyleDefaultsKey)!
 		}
 
 		set {

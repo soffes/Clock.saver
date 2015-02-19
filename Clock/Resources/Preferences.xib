@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController" customModule="Clock" customModuleProvider="target">
             <connections>
+                <outlet property="stylePopUpButton" destination="Xyo-n3-1WN" id="J43-Wd-BWr"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="IT0-lv-h4J"/>
             </connections>
         </customObject>
@@ -24,19 +25,19 @@
                     <popUpButton verticalHuggingPriority="750" id="NFD-3L-sd7">
                         <rect key="frame" x="120" y="114" width="151" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="BN0032" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="HjN-ml-lDS" id="Jhk-ZJ-EGw">
+                        <popUpButtonCell key="cell" type="push" title="BN0032" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="HjN-ml-lDS" id="Jhk-ZJ-EGw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="eZ3-QA-JZ5">
                                 <items>
-                                    <menuItem title="BN0021" id="fOk-Rv-Vkx"/>
-                                    <menuItem title="BN0031" state="on" tag="1" id="fWx-Sf-rX7"/>
                                     <menuItem title="BN0032" state="on" tag="1" id="HjN-ml-lDS"/>
-                                    <menuItem title="BN0071" state="on" tag="1" id="YVa-dK-fjF"/>
                                     <menuItem title="BN0111" id="gUz-ku-JrZ"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <binding destination="HuX-6B-vHY" name="selectedValue" keyPath="self.modelName" id="DTc-6j-LNY"/>
+                        </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="cMp-6i-pzR">
                         <rect key="frame" x="18" y="119" width="96" height="17"/>
@@ -50,16 +51,19 @@
                     <popUpButton verticalHuggingPriority="750" id="Xyo-n3-1WN">
                         <rect key="frame" x="120" y="87" width="151" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="White" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ERR-cu-2qh" id="Lud-Ap-C5Q">
+                        <popUpButtonCell key="cell" type="push" title="White" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ERR-cu-2qh" id="Lud-Ap-C5Q">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="Hfw-Ed-S6O">
                                 <items>
-                                    <menuItem title="White" id="ERR-cu-2qh"/>
-                                    <menuItem title="Black" state="on" tag="1" id="b8E-Dq-br7"/>
+                                    <menuItem title="White" state="on" id="ERR-cu-2qh"/>
+                                    <menuItem title="Black" tag="1" id="b8E-Dq-br7"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <action selector="selectStyle:" target="-2" id="i55-0x-CE3"/>
+                        </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="dCQ-TT-7VL">
                         <rect key="frame" x="18" y="92" width="96" height="17"/>
