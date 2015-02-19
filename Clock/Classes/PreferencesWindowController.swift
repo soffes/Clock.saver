@@ -36,7 +36,14 @@ class PreferencesWindowController: NSWindowController {
 		super.awakeFromNib()
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelDidChange:", name: ModelDidChangeNotificationName, object: nil)
-		modelDidChange(nil)
+
+		stylePopUpButton.removeAllItems()
+
+		let styles = preferences.model.styles
+		stylePopUpButton.addItemsWithTitles(styles.map({ $0.description }))
+
+		let index = find(styles.map({ $0.rawValue }), preferences.styleName) ?? styles.startIndex
+		stylePopUpButton.selectItemAtIndex(index)
 	}
 	
 	
