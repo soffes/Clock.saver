@@ -10,6 +10,16 @@ Just a little Mac screensaver inspired by the [Braun watches](http://braun-clock
 **[Download the latest release](https://github.com/soffes/clock-saver/releases).** Unzip and double-click.
 
 
+## Preferences
+
+Don’t forget to check out “Screen Saver Options…” in System Preferences. You can change the model and style to your liking.
+
+
+## Building
+
+Xcode 7b3 is required since Clock.saver is written in Swift 2.
+
+
 ## Watch Faces
 
 The following models are implemented:
@@ -28,10 +38,5 @@ The following models are implemented:
     * BN0111BKLGYG: Light grey
 
 Eventually, I'd love to have them all implemented. Here's my [progress](Coverage.markdown).
-
-
-## Preferences
-
-Don’t forget to check out “Screen Saver Options…” in System Preferences. You can change the model and style to your liking.
 
 Enjoy.

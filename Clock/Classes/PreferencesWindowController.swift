@@ -42,7 +42,7 @@ class PreferencesWindowController: NSWindowController {
 		let styles = preferences.model.styles
 		stylePopUpButton.addItemsWithTitles(styles.map({ $0.description }))
 
-		let index = find(styles.map({ $0.rawValue }), preferences.styleName) ?? styles.startIndex
+		let index = styles.map({ $0.rawValue }).indexOf(preferences.styleName) ?? styles.startIndex
 		stylePopUpButton.selectItemAtIndex(index)
 	}
 	

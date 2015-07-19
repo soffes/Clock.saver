@@ -16,9 +16,9 @@ class AppDelegate: NSObject {
 
 	@IBOutlet var window: NSWindow!
 	
-	let view: ScreenSaverView = {
-		let view = MainView()
-		view.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
+	let view: ScreenSaverView! = {
+		let view = MainView(frame: CGRectZero, isPreview: false)
+		view?.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
 		return view
 	}()
 
@@ -33,17 +33,18 @@ class AppDelegate: NSObject {
 	// MARK: - Actions
 	
 	@IBAction func showPreferences(sender: NSObject!) {
-		NSApp.beginSheet(view.configureSheet(), modalForWindow: window, modalDelegate: self, didEndSelector: "endSheet:", contextInfo: nil)
+		guard let sheet = view.configureSheet() else { return }
+		NSApp.beginSheet(sheet, modalForWindow: window, modalDelegate: self, didEndSelector: "endSheet:", contextInfo: nil)
 	}
 	
 	
 	// MARK: - Private
 	
-	func endSheet(sheet: NSWindow) {
+	@objc private func endSheet(sheet: NSWindow) {
 		sheet.close()
 	}
 
-	func preferencesDidChange(notification: NSNotification?) {
+	@objc private func preferencesDidChange(notification: NSNotification?) {
 		let preferences = (notification?.object as? Preferences) ?? Preferences()
 		window.title = "Clock.saver — \(preferences.modelName)\(preferences.styleName)"
 	}
@@ -58,7 +59,7 @@ extension AppDelegate: NSApplicationDelegate {
 		
 		// Start animating the clock
 		view.startAnimation()
-		NSTimer.scheduledTimerWithTimeInterval(view.animationTimeInterval(), target: view, selector: "animateOneFrame", userInfo: nil, repeats: true)
+		NSTimer.scheduledTimerWithTimeInterval(view.animationTimeInterval, target: view, selector: "animateOneFrame", userInfo: nil, repeats: true)
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: PreferencesDidChangeNotificationName, object: nil)
 		preferencesDidChange(nil)

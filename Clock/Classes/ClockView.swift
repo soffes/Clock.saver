@@ -9,7 +9,7 @@
 import Cocoa
 import ScreenSaver
 
-protocol ClockStyle: Printable {
+protocol ClockStyle: CustomStringConvertible {
 	var rawValue: String { get }
 	var backgroundColor: NSColor { get }
 	var faceColor: NSColor { get }
@@ -55,7 +55,7 @@ class ClockView: NSView {
 
 	// MARK: - Initializers
 
-	convenience override init() {
+	convenience init() {
 		self.init(frame: CGRectZero)
 	}
 
@@ -90,7 +90,7 @@ class ClockView: NSView {
 			drawLogo()
 		}
 
-		let comps = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.HourCalendarUnit | NSCalendarUnit.MinuteCalendarUnit | NSCalendarUnit.SecondCalendarUnit, fromDate: NSDate())
+		let comps = NSCalendar.currentCalendar().components([NSCalendarUnit.NSDayCalendarUnit, NSCalendarUnit.NSHourCalendarUnit, NSCalendarUnit.NSMinuteCalendarUnit, NSCalendarUnit.NSSecondCalendarUnit], fromDate: NSDate())
 		let seconds = Double(comps.second) / 60.0
 		let minutes = (Double(comps.minute) / 60.0) + (seconds / 60.0)
 		let hours = (Double(comps.hour) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
@@ -176,7 +176,7 @@ class ClockView: NSView {
 
 	// MARK: - Drawing Helpers
 
-	func drawHand(#length: Double, thickness: Double, angle: Double, lineCapStyle: NSLineCapStyle = NSLineCapStyle.SquareLineCapStyle) {
+	func drawHand(length length: Double, thickness: Double, angle: Double, lineCapStyle: NSLineCapStyle = NSLineCapStyle.SquareLineCapStyle) {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		let clockWidth = Double(clockFrame.size.width)
 		let end = CGPoint(
@@ -228,7 +228,7 @@ class ClockView: NSView {
 		clockPath.fill()
 	}
 
-	func drawTicksDivider(#color: NSColor, position: Double) {
+	func drawTicksDivider(color color: NSColor, position: Double) {
 		color.setStroke()
 		let ticksFrame = CGRectInset(clockFrame, clockFrame.size.width * CGFloat(position), clockFrame.size.width * CGFloat(position))
 		let ticksPath = NSBezierPath(ovalInRect: ticksFrame)
@@ -236,7 +236,7 @@ class ClockView: NSView {
 		ticksPath.stroke()
 	}
 
-	func drawTicks(#minorColor: NSColor, minorLength: Double, minorThickness: Double, majorColor _majorColor: NSColor? = nil, majorLength _majorLength: Double? = nil, majorThickness _majorThickness: Double? = nil, inset: Double = 0.0) {
+	func drawTicks(minorColor minorColor: NSColor, minorLength: Double, minorThickness: Double, majorColor _majorColor: NSColor? = nil, majorLength _majorLength: Double? = nil, majorThickness _majorThickness: Double? = nil, inset: Double = 0.0) {
 		let majorColor = _majorColor ?? minorColor
 		let majorLength = _majorLength ?? minorLength
 		let majorThickness = _majorThickness ?? minorThickness
@@ -270,7 +270,7 @@ class ClockView: NSView {
 		}
 	}
 
-	func drawNumbers(#fontSize: CGFloat, radius: Double) {
+	func drawNumbers(fontSize fontSize: CGFloat, radius: Double) {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 
 		let clockWidth = clockFrame.size.width
@@ -283,7 +283,7 @@ class ClockView: NSView {
 				NSFontAttributeName: font
 			])
 
-			let stringSize = string.size
+			let stringSize = string.size()
 			let angle = CGFloat((Double(i) / 12.0 * M_PI * 2.0) + M_PI_2)
 			let rect = CGRect(
 				x: (center.x + cos(angle) * (textRadius - (stringSize.width / 2.0))) - (stringSize.width / 2.0),

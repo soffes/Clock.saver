@@ -109,7 +109,7 @@ class BN0032: ClockView {
 		style.minuteColor.setFill()
 
 		let paragraph = NSMutableParagraphStyle()
-		paragraph.alignment = NSTextAlignment.CenterTextAlignment
+		paragraph.alignment = .Center
 
 		let string = NSAttributedString(string: "\(day)", attributes: [
 			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
