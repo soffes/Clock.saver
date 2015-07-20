@@ -88,4 +88,23 @@ class BN0142: ClockView {
 		super.initialize()
 		style = Style.defaultStyle
 	}
+
+	override func drawNumbers() {
+		super.drawNumbers()
+		drawNumbers(fontSize: 0.05, radius: 0.575, color: blueColor, count: 24)
+	}
+
+	override func drawSeconds(angle: Double) {
+		let calendar = NSCalendar.currentCalendar()
+		calendar.timeZone = NSTimeZone(abbreviation: "UTC")!
+		let components = calendar.components([.NSHourCalendarUnit, .NSMinuteCalendarUnit, .NSSecondCalendarUnit], fromDate: date)
+		let seconds = Double(components.second) / 60.0
+		let minutes = (Double(components.minute) / 60.0) + (seconds / 60.0)
+		let hours = (Double(components.hour) / 24.0) + ((minutes / 60.0) * (60.0 / 24.0))
+
+		blueColor.set()
+		drawHand(length: 0.391547049, thickness: 0.009, angle: hours)
+
+		super.drawSeconds(angle)
+	}
 }

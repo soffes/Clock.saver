@@ -35,6 +35,7 @@ class ClockView: NSView {
 
 	var styleName: String {
 		set {
+			// Do nothing. Subclasses override this.
 		}
 
 		get {
@@ -51,6 +52,8 @@ class ClockView: NSView {
 			setNeedsDisplayInRect(bounds)
 		}
 	}
+
+	var date = NSDate()
 
 
 	// MARK: - Initializers
@@ -90,12 +93,13 @@ class ClockView: NSView {
 			drawLogo()
 		}
 
-		let comps = NSCalendar.currentCalendar().components([NSCalendarUnit.NSDayCalendarUnit, NSCalendarUnit.NSHourCalendarUnit, NSCalendarUnit.NSMinuteCalendarUnit, NSCalendarUnit.NSSecondCalendarUnit], fromDate: NSDate())
-		let seconds = Double(comps.second) / 60.0
-		let minutes = (Double(comps.minute) / 60.0) + (seconds / 60.0)
-		let hours = (Double(comps.hour) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
+		date = NSDate()
+		let components = NSCalendar.currentCalendar().components([.NSDayCalendarUnit, .NSHourCalendarUnit, .NSMinuteCalendarUnit, .NSSecondCalendarUnit], fromDate: date)
+		let seconds = Double(components.second) / 60.0
+		let minutes = (Double(components.minute) / 60.0) + (seconds / 60.0)
+		let hours = (Double(components.hour) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
 
-		drawTime(comps, hours: hours, minutes: minutes, seconds: seconds)
+		drawTime(components, hours: hours, minutes: minutes, seconds: seconds)
 	}
 
 
@@ -270,28 +274,28 @@ class ClockView: NSView {
 		}
 	}
 
-	func drawNumbers(fontSize fontSize: CGFloat, radius: Double) {
+	func drawNumbers(fontSize fontSize: CGFloat, radius: Double, color: NSColor? = nil, count: UInt = 12) {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 
 		let clockWidth = clockFrame.size.width
 		let textRadius = clockWidth * CGFloat(radius)
 		let font = NSFont(name: "HelveticaNeue-Light", size: clockWidth * fontSize)!
-		for i in 0..<12 {
-			let string = NSAttributedString(string: "\(12 - i)", attributes: [
-				NSForegroundColorAttributeName: style.minuteColor,
+		for i in 0..<count {
+			let string = NSAttributedString(string: "\(count - i)", attributes: [
+				NSForegroundColorAttributeName: color ?? style.minuteColor,
 				NSKernAttributeName: -2,
 				NSFontAttributeName: font
 			])
 
 			let stringSize = string.size()
-			let angle = CGFloat((Double(i) / 12.0 * M_PI * 2.0) + M_PI_2)
+			let angle = CGFloat((Double(i) / Double(count) * M_PI * 2.0) + M_PI_2)
 			let rect = CGRect(
 				x: (center.x + cos(angle) * (textRadius - (stringSize.width / 2.0))) - (stringSize.width / 2.0),
 				y: center.y + sin(angle) * (textRadius - (stringSize.height / 2.0)) - (stringSize.height / 2.0),
 				width: stringSize.width,
 				height: stringSize.height
 			)
-
+			
 			string.drawInRect(rect)
 		}
 	}
