@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Sam Soffes. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
 class BN0032: ClockView {
 	
@@ -18,10 +18,8 @@ class BN0032: ClockView {
 
 		var description: String {
 			switch self {
-			case .BKBKG:
-				return "Black"
-			case .WHBKG:
-				return "White"
+			case .BKBKG: return "Black"
+			case .WHBKG: return "White"
 			}
 		}
 
@@ -31,28 +29,22 @@ class BN0032: ClockView {
 
 		var faceColor: NSColor {
 			switch self {
-			case .BKBKG:
-				return backgroundColor
-			case .WHBKG:
-				return NSColor(white: 0.996, alpha: 1)
+			case .BKBKG: return backgroundColor
+			case .WHBKG: return lightBackgroundColor
 			}
 		}
 
 		var hourColor: NSColor {
 			switch self {
-			case .BKBKG:
-				return NSColor(white: 0.7, alpha: 1)
-			case .WHBKG:
-				return NSColor(white: 0.3, alpha: 1)
+			case .BKBKG: return NSColor(white: 0.7, alpha: 1)
+			case .WHBKG: return NSColor(white: 0.3, alpha: 1)
 			}
 		}
 
 		var minuteColor: NSColor {
 			switch self {
-			case .BKBKG:
-				return NSColor.whiteColor()
-			case .WHBKG:
-				return NSColor.blackColor()
+			case .BKBKG: return .whiteColor()
+			case .WHBKG: return .blackColor()
 			}
 		}
 

@@ -31,6 +31,8 @@
 		21D595F61A946ADC00D29D3A /* BN0032.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D595F11A94693900D29D3A /* BN0032.swift */; };
 		21D595F81A946E1900D29D3A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D595F71A946E1900D29D3A /* Colors.swift */; };
 		21D595FE1A946EB400D29D3A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D595F71A946E1900D29D3A /* Colors.swift */; };
+		21E232381B5C6C6D003C993B /* BN0142.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E232371B5C6C6D003C993B /* BN0142.swift */; };
+		21E232391B5C6C6D003C993B /* BN0142.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E232371B5C6C6D003C993B /* BN0142.swift */; };
 		21EA95991976428A00E4370A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* MainView.swift */; };
 		21EA959C197645D600E4370A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* MainView.swift */; };
 		21F358441977A2F00080C74A /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* PreferencesWindowController.swift */; };
@@ -62,6 +64,7 @@
 		21D595F11A94693900D29D3A /* BN0032.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BN0032.swift; sourceTree = "<group>"; };
 		21D595F31A94694B00D29D3A /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		21D595F71A946E1900D29D3A /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		21E232371B5C6C6D003C993B /* BN0142.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BN0142.swift; sourceTree = "<group>"; };
 		21EA95981976428A00E4370A /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		21EA95A0197649BE00E4370A /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +96,7 @@
 				216F0AA21A969767005B946B /* BN0021.swift */,
 				21D595F11A94693900D29D3A /* BN0032.swift */,
 				2117D0631A9672600051552F /* BN0111.swift */,
+				21E232371B5C6C6D003C993B /* BN0142.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -301,6 +305,7 @@
 				216F0AA31A969767005B946B /* BN0021.swift in Sources */,
 				21F358741977A6960080C74A /* PreferencesWindowController.swift in Sources */,
 				21D595F41A94694B00D29D3A /* ClockView.swift in Sources */,
+				21E232381B5C6C6D003C993B /* BN0142.swift in Sources */,
 				2117D0641A9672600051552F /* BN0111.swift in Sources */,
 				21EA95991976428A00E4370A /* MainView.swift in Sources */,
 				219E68F819782D5400805FEA /* Preferences.swift in Sources */,
@@ -317,6 +322,7 @@
 				216F0AA41A96985E005B946B /* BN0021.swift in Sources */,
 				21D595F51A946ADC00D29D3A /* ClockView.swift in Sources */,
 				21D595FE1A946EB400D29D3A /* Colors.swift in Sources */,
+				21E232391B5C6C6D003C993B /* BN0142.swift in Sources */,
 				219E68F919782E4100805FEA /* Preferences.swift in Sources */,
 				21EA959C197645D600E4370A /* MainView.swift in Sources */,
 				21F358441977A2F00080C74A /* PreferencesWindowController.swift in Sources */,

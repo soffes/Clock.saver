@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Sam Soffes. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import ScreenSaver
 
 protocol ClockStyle: CustomStringConvertible {

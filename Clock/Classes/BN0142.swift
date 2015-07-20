@@ -1,53 +1,56 @@
 //
-//  BN0021.swift
+//  BN0142.swift
 //  Clock
 //
-//  Created by Sam Soffes on 2/19/15.
-//  Copyright (c) 2015 Sam Soffes. All rights reserved.
+//  Created by Sam Soffes on 7/19/15.
+//  Copyright © 2015 Sam Soffes. All rights reserved.
 //
 
 import AppKit
 
-class BN0021: ClockView {
+class BN0142: ClockView {
 
 	// MARK: - Types
 
 	enum Style: String, ClockStyle {
 		case BKBKG = "BKBKG"
-		case WHBRG = "WHBRG"
+		case BKBRG = "BKBRG"
+		case WHBLG = "WHBLG"
 
 		var description: String {
 			switch self {
 			case .BKBKG: return "Black"
-			case .WHBRG: return "Brown"
+			case .BKBRG: return "Brown"
+			case .WHBLG: return "Blue"
 			}
 		}
 
 		var backgroundColor: NSColor {
 			switch self {
 			case .BKBKG: return darkBackgroundColor
-			case .WHBRG: return NSColor(SRGBRed: 0.298, green: 0.231, blue: 0.204, alpha: 1)
+			case .BKBRG: return NSColor(SRGBRed: 0.443, green: 0.376, blue: 0.345, alpha: 1)
+			case .WHBLG: return blueColor
 			}
 		}
 
 		var faceColor: NSColor {
 			switch self {
-			case .BKBKG: return backgroundColor
-			case .WHBRG: return lightBackgroundColor
+			case .BKBKG, .BKBRG: return darkBackgroundColor
+			default: return lightBackgroundColor
 			}
 		}
 
 		var hourColor: NSColor {
 			switch self {
-			case .BKBKG: return NSColor(white: 0.7, alpha: 1)
-			case .WHBRG: return NSColor(white: 0.3, alpha: 1)
+			case .BKBKG, .BKBRG: return NSColor(white: 0.7, alpha: 1)
+			default: return NSColor(white: 0.3, alpha: 1)
 			}
 		}
 
 		var minuteColor: NSColor {
 			switch self {
-			case .BKBKG: return .whiteColor()
-			case .WHBRG: return .blackColor()
+			case .BKBKG, .BKBRG: return .whiteColor()
+			default: return .blackColor()
 			}
 		}
 
@@ -78,20 +81,11 @@ class BN0021: ClockView {
 	}
 
 	override class var styles: [ClockStyle] {
-		return [Style.BKBKG, Style.WHBRG]
+		return [Style.BKBKG, Style.BKBRG, Style.WHBLG]
 	}
 
 	override func initialize() {
 		super.initialize()
 		style = Style.defaultStyle
-	}
-
-	override func drawTicks() {
-		let color = style.minuteColor
-		drawTicks(minorColor: color.colorWithAlphaComponent(0.5), minorLength: 0.05, minorThickness: 0.003, majorColor: color, majorLength: 0.09, majorThickness: 0.006)
-	}
-
-	override func drawNumbers() {
-		drawNumbers(fontSize: 0.06, radius: 0.39)
 	}
 }
