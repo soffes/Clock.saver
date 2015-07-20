@@ -12,4 +12,4 @@ let darkBackgroundColor = NSColor(SRGBRed: 0.129, green: 0.125, blue: 0.141, alp
 let lightBackgroundColor = NSColor(white: 0.996, alpha: 1)
 let yellowColor = NSColor(SRGBRed: 0.965, green: 0.773, blue: 0.180, alpha: 1)
 let redColor = NSColor(SRGBRed: 0.847, green: 0.227, blue: 0.286, alpha: 1)
-let blueColor = NSColor(SRGBRed: 0.322, green: 0.553, blue: 0.863, alpha: 1)
+let blueColor = NSColor(SRGBRed:0.035, green:0.353, blue:0.592, alpha:1)

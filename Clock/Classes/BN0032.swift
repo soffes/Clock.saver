@@ -104,8 +104,7 @@ class BN0032: ClockView {
 		paragraph.alignment = .Center
 
 		let string = NSAttributedString(string: "\(day)", attributes: [
-			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
-			NSKernAttributeName: -1,
+			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.04)!,
 			NSParagraphStyleAttributeName: paragraph
 			])
 

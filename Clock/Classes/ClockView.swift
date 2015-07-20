@@ -283,7 +283,6 @@ class ClockView: NSView {
 		for i in 0..<count {
 			let string = NSAttributedString(string: "\(count - i)", attributes: [
 				NSForegroundColorAttributeName: color ?? style.minuteColor,
-				NSKernAttributeName: -2,
 				NSFontAttributeName: font
 			])
 
