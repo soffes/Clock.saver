@@ -3,7 +3,7 @@
 //  Clock
 //
 //  Created by Sam Soffes on 2/17/15.
-//  Copyright (c) 2015 Sam Soffes. All rights reserved.
+//  Copyright © 2015 Sam Soffes. All rights reserved.
 //
 
 import AppKit

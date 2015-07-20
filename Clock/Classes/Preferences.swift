@@ -3,7 +3,7 @@
 //  Clock
 //
 //  Created by Sam Soffes on 7/17/14.
-//  Copyright (c) 2014 Sam Soffes. All rights reserved.
+//  Copyright © 2014-2015 Sam Soffes. All rights reserved.
 //
 
 import Cocoa
