@@ -1,20 +1,10 @@
-//
-//  Preferences.swift
-//  Clock
-//
-//  Created by Sam Soffes on 7/17/14.
-//  Copyright (c) 2014 Sam Soffes. All rights reserved.
-//
-
-import Cocoa
+import AppKit
 import ScreenSaver
 
-let BundleIdentifier = "com.samsoffes.clock"
-let ModelDefaultsKey = "SAMModel"
-let StyleDefaultsKey = "SAMStyle"
-let LogoDefaultsKey = "SAMClockLogo"
-let PreferencesDidChangeNotificationName = "SAMClockPreferencesDidChangeNotification"
-let ModelDidChangeNotificationName = "SAMClockModelDidChangeNotification"
+extension Notification.Name {
+	static let PreferencesDidChange = Notification.Name(rawValue: "SAMClockPreferencesDidChangeNotification")
+	static let ModelDidChange = Notification.Name(rawValue: "SAMClockModelDidChangeNotification")
+}
 
 let models: [String: ClockView.Type] = [
 	"BN0021": BN0021.self,
@@ -24,73 +14,83 @@ let models: [String: ClockView.Type] = [
 
 let defaultModel = BN0032.self
 
-class Preferences: NSObject {
+final class Preferences: NSObject {
+
+	// MARK: - Types
+
+	private enum DefaultsKey: String {
+		case model = "SAMModel"
+		case style = "SAMStyle"
+		case logo = "SAMClockLogo"
+
+		var key: String {
+			return rawValue
+		}
+	}
 	
 	// MARK: - Properties
 	
-	private let defaults: NSUserDefaults = ScreenSaverDefaults(forModuleWithName: BundleIdentifier)! as ScreenSaverDefaults
+	private let defaults: UserDefaults = ScreenSaverDefaults(forModuleWithName: Bundle(for: Preferences.self).bundleIdentifier!)!
 
 	var model: ClockView.Type {
 		return models[modelName] ?? defaultModel
 	}
 	
-	var modelName: String {
+	@objc var modelName: String {
 		get {
-			return defaults.stringForKey(ModelDefaultsKey) ?? "BN0032"
+			return defaults.string(forKey: DefaultsKey.model.key) ?? "BN0032"
 		}
 
 		set {
-			defaults.setObject(newValue, forKey: ModelDefaultsKey)
+			defaults.set(newValue, forKey: DefaultsKey.model.key)
 			save()
 
-			NSNotificationCenter.defaultCenter().postNotificationName(ModelDidChangeNotificationName, object: model)
+			NotificationCenter.default.post(name: .ModelDidChange, object: model)
 		}
 	}
 
 	var style: ClockStyle {
 		let styles = model.styles
-		let index = styles.map({ $0.rawValue }).indexOf(styleName) ?? styles.startIndex
+		let index = styles.map { $0.rawValue }.index(of: styleName) ?? styles.startIndex
 		return styles[index]
 	}
 
-	var styleName: String {
+	@objc var styleName: String {
 		get {
-			return defaults.stringForKey(StyleDefaultsKey)!
+			return defaults.string(forKey: DefaultsKey.style.key)!
 		}
 
 		set {
-			defaults.setObject(newValue, forKey: StyleDefaultsKey)
+			defaults.set(newValue, forKey: DefaultsKey.style.key)
 			save()
 		}
 	}
 
-	var drawsLogo: Bool {
+	@objc var drawsLogo: Bool {
 		get {
-			return defaults.boolForKey(LogoDefaultsKey)
+			return defaults.bool(forKey: DefaultsKey.logo.key)
 		}
 
 		set {
-			defaults.setBool(newValue, forKey: LogoDefaultsKey)
+			defaults.set(newValue, forKey: DefaultsKey.logo.key)
 			save()
 		}
 	}
-	
 	
 	// MARK: - Initializers
 
 	override init() {
-		defaults.registerDefaults([
-			ModelDefaultsKey: "BN0032",
-			StyleDefaultsKey: "BKBKG",
-			LogoDefaultsKey: false
+		defaults.register(defaults: [
+			DefaultsKey.model.key: "BN0032",
+			DefaultsKey.style.key: "BKBKG",
+			DefaultsKey.logo.key: false
 		])
 	}
-	
 	
 	// MARK: - Private
 	
 	private func save() {
 		defaults.synchronize()
-		NSNotificationCenter.defaultCenter().postNotificationName(PreferencesDidChangeNotificationName, object: self)
+		NotificationCenter.default.post(name: .PreferencesDidChange, object: self)
 	}
 }

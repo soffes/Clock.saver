@@ -1,70 +1,52 @@
-//
-//  PreferencesWindowController.swift
-//  Clock.saver
-//
-//  Created by Sam Soffes on 7/15/14.
-//  Copyright (c) 2014 Sam Soffes. All rights reserved.
-//
-
-import Cocoa
+import AppKit
 import ScreenSaver
 
-class PreferencesWindowController: NSWindowController {
+final class PreferencesWindowController: NSWindowController {
 	
 	// MARK: - Properties
 
 	@IBOutlet weak var stylePopUpButton: NSPopUpButton!
 
-
-	override var windowNibName: String! {
-		return "Preferences"
+	override var windowNibName: NSNib.Name? {
+		return NSNib.Name(rawValue: "Preferences")
 	}
 
 	private let preferences = Preferences()
-
-
-	// MARK: - Initializers
-
-	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
-	}
-
 
 	// MARK: - NSObject
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelDidChange:", name: ModelDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange), name: .ModelDidChange, object: nil)
 
 		stylePopUpButton.removeAllItems()
 
 		let styles = preferences.model.styles
-		stylePopUpButton.addItemsWithTitles(styles.map({ $0.description }))
+		stylePopUpButton.addItems(withTitles: styles.map({ $0.description }))
 
-		let index = styles.map({ $0.rawValue }).indexOf(preferences.styleName) ?? styles.startIndex
-		stylePopUpButton.selectItemAtIndex(index)
+		let index = styles.map { $0.rawValue }.index(of: preferences.styleName) ?? styles.startIndex
+		stylePopUpButton.selectItem(at: index)
 	}
 	
 	
 	// MARK: - Actions
 
-	@IBAction func selectStyle(sender: AnyObject?) {
+	@IBAction func selectStyle(_ sender: Any?) {
 		preferences.styleName = preferences.model.styles[stylePopUpButton.indexOfSelectedItem].rawValue
 	}
 
-	@IBAction func close(sender: AnyObject?) {
-		NSApp.endSheet(window!)
+	@IBAction func close(_ sender: Any?) {
+		window?.close()
 	}
-
 
 	// MARK: - Private
 
-	func modelDidChange(notification: NSNotification?) {
+	@objc private func modelDidChange(_ notification: NSNotification?) {
 		stylePopUpButton.removeAllItems()
-		stylePopUpButton.addItemsWithTitles(preferences.model.styles.map({ $0.description }))
+		stylePopUpButton.addItems(withTitles: preferences.model.styles.map { $0.description })
 		
-		stylePopUpButton.selectItemAtIndex(0)
+		stylePopUpButton.selectItem(at: 0)
 		selectStyle(stylePopUpButton)
 	}
 }

@@ -1,11 +1,3 @@
-//
-//  ClockView.swift
-//  Clock.saver
-//
-//  Created by Sam Soffes on 7/15/14.
-//  Copyright (c) 2014 Sam Soffes. All rights reserved.
-//
-
 import AppKit
 import ScreenSaver
 
@@ -21,7 +13,7 @@ class MainView: ScreenSaverView {
 
 		didSet {
 			if let clockView = clockView {
-				clockView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+				clockView.autoresizingMask = [.width, .height]
 				addSubview(clockView)
 			}
 		}
@@ -32,7 +24,6 @@ class MainView: ScreenSaverView {
 		controller.loadWindow()
 		return controller
 	}()
-
 
 	// MARK: - Initializers
 
@@ -46,27 +37,21 @@ class MainView: ScreenSaverView {
 		initialize()
 	}
 
-
 	// MARK: - ScreenSaverView
 
 	override func animateOneFrame() {
 		if let clockView = clockView {
-			clockView.setNeedsDisplayInRect(clockView.clockFrame)
+			clockView.setNeedsDisplay(clockView.clockFrame)
 		}
 	}
 
-	override func hasConfigureSheet() -> Bool {
+	override var hasConfigureSheet: Bool {
 		return true
 	}
 
-	override func configureSheet() -> NSWindow? {
+	override var configureSheet: NSWindow? {
 		return preferencesWindowController.window
 	}
-
-	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
-	}
-
 
 	// MARK: - Private
 
@@ -74,11 +59,11 @@ class MainView: ScreenSaverView {
 		animationTimeInterval = 1.0 / 4.0
 		wantsLayer = true
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: PreferencesDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange), name: .PreferencesDidChange, object: nil)
 		preferencesDidChange(nil)
 	}
 
-	func preferencesDidChange(notification: NSNotification?) {
+	@objc private func preferencesDidChange(_ notification: NSNotification?) {
 		let preferences = (notification?.object as? Preferences) ?? Preferences()
 		let view = preferences.model.init(frame: bounds)
 		view.styleName = preferences.styleName

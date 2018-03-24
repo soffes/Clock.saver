@@ -1,80 +1,75 @@
-//
-//  BN0032.swift
-//  Clock.saver
-//
-//  Created by Sam Soffes on 2/17/15.
-//  Copyright (c) 2015 Sam Soffes. All rights reserved.
-//
+import AppKit
 
-import Cocoa
-
-class BN0032: ClockView {
+final class BN0032: ClockView {
 	
 	// MARK: - Types
 
 	enum Style: String, ClockStyle {
-		case BKBKG = "BKBKG"
-		case WHBKG = "WHBKG"
+		case bkbkg = "BKBKG"
+		case whbkg = "WHBKG"
 
 		var description: String {
 			switch self {
-			case .BKBKG:
+			case .bkbkg:
 				return "Black"
-			case .WHBKG:
+			case .whbkg:
 				return "White"
 			}
 		}
 
 		var backgroundColor: NSColor {
-			return darkBackgroundColor
+			return Color.darkBackground
 		}
 
 		var faceColor: NSColor {
 			switch self {
-			case .BKBKG:
+			case .bkbkg:
 				return backgroundColor
-			case .WHBKG:
+			case .whbkg:
 				return NSColor(white: 0.996, alpha: 1)
 			}
 		}
 
 		var hourColor: NSColor {
 			switch self {
-			case .BKBKG:
+			case .bkbkg:
 				return NSColor(white: 0.7, alpha: 1)
-			case .WHBKG:
+			case .whbkg:
 				return NSColor(white: 0.3, alpha: 1)
 			}
 		}
 
 		var minuteColor: NSColor {
 			switch self {
-			case .BKBKG:
-				return NSColor.whiteColor()
-			case .WHBKG:
-				return NSColor.blackColor()
+			case .bkbkg:
+				return Color.white
+			case .whbkg:
+				return Color.black
 			}
 		}
 
 		var secondColor: NSColor {
-			return yellowColor
+			return Color.yellow
 		}
 
 		var logoColor: NSColor {
 			return minuteColor
 		}
 
-		static var defaultStyle: ClockStyle {
-			return Style.BKBKG
+		static var `default`: ClockStyle {
+			return Style.bkbkg
+		}
+
+		static var all: [ClockStyle] {
+			return [Style.bkbkg, Style.whbkg]
 		}
 	}
-
 
 	// MARK: - ClockView
 
 	override var styleName: String {
 		set {
-			style = Style(rawValue: newValue) ?? Style.defaultStyle
+			style = Style(rawValue: newValue) ?? Style.default
 		}
 
 		get {
@@ -83,20 +78,20 @@ class BN0032: ClockView {
 	}
 
 	override class var styles: [ClockStyle] {
-		return [Style.BKBKG, Style.WHBKG]
+		return Style.all
 	}
 
 	override func initialize() {
 		super.initialize()
-		style = Style.defaultStyle
+		style = Style.default
 	}
 
-	override func drawDay(day: Int) {
-		let dateArrowColor = redColor
-		let dateBackgroundColor = NSColor(SRGBRed: 0.894, green: 0.933, blue: 0.965, alpha: 1)
+	override func draw(day: Int) {
+		let dateArrowColor = Color.red
+		let dateBackgroundColor = NSColor(srgbRed: 0.894, green: 0.933, blue: 0.965, alpha: 1)
 		let clockWidth = clockFrame.size.width
 		let dateWidth = clockWidth * 0.057416268
-		var dateFrame = CGRect(
+		let dateFrame = CGRect(
 			x: clockFrame.origin.x + ((clockWidth - dateWidth) / 2.0),
 			y: clockFrame.origin.y + (clockWidth * 0.199362041),
 			width: dateWidth,
@@ -104,22 +99,22 @@ class BN0032: ClockView {
 		)
 
 		dateBackgroundColor.setFill()
-		NSBezierPath.fillRect(dateFrame)
+		NSBezierPath.fill(dateFrame)
 
 		style.minuteColor.setFill()
 
 		let paragraph = NSMutableParagraphStyle()
-		paragraph.alignment = .Center
+		paragraph.alignment = .center
 
 		let string = NSAttributedString(string: "\(day)", attributes: [
-			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
-			NSKernAttributeName: -1,
-			NSParagraphStyleAttributeName: paragraph
-			])
+			.font: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
+			.kern: -1,
+			.paragraphStyle: paragraph
+		])
 
 		var stringFrame = dateFrame
 		stringFrame.origin.y -= dateFrame.size.height * 0.12
-		string.drawInRect(stringFrame)
+		string.draw(in: stringFrame)
 
 		dateArrowColor.setFill()
 		let y = dateFrame.maxY + (clockWidth * 0.015948963)
@@ -127,12 +122,12 @@ class BN0032: ClockView {
 		let pointDip = clockWidth * 0.009569378
 
 		let path = NSBezierPath()
-		path.moveToPoint(CGPoint(x: dateFrame.minX, y: y))
-		path.lineToPoint(CGPoint(x: dateFrame.minX, y: y - height))
-		path.lineToPoint(CGPoint(x: dateFrame.midX, y: y - height - pointDip))
-		path.lineToPoint(CGPoint(x: dateFrame.maxX, y: y - height))
-		path.lineToPoint(CGPoint(x: dateFrame.maxX, y: y))
-		path.lineToPoint(CGPoint(x: dateFrame.midX, y: y - pointDip))
+		path.move(to: CGPoint(x: dateFrame.minX, y: y))
+		path.line(to: CGPoint(x: dateFrame.minX, y: y - height))
+		path.line(to: CGPoint(x: dateFrame.midX, y: y - height - pointDip))
+		path.line(to: CGPoint(x: dateFrame.maxX, y: y - height))
+		path.line(to: CGPoint(x: dateFrame.maxX, y: y))
+		path.line(to: CGPoint(x: dateFrame.midX, y: y - pointDip))
 		path.fill()
 	}
 }

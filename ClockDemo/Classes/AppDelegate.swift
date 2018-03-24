@@ -1,24 +1,15 @@
-//
-//  AppDelegate.swift
-//  Clock
-//
-//  Created by Sam Soffes on 7/15/14.
-//  Copyright (c) 2014 Sam Soffes. All rights reserved.
-//
-
-import Cocoa
+import AppKit
 import ScreenSaver
 
-@NSApplicationMain
-class AppDelegate: NSObject {
+@NSApplicationMain final class AppDelegate: NSObject {
 	
 	// MARK: - Properties
 
 	@IBOutlet var window: NSWindow!
 	
 	let view: ScreenSaverView! = {
-		let view = MainView(frame: CGRectZero, isPreview: false)
-		view?.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+		let view = MainView(frame: .zero, isPreview: false)
+		view?.autoresizingMask = [.width, .height]
 		return view
 	}()
 
@@ -26,25 +17,24 @@ class AppDelegate: NSObject {
 	// MARK: - Initializers
 
 	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	
 	// MARK: - Actions
 	
-	@IBAction func showPreferences(sender: NSObject!) {
-		guard let sheet = view.configureSheet() else { return }
-		NSApp.beginSheet(sheet, modalForWindow: window, modalDelegate: self, didEndSelector: "endSheet:", contextInfo: nil)
+	@IBAction func showPreferences(_ sender: Any?) {
+		guard let sheet = view.configureSheet else { return }
+
+		window.beginSheet(sheet) { [weak sheet] _ in
+			sheet?.close()
+		}
 	}
 	
 	
 	// MARK: - Private
-	
-	@objc private func endSheet(sheet: NSWindow) {
-		sheet.close()
-	}
 
-	@objc private func preferencesDidChange(notification: NSNotification?) {
+	@objc private func preferencesDidChange(_ notification: NSNotification?) {
 		let preferences = (notification?.object as? Preferences) ?? Preferences()
 		window.title = "Clock.saver — \(preferences.modelName)\(preferences.styleName)"
 	}
@@ -52,24 +42,28 @@ class AppDelegate: NSObject {
 
 
 extension AppDelegate: NSApplicationDelegate {
-	func applicationDidFinishLaunching(notification: NSNotification) {
+	func applicationDidFinishLaunching(_ notification: Notification) {
+		guard let contentView = window.contentView else {
+			fatalError("Missing window content view")
+		}
+
 		// Add the clock view to the window
-		view.frame = window.contentView.bounds
-		window.contentView.addSubview(view)
+		view.frame = contentView.bounds
+		contentView.addSubview(view)
 		
 		// Start animating the clock
 		view.startAnimation()
-		NSTimer.scheduledTimerWithTimeInterval(view.animationTimeInterval, target: view, selector: "animateOneFrame", userInfo: nil, repeats: true)
+		Timer.scheduledTimer(timeInterval: view.animationTimeInterval, target: view, selector: #selector(ScreenSaverView.animateOneFrame), userInfo: nil, repeats: true)
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: PreferencesDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange), name: .PreferencesDidChange, object: nil)
 		preferencesDidChange(nil)
 	}
 }
 
 
 extension AppDelegate: NSWindowDelegate {
-	func windowWillClose(notification: NSNotification) {
+	func windowWillClose(_ notification: Notification) {
 		// Quit the app if the main window is closed
-		NSApplication.sharedApplication().terminate(window)
+		NSApplication.shared.terminate(window)
 	}
 }

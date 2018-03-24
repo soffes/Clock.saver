@@ -1,85 +1,80 @@
-//
-//  BN0021.swift
-//  Clock
-//
-//  Created by Sam Soffes on 2/19/15.
-//  Copyright (c) 2015 Sam Soffes. All rights reserved.
-//
+import AppKit
 
-import Cocoa
-
-class BN0021: ClockView {
+final class BN0021: ClockView {
 
 	// MARK: - Types
 
 	enum Style: String, ClockStyle {
-		case BKBKG = "BKBKG"
-		case WHBRG = "WHBRG"
+		case bkbkg = "BKBKG"
+		case whbrg = "WHBRG"
 
 		var description: String {
 			switch self {
-			case .BKBKG:
+			case .bkbkg:
 				return "Black"
-			case .WHBRG:
+			case .whbrg:
 				return "Brown"
 			}
 		}
 
 		var backgroundColor: NSColor {
 			switch self {
-			case .BKBKG:
-				return darkBackgroundColor
-			case .WHBRG:
-				return NSColor(SRGBRed: 0.298, green: 0.231, blue: 0.204, alpha: 1)
+			case .bkbkg:
+				return Color.darkBackground
+			case .whbrg:
+				return NSColor(srgbRed: 0.298, green: 0.231, blue: 0.204, alpha: 1)
 			}
 		}
 
 		var faceColor: NSColor {
 			switch self {
-			case .BKBKG:
+			case .bkbkg:
 				return backgroundColor
-			case .WHBRG:
+			case .whbrg:
 				return NSColor(white: 0.996, alpha: 1)
 			}
 		}
 
 		var hourColor: NSColor {
 			switch self {
-			case .BKBKG:
+			case .bkbkg:
 				return NSColor(white: 0.7, alpha: 1)
-			case .WHBRG:
+			case .whbrg:
 				return NSColor(white: 0.3, alpha: 1)
 			}
 		}
 
 		var minuteColor: NSColor {
 			switch self {
-			case .BKBKG:
-				return NSColor.whiteColor()
-			case .WHBRG:
-				return NSColor.blackColor()
+			case .bkbkg:
+				return Color.white
+			case .whbrg:
+				return Color.black
 			}
 		}
 
 		var secondColor: NSColor {
-			return yellowColor
+			return Color.yellow
 		}
 
 		var logoColor: NSColor {
 			return minuteColor
 		}
 
-		static var defaultStyle: ClockStyle {
-			return Style.BKBKG
+		static var `default`: ClockStyle {
+			return Style.bkbkg
+		}
+
+		static var all: [ClockStyle] {
+			return [Style.bkbkg, Style.whbrg]
 		}
 	}
-
 
 	// MARK: - ClockView
 
 	override var styleName: String {
 		set {
-			style = Style(rawValue: newValue) ?? Style.defaultStyle
+			style = Style(rawValue: newValue) ?? Style.default
 		}
 
 		get {
@@ -88,17 +83,17 @@ class BN0021: ClockView {
 	}
 
 	override class var styles: [ClockStyle] {
-		return [Style.BKBKG, Style.WHBRG]
+		return Style.all
 	}
 
 	override func initialize() {
 		super.initialize()
-		style = Style.defaultStyle
+		style = Style.default
 	}
 
 	override func drawTicks() {
 		let color = style.minuteColor
-		drawTicks(minorColor: color.colorWithAlphaComponent(0.5), minorLength: 0.05, minorThickness: 0.003, majorColor: color, majorLength: 0.09, majorThickness: 0.006)
+		drawTicks(minorColor: color.withAlphaComponent(0.5), minorLength: 0.05, minorThickness: 0.003, majorColor: color, majorLength: 0.09, majorThickness: 0.006)
 	}
 
 	override func drawNumbers() {
