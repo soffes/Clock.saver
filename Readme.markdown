@@ -2,7 +2,7 @@
 
 Just a little Mac screensaver inspired by the [Braun watches](http://braun-clocks.com/watches). You pick a model and style. Here’s a screenshot:
 
-![Screenshot](http://soff.me/UOr3/clock-screenshot-0.3.0.png)
+![Screenshot](https://cdn.dribbble.com/users/1573/screenshots/1460483/clock.png)
 
 
 ## Installation
