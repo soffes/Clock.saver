@@ -5,6 +5,10 @@ class ClockView: NSView {
 
 	// MARK: - Properties
 
+	class var modelName: String {
+		fatalError("Unimplemented")
+	}
+
 	var drawsLogo = false
 	var logoImage: NSImage?
 	var clockFrame: CGRect {

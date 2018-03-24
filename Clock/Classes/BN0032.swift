@@ -67,6 +67,10 @@ final class BN0032: ClockView {
 
 	// MARK: - ClockView
 
+	override class var modelName: String {
+		return "BN0032"
+	}
+
 	override var styleName: String {
 		set {
 			style = Style(rawValue: newValue) ?? Style.default

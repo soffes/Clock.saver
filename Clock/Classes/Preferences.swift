@@ -6,14 +6,6 @@ extension Notification.Name {
 	static let ModelDidChange = Notification.Name(rawValue: "SAMClockModelDidChangeNotification")
 }
 
-let models: [String: ClockView.Type] = [
-	"BN0021": BN0021.self,
-	"BN0032": BN0032.self,
-	"BN0111": BN0111.self
-]
-
-let defaultModel = BN0032.self
-
 final class Preferences: NSObject {
 
 	// MARK: - Types
@@ -32,13 +24,21 @@ final class Preferences: NSObject {
 	
 	private let defaults: UserDefaults = ScreenSaverDefaults(forModuleWithName: Bundle(for: Preferences.self).bundleIdentifier!)!
 
+	private let models = [
+		BN0021.self,
+		BN0032.self,
+		BN0111.self
+	]
+
+	private let defaultModel = BN0032.self
+
 	var model: ClockView.Type {
-		return models[modelName] ?? defaultModel
+		return models.first { $0.modelName == modelName } ?? defaultModel
 	}
 	
 	@objc var modelName: String {
 		get {
-			return defaults.string(forKey: DefaultsKey.model.key) ?? "BN0032"
+			return defaults.string(forKey: DefaultsKey.model.key) ?? defaultModel.modelName
 		}
 
 		set {
@@ -81,8 +81,8 @@ final class Preferences: NSObject {
 
 	override init() {
 		defaults.register(defaults: [
-			DefaultsKey.model.key: "BN0032",
-			DefaultsKey.style.key: "BKBKG",
+			DefaultsKey.model.key: defaultModel.modelName,
+			DefaultsKey.style.key: defaultModel.Style.default.rawValue,
 			DefaultsKey.logo.key: false
 		])
 	}

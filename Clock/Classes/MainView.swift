@@ -1,7 +1,7 @@
 import AppKit
 import ScreenSaver
 
-class MainView: ScreenSaverView {
+final class MainView: ScreenSaverView {
 
 	// MARK: - Properties
 
