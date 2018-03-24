@@ -17,7 +17,7 @@ Don’t forget to check out “Screen Saver Options…” in System Preferences.
 
 ## Building
 
-Xcode 7b3 is required since Clock.saver is written in Swift 2.
+Xcode 9.3b4 is required since Clock.saver is written in Swift 4.1.
 
 
 ## Watch Faces
