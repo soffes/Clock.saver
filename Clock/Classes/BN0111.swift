@@ -50,15 +50,6 @@ final class BN0111: ClockView {
 			}
 		}
 
-		var hourColor: NSColor {
-			switch self {
-			case .whblg, .whgyg:
-				return NSColor(white: 0.3, alpha: 1)
-			default:
-				return NSColor(white: 0.7, alpha: 1)
-			}
-		}
-
 		var minuteColor: NSColor {
 			switch self {
 			case .whblg, .whgyg:
@@ -66,14 +57,6 @@ final class BN0111: ClockView {
 			default:
 				return Color.white
 			}
-		}
-
-		var secondColor: NSColor {
-			return Color.yellow
-		}
-
-		var logoColor: NSColor {
-			return minuteColor
 		}
 
 		static var `default`: ClockStyle {

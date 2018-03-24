@@ -17,25 +17,12 @@ final class BN0032: ClockView {
 			}
 		}
 
-		var backgroundColor: NSColor {
-			return Color.darkBackground
-		}
-
 		var faceColor: NSColor {
 			switch self {
 			case .bkbkg:
 				return backgroundColor
 			case .whbkg:
 				return NSColor(white: 0.996, alpha: 1)
-			}
-		}
-
-		var hourColor: NSColor {
-			switch self {
-			case .bkbkg:
-				return NSColor(white: 0.7, alpha: 1)
-			case .whbkg:
-				return NSColor(white: 0.3, alpha: 1)
 			}
 		}
 
@@ -46,14 +33,6 @@ final class BN0032: ClockView {
 			case .whbkg:
 				return Color.black
 			}
-		}
-
-		var secondColor: NSColor {
-			return Color.yellow
-		}
-
-		var logoColor: NSColor {
-			return minuteColor
 		}
 
 		static var `default`: ClockStyle {

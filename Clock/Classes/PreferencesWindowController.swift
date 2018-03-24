@@ -5,6 +5,7 @@ final class PreferencesWindowController: NSWindowController {
 	
 	// MARK: - Properties
 
+	@IBOutlet weak var modelPopUpButton: NSPopUpButton!
 	@IBOutlet weak var stylePopUpButton: NSPopUpButton!
 
 	override var windowNibName: NSNib.Name? {
@@ -22,8 +23,11 @@ final class PreferencesWindowController: NSWindowController {
 
 		stylePopUpButton.removeAllItems()
 
+		let models = preferences.models
+		modelPopUpButton.addItems(withTitles: models.map { $0.modelName })
+
 		let styles = preferences.model.styles
-		stylePopUpButton.addItems(withTitles: styles.map({ $0.description }))
+		stylePopUpButton.addItems(withTitles: styles.map { $0.description })
 
 		let index = styles.map { $0.rawValue }.index(of: preferences.styleName) ?? styles.startIndex
 		stylePopUpButton.selectItem(at: index)

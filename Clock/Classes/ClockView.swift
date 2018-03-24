@@ -15,6 +15,10 @@ class ClockView: NSView {
 		return clockFrame(forBounds: bounds)
 	}
 
+	var fontName: String {
+		return "HelveticaNeue-Light"
+	}
+
 	var style: ClockStyle!
 
 	var styleName: String {
@@ -246,7 +250,7 @@ class ClockView: NSView {
 
 		let clockWidth = clockFrame.size.width
 		let textRadius = clockWidth * CGFloat(radius)
-		let font = NSFont(name: "HelveticaNeue-Light", size: clockWidth * fontSize)!
+		let font = NSFont(name: fontName, size: clockWidth * fontSize)!
 
 		for i in 0..<12 {
 			let string = NSAttributedString(string: "\(12 - i)", attributes: [
