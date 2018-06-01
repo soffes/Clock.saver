@@ -9,6 +9,11 @@ Just a little Mac screensaver inspired by the [Braun watches](http://braun-clock
 
 **[Download the latest release](https://github.com/soffes/clock-saver/releases).** Unzip and double-click.
 
+Alternatively, if you're using [Homebrew](https://brew.sh), you can run:
+```
+$ brew cask install clocksaver
+```
+
 
 ## Preferences
 
