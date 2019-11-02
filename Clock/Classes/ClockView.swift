@@ -97,7 +97,7 @@ class ClockView: NSView {
 	// MARK: - Drawing Hooks
 
 	func drawTicks() {
-		drawTicksDivider(color: style.backgroundColor.withAlphaComponent(0.05), position: 0.074960128)
+		drawTicksDivider(color: style.backgroundColor.withAlphaComponent(0.1), position: 0.074960128)
 
 		let color = style.minuteColor
 		drawTicks(minorColor: color.withAlphaComponent(0.5), minorLength: 0.049441786, minorThickness: 0.004784689,
@@ -221,42 +221,46 @@ class ClockView: NSView {
 		ticksPath.stroke()
 	}
 
-	func drawTicks(minorColor: NSColor, minorLength: Double, minorThickness: Double,
-                   majorColor: NSColor? = nil, majorLength: Double? = nil,
-                   majorThickness: Double? = nil, inset: Double = 0.0)
+    func drawTicks(minorColor: NSColor, minorLength: Double, minorThickness: Double, majorColor: NSColor? = nil,
+                   majorLength: Double? = nil, majorThickness: Double? = nil, inset: Double = 0)
     {
-		let majorColor = majorColor ?? minorColor
-		let majorLength = majorLength ?? minorLength
-		let majorThickness = majorThickness ?? minorThickness
-		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
+        // Minor
+        let minorValues = [1...14, 16...29, 31...44, 46...59].flatMap { Array($0) }
+        drawTicks(values: minorValues, color: minorColor, length: minorLength, thickness: minorThickness,
+                  inset: inset)
 
-		// Ticks
-		let clockWidth = clockFrame.size.width
-		let tickRadius = (clockWidth / 2.0) - (clockWidth * CGFloat(inset))
-		for i in 0..<60 {
-			let isMajor = (i % 5) == 0
-			let tickLength = clockWidth * CGFloat(isMajor ? majorLength : minorLength)
-			let progress = Double(i) / 60.0
-			let angle = CGFloat(-(progress * .pi * 2) + .pi / 2)
-
-			let tickColor = isMajor ? majorColor : minorColor
-			tickColor.setStroke()
-
-			let tickPath = NSBezierPath()
-			tickPath.move(to: CGPoint(
-				x: center.x + cos(angle) * (tickRadius - tickLength),
-				y: center.y + sin(angle) * (tickRadius - tickLength)
-			))
-
-			tickPath.line(to: CGPoint(
-				x: center.x + cos(angle) * tickRadius,
-				y: center.y + sin(angle) * tickRadius
-			))
-
-			tickPath.lineWidth = CGFloat(ceil(Double(clockWidth) * (isMajor ? majorThickness : minorThickness)))
-			tickPath.stroke()
-		}
+        // Major
+        drawTicks(values: [0, 15, 30, 45], color: majorColor ?? minorColor, length: majorLength ?? minorLength,
+                  thickness: majorThickness ?? minorThickness, inset: inset)
 	}
+
+    func drawTicks(values: [Int], color: NSColor, length: Double, thickness: Double, inset: Double) {
+        let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
+        let clockWidth = clockFrame.width
+
+        let tickRadius = (clockWidth / 2) - (clockWidth * CGFloat(inset))
+        for i in values {
+            let tickLength = clockWidth * CGFloat(length)
+            let progress = Double(i) / 60
+            let angle = CGFloat(-(progress * .pi * 2) + .pi / 2)
+
+            color.setStroke()
+
+            let tickPath = NSBezierPath()
+            tickPath.move(to: CGPoint(
+                x: center.x + cos(angle) * (tickRadius - tickLength),
+                y: center.y + sin(angle) * (tickRadius - tickLength)
+            ))
+
+            tickPath.line(to: CGPoint(
+                x: center.x + cos(angle) * tickRadius,
+                y: center.y + sin(angle) * tickRadius
+            ))
+
+            tickPath.lineWidth = ceil(clockWidth) * CGFloat(thickness)
+            tickPath.stroke()
+        }
+    }
 
 	func drawNumbers(fontSize: CGFloat, radius: Double) {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
