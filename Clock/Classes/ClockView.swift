@@ -225,7 +225,7 @@ class ClockView: NSView {
                    majorLength: Double? = nil, majorThickness: Double? = nil, inset: Double = 0)
     {
         // Major
-        let majorValues = Array(stride(from: 0, to: 55, by: 5))
+        let majorValues = Array(stride(from: 0, to: 60, by: 5))
         drawTicks(values: majorValues, color: majorColor ?? minorColor, length: majorLength ?? minorLength,
                   thickness: majorThickness ?? minorThickness, inset: inset)
 
