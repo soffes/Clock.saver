@@ -32,6 +32,7 @@ final class BN0095: ClockView {
     private let minorTicksInset = 0.062
     private let minorTicksLength = 0.039
     private let minorTicksThickness = 0.004
+    private let outerMinorTicksInset = 0.009
 
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
 
@@ -66,23 +67,31 @@ final class BN0095: ClockView {
 
         // Outer ring
         drawTicksDivider(color: NSColor.white.withAlphaComponent(0.1), position: outerRingWidth)
-        drawTicks(values: [0, 15, 30, 45], color: ticksColor, length: outerRingWidth, thickness: majorTicksThickness,
+
+        // Major outer
+        let majorValues = Array(stride(from: 0, to: 55, by: 5))
+        drawTicks(values: majorValues, color: ticksColor, length: outerRingWidth, thickness: majorTicksThickness,
                   inset: 0)
+
+        // Minor outer
+        let outerMinorValues = Array(21...39).filter { !majorValues.contains($0) }
+        drawTicks(values: outerMinorValues, color: ticksColor, length: minorTicksThickness,
+                  thickness: minorTicksThickness, inset: outerMinorTicksInset)
 
         // Inner ring
         drawTicksDivider(color: NSColor.white.withAlphaComponent(0.1), position: innerRingWidth)
 
+        // Major
+        drawTicks(values: majorValues, color: ticksColor, length: majorTicksLength, thickness: majorTicksThickness,
+                  inset: majorTicksInset)
+
         // Minor
-        let minorValues = [1...14, 16...29, 31...44, 46...59].flatMap { Array($0) }
+        let minorValues = Array(1...59).filter { !majorValues.contains($0) }
         drawTicks(values: minorValues, color: ticksColor, length: minorTicksLength, thickness: minorTicksThickness,
                   inset: minorTicksInset)
-
-        // Major
-        drawTicks(values: [0, 15, 30, 45], color: ticksColor, length: majorTicksLength,
-                  thickness: majorTicksThickness, inset: majorTicksInset)
     }
 
     override func drawNumbers() {
-        drawNumbers(fontSize: 0.038, radius: 0.381)
+        drawNumbers(fontSize: 0.059, radius: 0.381)
     }
 }

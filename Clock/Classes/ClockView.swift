@@ -224,14 +224,15 @@ class ClockView: NSView {
     func drawTicks(minorColor: NSColor, minorLength: Double, minorThickness: Double, majorColor: NSColor? = nil,
                    majorLength: Double? = nil, majorThickness: Double? = nil, inset: Double = 0)
     {
+        // Major
+        let majorValues = Array(stride(from: 0, to: 55, by: 5))
+        drawTicks(values: majorValues, color: majorColor ?? minorColor, length: majorLength ?? minorLength,
+                  thickness: majorThickness ?? minorThickness, inset: inset)
+
         // Minor
-        let minorValues = [1...14, 16...29, 31...44, 46...59].flatMap { Array($0) }
+        let minorValues = Array(1...59).filter { !majorValues.contains($0) }
         drawTicks(values: minorValues, color: minorColor, length: minorLength, thickness: minorThickness,
                   inset: inset)
-
-        // Major
-        drawTicks(values: [0, 15, 30, 45], color: majorColor ?? minorColor, length: majorLength ?? minorLength,
-                  thickness: majorThickness ?? minorThickness, inset: inset)
 	}
 
     func drawTicks(values: [Int], color: NSColor, length: Double, thickness: Double, inset: Double) {
