@@ -59,7 +59,8 @@ final class MainView: ScreenSaverView {
 		animationTimeInterval = 1.0 / 4.0
 		wantsLayer = true
 
-		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange), name: .PreferencesDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange),
+                                               name: .PreferencesDidChange, object: nil)
 		preferencesDidChange(nil)
 	}
 

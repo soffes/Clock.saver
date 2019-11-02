@@ -8,7 +8,7 @@ final class PreferencesWindowController: NSWindowController {
 	@IBOutlet weak var stylePopUpButton: NSPopUpButton!
 
 	override var windowNibName: NSNib.Name? {
-		return NSNib.Name(rawValue: "Preferences")
+		return "Preferences"
 	}
 
 	private let preferences = Preferences()
@@ -18,14 +18,15 @@ final class PreferencesWindowController: NSWindowController {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange), name: .ModelDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(modelDidChange), name: .ModelDidChange,
+                                               object: nil)
 
 		stylePopUpButton.removeAllItems()
 
 		let styles = preferences.model.styles
 		stylePopUpButton.addItems(withTitles: styles.map({ $0.description }))
 
-		let index = styles.map { $0.rawValue }.index(of: preferences.styleName) ?? styles.startIndex
+		let index = styles.map { $0.rawValue }.firstIndex(of: preferences.styleName) ?? styles.startIndex
 		stylePopUpButton.selectItem(at: index)
 	}
 	

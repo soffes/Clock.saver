@@ -78,7 +78,8 @@ class ClockView: NSView {
 	// MARK: - Configuration
 
 	func initialize() {
-		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange), name: .PreferencesDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange),
+                                               name: .PreferencesDidChange, object: nil)
 		preferencesDidChange(nil)
 	}
 
@@ -86,7 +87,8 @@ class ClockView: NSView {
 		let size = bounds.size
 		let clockSize = min(size.width, size.height) * 0.55
 
-		let rect = CGRect(x: (size.width - clockSize) / 2.0, y: (size.height - clockSize) / 2.0, width: clockSize, height: clockSize)
+		let rect = CGRect(x: (size.width - clockSize) / 2.0, y: (size.height - clockSize) / 2.0, width: clockSize,
+                          height: clockSize)
 		return rect.integral
 	}
 
@@ -96,7 +98,8 @@ class ClockView: NSView {
 		drawTicksDivider(color: style.backgroundColor.withAlphaComponent(0.05), position: 0.074960128)
 
 		let color = style.minuteColor
-		drawTicks(minorColor: color.withAlphaComponent(0.5), minorLength: 0.049441786, minorThickness: 0.004784689, majorColor: color, majorThickness: 0.009569378, inset: 0.014)
+		drawTicks(minorColor: color.withAlphaComponent(0.5), minorLength: 0.049441786, minorThickness: 0.004784689,
+                  majorColor: color, majorThickness: 0.009569378, inset: 0.014)
 	}
 
 	func drawLogo() {
@@ -131,15 +134,17 @@ class ClockView: NSView {
 		drawHand(length: 0.391547049, thickness: 0.009569378, angle: angle)
 
 		// Counterweight
-		drawHand(length: -0.076555024, thickness: 0.028708134, angle: angle, lineCapStyle: .roundLineCapStyle)
+		drawHand(length: -0.076555024, thickness: 0.028708134, angle: angle, lineCapStyle: .round)
 		let nubSize = clockFrame.size.width * 0.052631579
-		let nubFrame = CGRect(x: (bounds.size.width - nubSize) / 2.0, y: (bounds.size.height - nubSize) / 2.0, width: nubSize, height: nubSize)
+		let nubFrame = CGRect(x: (bounds.size.width - nubSize) / 2.0, y: (bounds.size.height - nubSize) / 2.0,
+                              width: nubSize, height: nubSize)
 		NSBezierPath(ovalIn: nubFrame).fill()
 
 		// Screw
 		let dotSize = clockFrame.size.width * 0.006379585
 		Color.black.setFill()
-		let screwFrame = CGRect(x: (bounds.size.width - dotSize) / 2.0, y: (bounds.size.height - dotSize) / 2.0, width: dotSize, height: dotSize)
+		let screwFrame = CGRect(x: (bounds.size.width - dotSize) / 2.0, y: (bounds.size.height - dotSize) / 2.0,
+                                width: dotSize, height: dotSize)
 		let screwPath = NSBezierPath(ovalIn: screwFrame.integral)
 		screwPath.fill()
 	}
@@ -147,7 +152,7 @@ class ClockView: NSView {
 
 	// MARK: - Drawing Helpers
 
-	func drawHand(length: Double, thickness: Double, angle: Double, lineCapStyle: NSBezierPath.LineCapStyle = .squareLineCapStyle) {
+	func drawHand(length: Double, thickness: Double, angle: Double, lineCapStyle: NSBezierPath.LineCapStyle = .square) {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		let clockWidth = Double(clockFrame.size.width)
 		let end = CGPoint(
@@ -201,16 +206,20 @@ class ClockView: NSView {
 
 	func drawTicksDivider(color: NSColor, position: Double) {
 		color.setStroke()
-		let ticksFrame = clockFrame.insetBy(dx: clockFrame.size.width * CGFloat(position), dy: clockFrame.size.width * CGFloat(position))
+		let ticksFrame = clockFrame.insetBy(dx: clockFrame.size.width * CGFloat(position),
+                                            dy: clockFrame.size.width * CGFloat(position))
 		let ticksPath = NSBezierPath(ovalIn: ticksFrame)
 		ticksPath.lineWidth = 1
 		ticksPath.stroke()
 	}
 
-	func drawTicks(minorColor: NSColor, minorLength: Double, minorThickness: Double, majorColor _majorColor: NSColor? = nil, majorLength _majorLength: Double? = nil, majorThickness _majorThickness: Double? = nil, inset: Double = 0.0) {
-		let majorColor = _majorColor ?? minorColor
-		let majorLength = _majorLength ?? minorLength
-		let majorThickness = _majorThickness ?? minorThickness
+	func drawTicks(minorColor: NSColor, minorLength: Double, minorThickness: Double,
+                   majorColor: NSColor? = nil, majorLength: Double? = nil,
+                   majorThickness: Double? = nil, inset: Double = 0.0)
+    {
+		let majorColor = majorColor ?? minorColor
+		let majorLength = majorLength ?? minorLength
+		let majorThickness = majorThickness ?? minorThickness
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 
 		// Ticks

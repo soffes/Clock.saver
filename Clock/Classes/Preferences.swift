@@ -22,7 +22,8 @@ final class Preferences: NSObject {
 	
 	// MARK: - Properties
 	
-	private let defaults: UserDefaults = ScreenSaverDefaults(forModuleWithName: Bundle(for: Preferences.self).bundleIdentifier!)!
+	private let defaults: UserDefaults = ScreenSaverDefaults(
+        forModuleWithName: Bundle(for: Preferences.self).bundleIdentifier!)!
 
 	private let models = [
 		BN0021.self,
@@ -51,7 +52,7 @@ final class Preferences: NSObject {
 
 	var style: ClockStyle {
 		let styles = model.styles
-		let index = styles.map { $0.rawValue }.index(of: styleName) ?? styles.startIndex
+		let index = styles.map { $0.rawValue }.firstIndex(of: styleName) ?? styles.startIndex
 		return styles[index]
 	}
 

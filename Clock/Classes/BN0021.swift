@@ -97,7 +97,8 @@ final class BN0021: ClockView {
 
 	override func drawTicks() {
 		let color = style.minuteColor
-		drawTicks(minorColor: color.withAlphaComponent(0.5), minorLength: 0.05, minorThickness: 0.003, majorColor: color, majorLength: 0.09, majorThickness: 0.006)
+		drawTicks(minorColor: color.withAlphaComponent(0.5), minorLength: 0.05, minorThickness: 0.003,
+                  majorColor: color, majorLength: 0.09, majorThickness: 0.006)
 	}
 
 	override func drawNumbers() {

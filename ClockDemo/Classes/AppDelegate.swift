@@ -7,9 +7,9 @@ import ScreenSaver
 
 	@IBOutlet var window: NSWindow!
 	
-	let view: ScreenSaverView! = {
-		let view = MainView(frame: .zero, isPreview: false)
-		view?.autoresizingMask = [.width, .height]
+	let view: ScreenSaverView = {
+		let view = MainView(frame: .zero, isPreview: false)!
+		view.autoresizingMask = [.width, .height]
 		return view
 	}()
 
@@ -53,9 +53,11 @@ extension AppDelegate: NSApplicationDelegate {
 		
 		// Start animating the clock
 		view.startAnimation()
-		Timer.scheduledTimer(timeInterval: view.animationTimeInterval, target: view, selector: #selector(ScreenSaverView.animateOneFrame), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: view.animationTimeInterval, target: view,
+                             selector: #selector(ScreenSaverView.animateOneFrame), userInfo: nil, repeats: true)
 
-		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange), name: .PreferencesDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(preferencesDidChange),
+                                               name: .PreferencesDidChange, object: nil)
 		preferencesDidChange(nil)
 	}
 }
