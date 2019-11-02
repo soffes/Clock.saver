@@ -96,7 +96,11 @@ final class BN0095: ClockView {
     }
 
     override func drawNumbers() {
-        drawNumbers(fontSize: 0.059, radius: 0.381)
+        drawNumbers(fontSize: 0.059, radius: 0.379)
+    }
+
+    override func drawLogo() {
+        drawLogo(color: style.logoColor, width: 0.130, y: 0.680)
     }
 
     // MARK: - Private
