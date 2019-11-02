@@ -26,13 +26,14 @@
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFD-3L-sd7">
                         <rect key="frame" x="120" y="140" width="151" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="BN0032" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="HjN-ml-lDS" id="Jhk-ZJ-EGw">
+                        <popUpButtonCell key="cell" type="push" title="BN0021" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="gt5-ws-PpE" id="Jhk-ZJ-EGw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <menu key="menu" title="OtherViews" id="eZ3-QA-JZ5">
                                 <items>
                                     <menuItem title="BN0021" id="gt5-ws-PpE"/>
                                     <menuItem title="BN0032" state="on" tag="1" id="HjN-ml-lDS"/>
+                                    <menuItem title="BN0095" id="d67-sU-wlV"/>
                                     <menuItem title="BN0111" id="gUz-ku-JrZ"/>
                                 </items>
                             </menu>
