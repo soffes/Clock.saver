@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7515.2" systemVersion="14D72i" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7515.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController" customModule="Clock" customModuleProvider="target">
@@ -13,21 +14,21 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Clock" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Clock" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="288" height="157"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="contentRect" x="196" y="240" width="288" height="183"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="-5" width="288" height="157"/>
+                <rect key="frame" x="0.0" y="0.0" width="288" height="183"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <popUpButton verticalHuggingPriority="750" id="NFD-3L-sd7">
-                        <rect key="frame" x="120" y="114" width="151" height="26"/>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFD-3L-sd7">
+                        <rect key="frame" x="120" y="140" width="151" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="BN0032" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="HjN-ml-lDS" id="Jhk-ZJ-EGw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="system"/>
                             <menu key="menu" title="OtherViews" id="eZ3-QA-JZ5">
                                 <items>
                                     <menuItem title="BN0021" id="gt5-ws-PpE"/>
@@ -40,8 +41,8 @@
                             <binding destination="HuX-6B-vHY" name="selectedValue" keyPath="self.modelName" id="DTc-6j-LNY"/>
                         </connections>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="cMp-6i-pzR">
-                        <rect key="frame" x="18" y="119" width="96" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMp-6i-pzR">
+                        <rect key="frame" x="18" y="145" width="96" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Model:" id="Imw-dx-G77">
                             <font key="font" metaFont="system"/>
@@ -49,12 +50,12 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton verticalHuggingPriority="750" id="Xyo-n3-1WN">
-                        <rect key="frame" x="120" y="87" width="151" height="26"/>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xyo-n3-1WN">
+                        <rect key="frame" x="120" y="113" width="151" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="White" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ERR-cu-2qh" id="Lud-Ap-C5Q">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="system"/>
                             <menu key="menu" title="OtherViews" id="Hfw-Ed-S6O">
                                 <items>
                                     <menuItem title="White" state="on" id="ERR-cu-2qh"/>
@@ -66,8 +67,8 @@
                             <action selector="selectStyle:" target="-2" id="i55-0x-CE3"/>
                         </connections>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="dCQ-TT-7VL">
-                        <rect key="frame" x="18" y="92" width="96" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dCQ-TT-7VL">
+                        <rect key="frame" x="18" y="118" width="96" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Style:" id="cQ7-Ff-O0M">
                             <font key="font" metaFont="system"/>
@@ -75,7 +76,29 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" id="NoK-Mg-VIN">
+                    <button fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="Akz-2A-8bB">
+                        <rect key="frame" x="120" y="85" width="128" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Show Braun logo" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="fQ1-f1-DKB">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="HuX-6B-vHY" name="value" keyPath="self.drawsLogo" id="spX-66-rGX"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="tyS-f7-KQT">
+                        <rect key="frame" x="120" y="59" width="144" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Show seconds hand" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Uuo-NJ-lwm">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="HuX-6B-vHY" name="value" keyPath="self.drawsSeconds" id="hd6-C2-ObG"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NoK-Mg-VIN">
                         <rect key="frame" x="202" y="13" width="72" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r3a-m7-9kX">
@@ -89,20 +112,9 @@ DQ
                             <action selector="close:" target="-2" id="lvG-Xx-jhG"/>
                         </connections>
                     </button>
-                    <button tag="5" id="Akz-2A-8bB">
-                        <rect key="frame" x="120" y="59" width="128" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Show Braun logo" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="fQ1-f1-DKB">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="HuX-6B-vHY" name="value" keyPath="self.drawsLogo" id="spX-66-rGX"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="239" y="310.5"/>
+            <point key="canvasLocation" x="239" y="323.5"/>
         </window>
         <customObject id="HuX-6B-vHY" customClass="Preferences" customModule="Clock" customModuleProvider="target"/>
         <userDefaultsController representsSharedInstance="YES" id="dxc-qZ-11Z"/>

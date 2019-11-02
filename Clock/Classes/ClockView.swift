@@ -9,17 +9,19 @@ class ClockView: NSView {
 		fatalError("Unimplemented")
 	}
 
-	var drawsLogo = false
-	var logoImage: NSImage?
-	var clockFrame: CGRect {
+	private var drawsLogo = false
+    private var drawsSeconds = true
+
+	private var logoImage: NSImage?
+
+    var clockFrame: CGRect {
 		return clockFrame(forBounds: bounds)
 	}
 
 	var style: ClockStyle!
 
 	var styleName: String {
-		set {
-		}
+		set {}
 
 		get {
 			return style.description
@@ -114,7 +116,7 @@ class ClockView: NSView {
 		draw(day: day)
 		draw(hours: -(.pi * 2 * hours) + .pi / 2)
 		draw(minutes: -(.pi * 2 * minutes) + .pi / 2)
-		draw(seconds: -(.pi * 2 * seconds) + .pi / 2)
+        draw(seconds: -(.pi * 2 * seconds) + .pi / 2)
 	}
 
 	func draw(day: Int) {}
@@ -131,14 +133,20 @@ class ClockView: NSView {
 
 	func draw(seconds angle: Double) {
 		style.secondColor.set()
-		drawHand(length: 0.391547049, thickness: 0.009569378, angle: angle)
 
-		// Counterweight
-		drawHand(length: -0.076555024, thickness: 0.028708134, angle: angle, lineCapStyle: .round)
-		let nubSize = clockFrame.size.width * 0.052631579
-		let nubFrame = CGRect(x: (bounds.size.width - nubSize) / 2.0, y: (bounds.size.height - nubSize) / 2.0,
+        if drawsSeconds {
+            // Seconds hand
+            drawHand(length: 0.391547049, thickness: 0.009569378, angle: angle)
+
+            // Counterweight
+            drawHand(length: -0.076555024, thickness: 0.028708134, angle: angle, lineCapStyle: .round)
+        }
+
+        // Nub
+        let nubSize = clockFrame.size.width * 0.052631579
+        let nubFrame = CGRect(x: (bounds.size.width - nubSize) / 2.0, y: (bounds.size.height - nubSize) / 2.0,
                               width: nubSize, height: nubSize)
-		NSBezierPath(ovalIn: nubFrame).fill()
+        NSBezierPath(ovalIn: nubFrame).fill()
 
 		// Screw
 		let dotSize = clockFrame.size.width * 0.006379585
@@ -280,8 +288,8 @@ class ClockView: NSView {
 	// MARK: - Private
 
 	@objc private func preferencesDidChange(_ notification: NSNotification?) {
-		let preferences = (notification?.object as? Preferences) ?? Preferences()
-		drawsLogo = preferences.drawsLogo
+        drawsLogo = Preferences.shared.drawsLogo
+        drawsSeconds = Preferences.shared.drawsSeconds
 		
 		if drawsLogo {
 			if let imageURL = Bundle(for: ClockView.self).url(forResource: "braun", withExtension: "pdf") {

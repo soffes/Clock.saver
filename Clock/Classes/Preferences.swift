@@ -14,6 +14,7 @@ final class Preferences: NSObject {
 		case model = "SAMModel"
 		case style = "SAMStyle"
 		case logo = "SAMClockLogo"
+        case seconds = "SAMSeconds"
 
 		var key: String {
 			return rawValue
@@ -21,7 +22,9 @@ final class Preferences: NSObject {
 	}
 	
 	// MARK: - Properties
-	
+
+    static let shared = Preferences()
+
 	private let defaults: UserDefaults = ScreenSaverDefaults(
         forModuleWithName: Bundle(for: Preferences.self).bundleIdentifier!)!
 
@@ -77,6 +80,17 @@ final class Preferences: NSObject {
 			save()
 		}
 	}
+
+    @objc var drawsSeconds: Bool {
+        get {
+            return defaults.bool(forKey: DefaultsKey.seconds.key)
+        }
+
+        set {
+            defaults.set(newValue, forKey: DefaultsKey.seconds.key)
+            save()
+        }
+    }
 	
 	// MARK: - Initializers
 
@@ -84,7 +98,8 @@ final class Preferences: NSObject {
 		defaults.register(defaults: [
 			DefaultsKey.model.key: defaultModel.modelName,
 			DefaultsKey.style.key: defaultModel.Style.default.rawValue,
-			DefaultsKey.logo.key: false
+			DefaultsKey.logo.key: false,
+            DefaultsKey.seconds.key: true
 		])
 	}
 	
