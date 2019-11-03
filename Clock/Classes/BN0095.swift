@@ -162,25 +162,30 @@ final class BN0095: ClockView {
     override func drawComplications() {
         let clockWidth = clockFrame.width
 
-        let comps = Calendar.current.dateComponents([.minute, .second, .nanosecond], from: startTime, to: Date())
+        let realComps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date())
+        let realSeconds = Double(realComps.second ?? 0) / 60
+
+        let comps = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: Date())
         let seconds = Double(comps.second ?? 0) / 60
         let minutes = (Double(comps.minute ?? 0) / 12) + (seconds / 60)
+        let hours = (Double(comps.hour ?? 0) / 12) + ((minutes / 60.0) * (60.0 / 12))
 
-        // Seconds (1-30)
-        let tlCenter = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
-                               y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        drawStopwatchComplication(center: tlCenter, ticks: Array(stride(from: 0, to: 59, by: 2)),
-                                  value: seconds, handColor: style.secondColor, numbers: [30, 10, 20])
+        // Hours
+        let hoursCenter = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
+                                  y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: hoursCenter, ticks: Array(stride(from: 0, to: 59, by: 2)),
+                                  value: hours, handColor: style.secondColor, numbers: [30, 10, 20])
 
-        // Seconds (1-60)
-        let trCenter = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
-                               y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        drawStopwatchComplication(center: trCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: seconds / 2,
-                                  handColor: style.minuteColor, numbers: [60, 20, 40])
+        // Small Seconds
+        let smallSecondsCenter = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
+                                         y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: smallSecondsCenter, ticks: Array(stride(from: 0, to: 59, by: 5)),
+                                  value: realSeconds, handColor: style.minuteColor, numbers: [60, 20, 40])
 
         // Minutes
-        let bCenter = CGPoint(x: clockFrame.midX, y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
-        drawStopwatchComplication(center: bCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: minutes,
+        let minutesCenter = CGPoint(x: clockFrame.midX,
+                                    y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
+        drawStopwatchComplication(center: minutesCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: minutes,
                                   handColor: style.secondColor, numbers: [12, 4, 8])
     }
 
@@ -202,6 +207,13 @@ final class BN0095: ClockView {
 
         sheathColor.setStroke()
         drawHand(length: sheathLength, thickness: minuteHandThickness + sheathThicknessDelta, angle: angle)
+    }
+
+    override func draw(seconds angle: Double) {
+        // This draws the stopwatch seconds and not the real seconds
+        let comps = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: Date())
+        let seconds = Double(comps.second ?? 0) / 60
+        super.draw(seconds: -(.pi * 2 * seconds) + .pi / 2)
     }
 
     override func draw(day: Int) {
