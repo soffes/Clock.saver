@@ -46,6 +46,8 @@ class ClockView: NSView {
     var counterweightLength: Double { 0.076555024 }
     var counterweightThickness: Double { 0.028708134 }
 
+    var screwColor: NSColor { Color.black }
+
 	// MARK: - Initializers
 
 	convenience init() {
@@ -155,7 +157,7 @@ class ClockView: NSView {
 
 		// Screw
 		let dotSize = clockFrame.size.width * 0.006379585
-		Color.black.setFill()
+		screwColor.setFill()
 		let screwFrame = CGRect(x: (bounds.size.width - dotSize) / 2.0, y: (bounds.size.height - dotSize) / 2.0,
                                 width: dotSize, height: dotSize)
 		let screwPath = NSBezierPath(ovalIn: screwFrame.integral)

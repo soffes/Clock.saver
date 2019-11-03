@@ -58,7 +58,8 @@ final class BN0095: ClockView {
     private let complicationHandLength = 0.082
     private let complicationHandThickness = 0.006
     private let complicationSheathRadius = 0.013
-    private let complicationScrewRadius = 0.004
+    private let complicationScrewOuterRadius = 0.005
+    private let complicationScrewInnerRadius = 0.002
 
     private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
@@ -249,10 +250,15 @@ final class BN0095: ClockView {
 
         // Screw
         complicationScrewColor.setFill()
-        let screwSize = clockWidth * CGFloat(complicationScrewRadius) * 2
+        let outerScrewSize = clockWidth * CGFloat(complicationScrewOuterRadius) * 2
+        let outerScrew = CGRect(x: center.x - (outerScrewSize / 2), y: center.y - (outerScrewSize / 2),
+                                width: outerScrewSize, height: outerScrewSize)
+        NSBezierPath(ovalIn: outerScrew).fill()
+
+        screwColor.setFill()
+        let screwSize = clockWidth * CGFloat(complicationScrewInnerRadius) * 2
         let screw = CGRect(x: center.x - (screwSize / 2), y: center.y - (screwSize / 2), width: screwSize,
                            height: screwSize)
         NSBezierPath(ovalIn: screw).fill()
-
     }
 }
