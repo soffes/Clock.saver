@@ -1,7 +1,6 @@
 import AppKit
 
 // TODO:
-// - Silver background
 // - Chronograph values
 // - Date
 
@@ -10,8 +9,8 @@ final class BN0095: ClockView {
     // MARK: - Types
 
     enum Style: String, ClockStyle, CaseIterable {
-        case bkslbkg = "BKSLBKG"
         case bkbkbkg = "BKBKBKG"
+        case bkslbkg = "BKSLBKG"
 
         var description: String {
             switch self {
@@ -24,6 +23,15 @@ final class BN0095: ClockView {
 
         static var `default`: ClockStyle {
             return Style.bkslbkg
+        }
+
+        var caseColor: NSColor? {
+            switch self {
+            case .bkslbkg:
+                return NSColor(white: 0.7, alpha: 1)
+            case .bkbkbkg:
+                return nil
+            }
         }
     }
 
@@ -58,7 +66,8 @@ final class BN0095: ClockView {
     private let complicationScrewOuterRadius = 0.005
     private let complicationScrewInnerRadius = 0.002
     private let complicationFontSize = 0.028
-    private let complicationNumberRadius = 0.080
+    private let complicationNumberRadius = 0.085
+    private let caseWidth = 0.039
 
     private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
@@ -99,8 +108,18 @@ final class BN0095: ClockView {
     }
 
     override func drawTicks() {
-        // Border
-        drawTicksDivider(color: borderColor, position: 0)
+        if let style = self.style as? Style, let caseColor = style.caseColor {
+            // Case
+            caseColor.setStroke()
+            let width = clockFrame.width * CGFloat(caseWidth)
+            let frame = clockFrame.insetBy(dx: width / -2, dy: width / -2)
+            let path = NSBezierPath(ovalIn: frame)
+            path.lineWidth = width
+            path.stroke()
+        } else {
+            // Border
+            drawTicksDivider(color: borderColor, position: 0)
+        }
 
         // Outer ring
         drawTicksDivider(color: borderColor, position: outerRingWidth)
