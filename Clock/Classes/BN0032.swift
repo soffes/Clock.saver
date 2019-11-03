@@ -88,7 +88,7 @@ final class BN0032: ClockView {
 
 	override func draw(day: Int) {
 		let dateArrowColor = Color.red
-		let dateBackgroundColor = NSColor(srgbRed: 0.894, green: 0.933, blue: 0.965, alpha: 1)
+		let dateBackgroundColor = NSColor(displayP3Red: 0.894, green: 0.933, blue: 0.965, alpha: 1)
 		let clockWidth = clockFrame.size.width
 		let dateWidth = clockWidth * 0.057416268
 		let dateFrame = CGRect(

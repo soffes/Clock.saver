@@ -67,7 +67,7 @@ final class BN0095: ClockView {
     private let dateOffset = 0.230
     private let dateWidth = 0.075
     private let dateHeight = 0.052
-    private let dateFontSize = 0.036
+    private let dateFontSize = 0.034
     private let dateArrowWidth = 0.018
     private let dateArrowDip = 0.012
 

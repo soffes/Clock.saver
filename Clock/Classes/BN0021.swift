@@ -22,7 +22,7 @@ final class BN0021: ClockView {
 			case .bkbkg:
 				return Color.darkBackground
 			case .whbrg:
-				return NSColor(srgbRed: 0.298, green: 0.231, blue: 0.204, alpha: 1)
+				return NSColor(displayP3Red: 0.298, green: 0.231, blue: 0.204, alpha: 1)
 			}
 		}
 
