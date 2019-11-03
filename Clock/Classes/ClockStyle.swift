@@ -22,7 +22,7 @@ extension ClockStyle {
     }
 
     var hourColor: NSColor {
-        return NSColor(white: 0.7, alpha: 1)
+        return NSColor(white: 0.75, alpha: 1)
     }
 
     var minuteColor: NSColor {

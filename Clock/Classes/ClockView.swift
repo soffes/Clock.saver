@@ -38,6 +38,14 @@ class ClockView: NSView {
 		}
 	}
 
+    var hourHandLength: Double { 0.263955343 }
+    var hourHandThickness: Double { 0.023125997 }
+    var minuteHandLength: Double { 0.391547049 }
+    var minuteHandThickness: Double { 0.014354067 }
+    var secondHandLength: Double { 0.391547049 }
+    var counterweightLength: Double { 0.076555024 }
+    var counterweightThickness: Double { 0.028708134 }
+
 	// MARK: - Initializers
 
 	convenience init() {
@@ -70,11 +78,7 @@ class ClockView: NSView {
 			drawLogo()
 		}
 
-		let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date())
-		let seconds = Double(comps.second ?? 0) / 60.0
-		let minutes = (Double(comps.minute ?? 0) / 60.0) + (seconds / 60.0)
-		let hours = (Double(comps.hour ?? 0) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
-		draw(day: comps.day ?? 0, hours: hours, minutes: minutes, seconds: seconds)
+		drawHands()
 	}
 
 	// MARK: - Configuration
@@ -123,12 +127,12 @@ class ClockView: NSView {
 
 	func draw(hours angle: Double) {
 		style.hourColor.setStroke()
-		drawHand(length: 0.263955343, thickness: 0.023125997, angle: angle)
+		drawHand(length: hourHandLength, thickness: hourHandThickness, angle: angle)
 	}
 
 	func draw(minutes angle: Double) {
 		style.minuteColor.setStroke()
-		drawHand(length: 0.391547049, thickness: 0.014354067, angle: angle)
+		drawHand(length: minuteHandLength, thickness: minuteHandThickness, angle: angle)
 	}
 
 	func draw(seconds angle: Double) {
@@ -136,10 +140,10 @@ class ClockView: NSView {
 
         if drawsSeconds {
             // Seconds hand
-            drawHand(length: 0.391547049, thickness: 0.009569378, angle: angle)
+            drawHand(length: secondHandLength, thickness: 0.009569378, angle: angle)
 
             // Counterweight
-            drawHand(length: -0.076555024, thickness: 0.028708134, angle: angle, lineCapStyle: .round)
+            drawHand(length: -counterweightLength, thickness: counterweightThickness, angle: angle, lineCapStyle: .round)
         }
 
         // Nub
@@ -157,6 +161,13 @@ class ClockView: NSView {
 		screwPath.fill()
 	}
 
+    func drawHands() {
+        let comps = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date())
+        let seconds = Double(comps.second ?? 0) / 60.0
+        let minutes = (Double(comps.minute ?? 0) / 60.0) + (seconds / 60.0)
+        let hours = (Double(comps.hour ?? 0) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
+        draw(day: comps.day ?? 0, hours: hours, minutes: minutes, seconds: seconds)
+    }
 
 	// MARK: - Drawing Helpers
 

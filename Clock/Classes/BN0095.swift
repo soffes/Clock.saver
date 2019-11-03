@@ -1,5 +1,10 @@
 import AppKit
 
+// TODO:
+// - Silver background
+// - Chronograph
+// - Date
+
 final class BN0095: ClockView {
 
     // MARK: - Types
@@ -35,8 +40,21 @@ final class BN0095: ClockView {
     private let outerMinorTicksInset = 0.009
     private let dotRadius = 0.0065
     private let dotCenterInset = 0.085
+    private let sheathLength = 0.069
+    private let sheathThicknessDelta = 0.001
+    private let lumOffset = 0.006
+    private let lumThickness = 0.0075
 
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
+    private let sheathColor = NSColor(white: 0.2, alpha: 1)
+    private let lumColor = NSColor(white: 0.1, alpha: 0.4)
+
+    override var hourHandLength: Double { 0.221 }
+    override var minuteHandLength: Double { 0.377 }
+    override var minuteHandThickness: Double { hourHandThickness }
+    override var secondHandLength: Double { 0.397 }
+    override  var counterweightLength: Double { 0.111 }
+    override  var counterweightThickness: Double { 0.016 }
 
     // MARK: - ClockView
 
@@ -101,6 +119,26 @@ final class BN0095: ClockView {
 
     override func drawLogo() {
         drawLogo(color: style.logoColor, width: 0.130, y: 0.680)
+    }
+
+    override func draw(hours angle: Double) {
+        super.draw(hours: angle)
+
+        lumColor.setStroke()
+        drawHand(length: hourHandLength - lumOffset, thickness: lumThickness, angle: angle)
+
+        sheathColor.setStroke()
+        drawHand(length: sheathLength, thickness: hourHandThickness + sheathThicknessDelta, angle: angle)
+    }
+
+    override func draw(minutes angle: Double) {
+        super.draw(minutes: angle)
+
+        lumColor.setStroke()
+        drawHand(length: minuteHandLength - lumOffset, thickness: lumThickness, angle: angle)
+
+        sheathColor.setStroke()
+        drawHand(length: sheathLength, thickness: minuteHandThickness + sheathThicknessDelta, angle: angle)
     }
 
     // MARK: - Private
