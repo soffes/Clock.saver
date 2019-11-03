@@ -29,6 +29,8 @@ final class BN0095: ClockView {
 
     // MARK: - Properties
 
+    private let startTime = Date()
+
     private let outerRingWidth = 0.013
     private let innerRingWidth = 0.102
     private let majorTicksInset = 0.024
@@ -44,7 +46,14 @@ final class BN0095: ClockView {
     private let sheathThicknessDelta = 0.001
     private let lumOffset = 0.006
     private let lumThickness = 0.0075
+    private let complicationRadius = 0.122
+    private let complicationUpperYOffset = 0.040
+    private let complicationUpperXOffset = 0.175
+    private var complicationLowerYOffset: Double { complicationUpperXOffset }
+    private let complicationTickLength = 0.017
+    private let complicationTickInset = 0.006
 
+    private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
     private let sheathColor = NSColor(white: 0.2, alpha: 1)
     private let lumColor = NSColor(white: 0.1, alpha: 0.4)
@@ -83,10 +92,10 @@ final class BN0095: ClockView {
 
     override func drawTicks() {
         // Border
-        drawTicksDivider(color: NSColor.white.withAlphaComponent(0.1), position: 0)
+        drawTicksDivider(color: borderColor, position: 0)
 
         // Outer ring
-        drawTicksDivider(color: NSColor.white.withAlphaComponent(0.1), position: outerRingWidth)
+        drawTicksDivider(color: borderColor, position: outerRingWidth)
 
         // Major outer
         let majorValues = Array(stride(from: 0, to: 60, by: 5))
@@ -99,7 +108,7 @@ final class BN0095: ClockView {
                   thickness: minorTicksThickness, inset: outerMinorTicksInset)
 
         // Inner ring
-        drawTicksDivider(color: NSColor.white.withAlphaComponent(0.1), position: innerRingWidth)
+        drawTicksDivider(color: borderColor, position: innerRingWidth)
 
         // Major
         drawTicks(values: majorValues, color: ticksColor, length: majorTicksLength, thickness: majorTicksThickness,
@@ -119,6 +128,46 @@ final class BN0095: ClockView {
 
     override func drawLogo() {
         drawLogo(color: style.logoColor, width: 0.130, y: 0.680)
+    }
+
+    override func drawComplications() {
+        let clockWidth = clockFrame.width
+        let size = clockWidth * CGFloat(complicationRadius) * 2
+
+        // Seconds
+        var center = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
+                             y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        var rect = CGRect(x: center.x - (size / 2), y: center.y - (size / 2), width: size, height: size)
+        var path = NSBezierPath(ovalIn: rect)
+        path.lineWidth = 1
+        borderColor.setStroke()
+        path.stroke()
+
+        drawTicks(values: Array(stride(from: 0, to: 59, by: 2)), color: ticksColor, length: complicationTickLength,
+                  thickness: minorTicksThickness, inset: complicationTickInset, in: rect)
+
+        // Minutes
+        center = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
+                             y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        rect = CGRect(x: center.x - (size / 2), y: center.y - (size / 2), width: size, height: size)
+        path = NSBezierPath(ovalIn: rect)
+        path.lineWidth = 1
+        borderColor.setStroke()
+        path.stroke()
+
+        drawTicks(values: Array(stride(from: 0, to: 59, by: 5)), color: ticksColor, length: complicationTickLength,
+                  thickness: minorTicksThickness, inset: complicationTickInset, in: rect)
+
+        // Hours
+        center = CGPoint(x: clockFrame.midX, y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
+        rect = CGRect(x: center.x - (size / 2), y: center.y - (size / 2), width: size, height: size)
+        path = NSBezierPath(ovalIn: rect)
+        path.lineWidth = 1
+        borderColor.setStroke()
+        path.stroke()
+
+        drawTicks(values: Array(stride(from: 0, to: 59, by: 5)), color: ticksColor, length: complicationTickLength,
+                  thickness: minorTicksThickness, inset: complicationTickInset, in: rect)
     }
 
     override func draw(hours angle: Double) {

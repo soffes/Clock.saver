@@ -78,6 +78,7 @@ class ClockView: NSView {
 			drawLogo()
 		}
 
+        drawComplications()
 		drawHands()
 	}
 
@@ -169,6 +170,8 @@ class ClockView: NSView {
         draw(day: comps.day ?? 0, hours: hours, minutes: minutes, seconds: seconds)
     }
 
+    func drawComplications() {}
+
 	// MARK: - Drawing Helpers
 
 	func drawHand(length: Double, thickness: Double, angle: Double, lineCapStyle: NSBezierPath.LineCapStyle = .square) {
@@ -246,11 +249,14 @@ class ClockView: NSView {
                   inset: inset)
 	}
 
-    func drawTicks(values: [Int], color: NSColor, length: Double, thickness: Double, inset: Double) {
-        let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
+    func drawTicks(values: [Int], color: NSColor, length: Double, thickness: Double, inset: Double,
+                   in rect: CGRect? = nil)
+    {
+        let rect = rect ?? clockFrame
+        let center = CGPoint(x: rect.midX, y: rect.midY)
         let clockWidth = clockFrame.width
 
-        let tickRadius = (clockWidth / 2) - (clockWidth * CGFloat(inset))
+        let tickRadius = (rect.width / 2) - (clockWidth * CGFloat(inset))
         for i in values {
             let tickLength = clockWidth * CGFloat(length)
             let progress = Double(i) / 60
