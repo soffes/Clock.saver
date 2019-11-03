@@ -108,12 +108,12 @@ final class BN0032: ClockView {
 
 		let string = NSAttributedString(string: "\(day)", attributes: [
 			.font: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
-			.kern: -1,
+            .kern: -0.5,
 			.paragraphStyle: paragraph
 		])
 
 		var stringFrame = dateFrame
-		stringFrame.origin.y -= dateFrame.size.height * 0.12
+		stringFrame.origin.y -= dateFrame.size.height * 0.20
 		string.draw(in: stringFrame)
 
 		dateArrowColor.setFill()
