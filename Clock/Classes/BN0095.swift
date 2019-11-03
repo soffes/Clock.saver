@@ -3,7 +3,6 @@ import AppKit
 // TODO:
 // - Silver background
 // - Chronograph numbers
-// - Chronograph screws
 // - Chronograph seconds (120hz)
 // - Chronograph minutes
 // - Chronograph hours
@@ -58,11 +57,14 @@ final class BN0095: ClockView {
     private let complicationTickInset = 0.006
     private let complicationHandLength = 0.082
     private let complicationHandThickness = 0.006
+    private let complicationSheathRadius = 0.013
+    private let complicationScrewRadius = 0.004
 
     private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
-    private let sheathColor = NSColor(white: 0.2, alpha: 1)
+    private let sheathColor = NSColor(white: 0.3, alpha: 1)
     private let lumColor = NSColor(white: 0.1, alpha: 0.4)
+    private let complicationScrewColor = NSColor(white: 0.9, alpha: 1)
 
     override var hourHandLength: Double { 0.221 }
     override var minuteHandLength: Double { 0.377 }
@@ -237,5 +239,20 @@ final class BN0095: ClockView {
         let angle = -(.pi * 2 * value) + .pi / 2
         handColor.setStroke()
         drawHand(length: complicationHandLength, thickness: complicationHandThickness, angle: angle, in: rect)
+
+        // Sheath
+        sheathColor.setFill()
+        let sheathSize = clockWidth * CGFloat(complicationSheathRadius) * 2
+        let sheath = CGRect(x: center.x - (sheathSize / 2), y: center.y - (sheathSize / 2), width: sheathSize,
+                            height: sheathSize)
+        NSBezierPath(ovalIn: sheath).fill()
+
+        // Screw
+        complicationScrewColor.setFill()
+        let screwSize = clockWidth * CGFloat(complicationScrewRadius) * 2
+        let screw = CGRect(x: center.x - (screwSize / 2), y: center.y - (screwSize / 2), width: screwSize,
+                           height: screwSize)
+        NSBezierPath(ovalIn: screw).fill()
+
     }
 }
