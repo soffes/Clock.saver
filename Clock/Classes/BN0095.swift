@@ -2,7 +2,11 @@ import AppKit
 
 // TODO:
 // - Silver background
-// - Chronograph
+// - Chronograph numbers
+// - Chronograph screws
+// - Chronograph seconds (120hz)
+// - Chronograph minutes
+// - Chronograph hours
 // - Date
 
 final class BN0095: ClockView {
@@ -52,6 +56,8 @@ final class BN0095: ClockView {
     private var complicationLowerYOffset: Double { complicationUpperXOffset }
     private let complicationTickLength = 0.017
     private let complicationTickInset = 0.006
+    private let complicationHandLength = 0.082
+    private let complicationHandThickness = 0.006
 
     private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
@@ -132,42 +138,29 @@ final class BN0095: ClockView {
 
     override func drawComplications() {
         let clockWidth = clockFrame.width
-        let size = clockWidth * CGFloat(complicationRadius) * 2
+
+        let comps = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: Date())
+        let seconds = Double(comps.second ?? 0) / 60.0
+        let minutes = (Double(comps.minute ?? 0) / 60.0) + (seconds / 60.0)
+        let hours = (Double(comps.hour ?? 0) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
 
         // Seconds
-        var center = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
-                             y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        var rect = CGRect(x: center.x - (size / 2), y: center.y - (size / 2), width: size, height: size)
-        var path = NSBezierPath(ovalIn: rect)
-        path.lineWidth = 1
-        borderColor.setStroke()
-        path.stroke()
-
-        drawTicks(values: Array(stride(from: 0, to: 59, by: 2)), color: ticksColor, length: complicationTickLength,
-                  thickness: minorTicksThickness, inset: complicationTickInset, in: rect)
+        let secondsCenter = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
+                                    y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: secondsCenter, ticks: Array(stride(from: 0, to: 59, by: 2)), value: seconds,
+                                  handColor: style.secondColor)
 
         // Minutes
-        center = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
-                             y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        rect = CGRect(x: center.x - (size / 2), y: center.y - (size / 2), width: size, height: size)
-        path = NSBezierPath(ovalIn: rect)
-        path.lineWidth = 1
-        borderColor.setStroke()
-        path.stroke()
+        let minutesCenter = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
+                                    y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: minutesCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: minutes,
+                                  handColor: style.minuteColor)
 
-        drawTicks(values: Array(stride(from: 0, to: 59, by: 5)), color: ticksColor, length: complicationTickLength,
-                  thickness: minorTicksThickness, inset: complicationTickInset, in: rect)
-
-        // Hours
-        center = CGPoint(x: clockFrame.midX, y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
-        rect = CGRect(x: center.x - (size / 2), y: center.y - (size / 2), width: size, height: size)
-        path = NSBezierPath(ovalIn: rect)
-        path.lineWidth = 1
-        borderColor.setStroke()
-        path.stroke()
-
-        drawTicks(values: Array(stride(from: 0, to: 59, by: 5)), color: ticksColor, length: complicationTickLength,
-                  thickness: minorTicksThickness, inset: complicationTickInset, in: rect)
+        // Hours (note hand is seconds color and not hours color)
+        let hoursCenter = CGPoint(x: clockFrame.midX,
+                                  y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
+        drawStopwatchComplication(center: hoursCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: hours,
+                                  handColor: style.secondColor)
     }
 
     override func draw(hours angle: Double) {
@@ -222,5 +215,27 @@ final class BN0095: ClockView {
 
             NSBezierPath(ovalIn: rect).fill()
         }
+    }
+
+    private func drawStopwatchComplication(center: CGPoint, ticks: [Int], value: Double, handColor: NSColor) {
+        let clockWidth = clockFrame.width
+        let size = clockWidth * CGFloat(complicationRadius) * 2
+
+        let rect = CGRect(x: center.x - (size / 2), y: center.y - (size / 2), width: size, height: size)
+
+        // Border
+        borderColor.setStroke()
+        let path = NSBezierPath(ovalIn: rect)
+        path.lineWidth = 1
+        path.stroke()
+
+        // Ticks
+        drawTicks(values: ticks, color: ticksColor, length: complicationTickLength, thickness: minorTicksThickness,
+                  inset: complicationTickInset, in: rect)
+
+        // Hand
+        let angle = -(.pi * 2 * value) + .pi / 2
+        handColor.setStroke()
+        drawHand(length: complicationHandLength, thickness: complicationHandThickness, angle: angle, in: rect)
     }
 }

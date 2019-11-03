@@ -174,16 +174,19 @@ class ClockView: NSView {
 
 	// MARK: - Drawing Helpers
 
-	func drawHand(length: Double, thickness: Double, angle: Double, lineCapStyle: NSBezierPath.LineCapStyle = .square) {
-		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
-		let clockWidth = Double(clockFrame.size.width)
+    func drawHand(length: Double, thickness: Double, angle: Double, lineCapStyle: NSBezierPath.LineCapStyle = .square,
+                  in rect: CGRect? = nil)
+    {
+        let rect = rect ?? clockFrame
+		let center = CGPoint(x: rect.midX, y: rect.midY)
+		let clockWidth = clockFrame.width
 		let end = CGPoint(
-			x: Double(center.x) + cos(angle) * clockWidth * length,
-			y: Double(center.y) + sin(angle) * clockWidth * length
+			x: center.x + CGFloat(cos(angle)) * clockWidth * CGFloat(length),
+			y: center.y + CGFloat(sin(angle)) * clockWidth * CGFloat(length)
 		)
 
 		let path = NSBezierPath()
-		path.lineWidth = CGFloat(clockWidth * thickness)
+		path.lineWidth = clockWidth * CGFloat(thickness)
 		path.lineCapStyle = lineCapStyle
 		path.move(to: center)
 		path.line(to: end)
