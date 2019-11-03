@@ -31,6 +31,7 @@ final class Preferences: NSObject {
 	private let models = [
 		BN0021.self,
 		BN0032.self,
+        BN0095.self,
 		BN0111.self
 	]
 

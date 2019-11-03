@@ -18,6 +18,8 @@
 		21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21623B3719779F16001BA4A9 /* AppDelegate.swift */; };
 		21623B4219779F16001BA4A9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3C19779F16001BA4A9 /* MainMenu.xib */; };
 		21623B4419779F16001BA4A9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3F19779F16001BA4A9 /* Images.xcassets */; };
+		216CECDB236E108900438890 /* BN0095.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CECDA236E108900438890 /* BN0095.swift */; };
+		216CECDC236E124900438890 /* BN0095.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CECDA236E108900438890 /* BN0095.swift */; };
 		216F0AA11A9674D3005B946B /* BN0111.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2117D0631A9672600051552F /* BN0111.swift */; };
 		216F0AA31A969767005B946B /* BN0021.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F0AA21A969767005B946B /* BN0021.swift */; };
 		216F0AA41A96985E005B946B /* BN0021.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F0AA21A969767005B946B /* BN0021.swift */; };
@@ -58,6 +60,7 @@
 		21623B3D19779F16001BA4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		21623B3E19779F16001BA4A9 /* ClockTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClockTest-Info.plist"; sourceTree = "<group>"; };
 		21623B3F19779F16001BA4A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		216CECDA236E108900438890 /* BN0095.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BN0095.swift; sourceTree = "<group>"; };
 		216F0AA21A969767005B946B /* BN0021.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BN0021.swift; sourceTree = "<group>"; };
 		219E68F719782D5400805FEA /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		21D56DFD19AF825A00C40125 /* braun.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = braun.pdf; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 			children = (
 				216F0AA21A969767005B946B /* BN0021.swift */,
 				21D595F11A94693900D29D3A /* BN0032.swift */,
+				216CECDA236E108900438890 /* BN0095.swift */,
 				2117D0631A9672600051552F /* BN0111.swift */,
 			);
 			name = Models;
@@ -315,6 +319,7 @@
 				21D784212066B04000A6C175 /* ClockStyle.swift in Sources */,
 				21EA95991976428A00E4370A /* MainView.swift in Sources */,
 				219E68F819782D5400805FEA /* Preferences.swift in Sources */,
+				216CECDB236E108900438890 /* BN0095.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +327,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				216CECDC236E124900438890 /* BN0095.swift in Sources */,
 				21D595F61A946ADC00D29D3A /* BN0032.swift in Sources */,
 				21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */,
 				216F0AA11A9674D3005B946B /* BN0111.swift in Sources */,
@@ -396,7 +402,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -446,7 +452,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -476,7 +482,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = UP9C8XM22A;
@@ -486,6 +493,7 @@
 				MARKETING_VERSION = 0.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.samsoffes.clock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Release;

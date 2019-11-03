@@ -4,7 +4,7 @@ final class BN0032: ClockView {
 	
 	// MARK: - Types
 
-	enum Style: String, ClockStyle {
+	enum Style: String, ClockStyle, CaseIterable {
 		case bkbkg = "BKBKG"
 		case whbkg = "WHBKG"
 
@@ -59,10 +59,6 @@ final class BN0032: ClockView {
 		static var `default`: ClockStyle {
 			return Style.bkbkg
 		}
-
-		static var all: [ClockStyle] {
-			return [Style.bkbkg, Style.whbkg]
-		}
 	}
 
 	// MARK: - ClockView
@@ -82,7 +78,7 @@ final class BN0032: ClockView {
 	}
 
 	override class var styles: [ClockStyle] {
-		return Style.all
+		return Style.allCases
 	}
 
 	override func initialize() {
@@ -92,7 +88,7 @@ final class BN0032: ClockView {
 
 	override func draw(day: Int) {
 		let dateArrowColor = Color.red
-		let dateBackgroundColor = NSColor(srgbRed: 0.894, green: 0.933, blue: 0.965, alpha: 1)
+		let dateBackgroundColor = NSColor(displayP3Red: 0.894, green: 0.933, blue: 0.965, alpha: 1)
 		let clockWidth = clockFrame.size.width
 		let dateWidth = clockWidth * 0.057416268
 		let dateFrame = CGRect(
@@ -112,12 +108,12 @@ final class BN0032: ClockView {
 
 		let string = NSAttributedString(string: "\(day)", attributes: [
 			.font: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
-			.kern: -1,
+            .kern: -0.5,
 			.paragraphStyle: paragraph
 		])
 
 		var stringFrame = dateFrame
-		stringFrame.origin.y -= dateFrame.size.height * 0.12
+		stringFrame.origin.y -= dateFrame.size.height * 0.20
 		string.draw(in: stringFrame)
 
 		dateArrowColor.setFill()

@@ -4,7 +4,7 @@ final class BN0021: ClockView {
 
 	// MARK: - Types
 
-	enum Style: String, ClockStyle {
+	enum Style: String, ClockStyle, CaseIterable {
 		case bkbkg = "BKBKG"
 		case whbrg = "WHBRG"
 
@@ -22,7 +22,7 @@ final class BN0021: ClockView {
 			case .bkbkg:
 				return Color.darkBackground
 			case .whbrg:
-				return NSColor(srgbRed: 0.298, green: 0.231, blue: 0.204, alpha: 1)
+				return NSColor(displayP3Red: 0.298, green: 0.231, blue: 0.204, alpha: 1)
 			}
 		}
 
@@ -64,10 +64,6 @@ final class BN0021: ClockView {
 		static var `default`: ClockStyle {
 			return Style.bkbkg
 		}
-
-		static var all: [ClockStyle] {
-			return [Style.bkbkg, Style.whbrg]
-		}
 	}
 
 	// MARK: - ClockView
@@ -87,7 +83,7 @@ final class BN0021: ClockView {
 	}
 
 	override class var styles: [ClockStyle] {
-		return Style.all
+		return Style.allCases
 	}
 
 	override func initialize() {
