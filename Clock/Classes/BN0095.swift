@@ -1,9 +1,5 @@
 import AppKit
 
-// TODO:
-// - Chronograph values
-// - Date
-
 final class BN0095: ClockView {
 
     // MARK: - Types
@@ -68,6 +64,12 @@ final class BN0095: ClockView {
     private let complicationFontSize = 0.028
     private let complicationNumberRadius = 0.085
     private let caseWidth = 0.039
+    private let dateOffset = 0.230
+    private let dateWidth = 0.075
+    private let dateHeight = 0.052
+    private let dateFontSize = 0.036
+    private let dateArrowWidth = 0.018
+    private let dateArrowDip = 0.012
 
     private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
@@ -200,6 +202,58 @@ final class BN0095: ClockView {
 
         sheathColor.setStroke()
         drawHand(length: sheathLength, thickness: minuteHandThickness + sheathThicknessDelta, angle: angle)
+    }
+
+    override func draw(day: Int) {
+        guard let context = NSGraphicsContext.current?.cgContext else {
+            return
+        }
+
+        context.saveGState()
+        context.translateBy(x: clockFrame.midX, y: clockFrame.midY)
+        context.rotate(by: .pi * 2 / 360 * -40)
+        context.translateBy(x: -clockFrame.midX, y: -clockFrame.midY)
+
+        let clockWidth = clockFrame.width
+        let size = CGSize(width: clockWidth * CGFloat(dateWidth), height: clockWidth * CGFloat(dateHeight))
+        let rect = CGRect(x: clockFrame.midX + (CGFloat(dateOffset) * clockWidth),
+                          y: clockFrame.midY - (size.height / 2),
+                          width: size.width,
+                          height: size.height)
+        borderColor.setStroke()
+
+        let backgroundPath = NSBezierPath(roundedRect: rect, xRadius: 2, yRadius: 2)
+        backgroundPath.lineWidth = 1
+        backgroundPath.stroke()
+
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+
+        let string = NSAttributedString(string: "\(day)", attributes: [
+            .font: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
+            .kern: -0.5,
+            .paragraphStyle: paragraph,
+            .foregroundColor: style.minuteColor
+        ])
+
+        var stringFrame = rect
+        stringFrame.origin.y += rect.size.height * 0.10
+        string.draw(in: stringFrame)
+
+        Color.red.setFill()
+
+        let arrowWidth = clockWidth * CGFloat(dateArrowWidth)
+        let arrowDip = clockWidth * CGFloat(dateArrowDip)
+        let path = NSBezierPath()
+        path.move(to: rect.origin)
+        path.line(to: CGPoint(x: rect.minX - arrowWidth, y: rect.minY))
+        path.line(to: CGPoint(x: rect.minX - arrowWidth + arrowDip, y: rect.midY))
+        path.line(to: CGPoint(x: rect.minX - arrowWidth, y: rect.maxY))
+        path.line(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.line(to: CGPoint(x: rect.minX + arrowDip, y: rect.midY))
+        path.fill()
+
+        context.restoreGState()
     }
 
     // MARK: - Private
