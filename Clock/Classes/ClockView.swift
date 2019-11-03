@@ -285,25 +285,28 @@ class ClockView: NSView {
         }
     }
 
-	func drawNumbers(fontSize: CGFloat, radius: Double) {
-		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
+    func drawNumbers(fontSize: CGFloat, radius: Double, values: [Int] = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                     in rect: CGRect? = nil)
+    {
+        let rect = rect ?? clockFrame
+		let center = CGPoint(x: rect.midX, y: rect.midY)
 
 		let clockWidth = clockFrame.size.width
 		let textRadius = clockWidth * CGFloat(radius)
 		let font = NSFont(name: "HelveticaNeue-Light", size: clockWidth * fontSize)!
 
-		for i in 0..<12 {
-			let string = NSAttributedString(string: "\(12 - i)", attributes: [
+        let count = CGFloat(values.count)
+        for (i, text) in values.enumerated() {
+			let string = NSAttributedString(string: String(text), attributes: [
 				.foregroundColor: style.minuteColor,
-				.kern: -2,
 				.font: font
 			])
 
 			let stringSize = string.size()
-			let angle = CGFloat((Double(i) / 12.0 * .pi * 2.0) + .pi / 2)
+            let angle = -(CGFloat(i) / count * .pi * 2) + .pi / 2
 			let rect = CGRect(
-				x: (center.x + cos(angle) * (textRadius - (stringSize.width / 2.0))) - (stringSize.width / 2.0),
-				y: center.y + sin(angle) * (textRadius - (stringSize.height / 2.0)) - (stringSize.height / 2.0),
+				x: (center.x + cos(angle) * (textRadius - (stringSize.width / 2))) - (stringSize.width / 2),
+				y: center.y + sin(angle) * (textRadius - (stringSize.height / 2)) - (stringSize.height / 2),
 				width: stringSize.width,
 				height: stringSize.height
 			)

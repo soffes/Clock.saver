@@ -2,10 +2,7 @@ import AppKit
 
 // TODO:
 // - Silver background
-// - Chronograph numbers
-// - Chronograph seconds (120hz)
-// - Chronograph minutes
-// - Chronograph hours
+// - Chronograph values
 // - Date
 
 final class BN0095: ClockView {
@@ -60,6 +57,8 @@ final class BN0095: ClockView {
     private let complicationSheathRadius = 0.013
     private let complicationScrewOuterRadius = 0.005
     private let complicationScrewInnerRadius = 0.002
+    private let complicationFontSize = 0.028
+    private let complicationNumberRadius = 0.080
 
     private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
@@ -142,28 +141,26 @@ final class BN0095: ClockView {
     override func drawComplications() {
         let clockWidth = clockFrame.width
 
-        let comps = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: Date())
-        let seconds = Double(comps.second ?? 0) / 60.0
-        let minutes = (Double(comps.minute ?? 0) / 60.0) + (seconds / 60.0)
-        let hours = (Double(comps.hour ?? 0) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
+        let comps = Calendar.current.dateComponents([.minute, .second, .nanosecond], from: startTime, to: Date())
+        let seconds = Double(comps.second ?? 0) / 60
+        let minutes = (Double(comps.minute ?? 0) / 12) + (seconds / 60)
 
-        // Seconds
-        let secondsCenter = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
-                                    y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        drawStopwatchComplication(center: secondsCenter, ticks: Array(stride(from: 0, to: 59, by: 2)), value: seconds,
-                                  handColor: style.secondColor)
+        // Seconds (1-30)
+        let tlCenter = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
+                               y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: tlCenter, ticks: Array(stride(from: 0, to: 59, by: 2)),
+                                  value: seconds, handColor: style.secondColor, numbers: [30, 10, 20])
+
+        // Seconds (1-60)
+        let trCenter = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
+                               y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: trCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: seconds / 2,
+                                  handColor: style.minuteColor, numbers: [60, 20, 40])
 
         // Minutes
-        let minutesCenter = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
-                                    y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        drawStopwatchComplication(center: minutesCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: minutes,
-                                  handColor: style.minuteColor)
-
-        // Hours (note hand is seconds color and not hours color)
-        let hoursCenter = CGPoint(x: clockFrame.midX,
-                                  y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
-        drawStopwatchComplication(center: hoursCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: hours,
-                                  handColor: style.secondColor)
+        let bCenter = CGPoint(x: clockFrame.midX, y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
+        drawStopwatchComplication(center: bCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: minutes,
+                                  handColor: style.secondColor, numbers: [12, 4, 8])
     }
 
     override func draw(hours angle: Double) {
@@ -220,7 +217,9 @@ final class BN0095: ClockView {
         }
     }
 
-    private func drawStopwatchComplication(center: CGPoint, ticks: [Int], value: Double, handColor: NSColor) {
+    private func drawStopwatchComplication(center: CGPoint, ticks: [Int], value: Double, handColor: NSColor,
+                                           numbers: [Int])
+    {
         let clockWidth = clockFrame.width
         let size = clockWidth * CGFloat(complicationRadius) * 2
 
@@ -235,6 +234,10 @@ final class BN0095: ClockView {
         // Ticks
         drawTicks(values: ticks, color: ticksColor, length: complicationTickLength, thickness: minorTicksThickness,
                   inset: complicationTickInset, in: rect)
+
+        // Numbers
+        drawNumbers(fontSize: CGFloat(complicationFontSize), radius: complicationNumberRadius, values: numbers,
+                    in: rect)
 
         // Hand
         let angle = -(.pi * 2 * value) + .pi / 2
