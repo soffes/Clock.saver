@@ -74,7 +74,7 @@ final class BN0095: ClockView {
     private let borderColor = NSColor(white: 1, alpha: 0.1)
     private let ticksColor = NSColor(white: 1, alpha: 0.9)
     private let sheathColor = NSColor(white: 0.3, alpha: 1)
-    private let lumColor = NSColor(white: 0.1, alpha: 0.4)
+    private let lumColor = NSColor(white: 0.1, alpha: 0.3)
     private let complicationScrewColor = NSColor(white: 0.9, alpha: 1)
 
     override var hourHandLength: Double { 0.221 }
