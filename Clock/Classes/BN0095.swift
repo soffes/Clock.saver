@@ -167,25 +167,25 @@ final class BN0095: ClockView {
 
         let comps = Calendar.current.dateComponents([.hour, .minute, .second], from: startTime, to: Date())
         let seconds = Double(comps.second ?? 0) / 60
-        let minutes = (Double(comps.minute ?? 0) / 12) + (seconds / 60)
-        let hours = (Double(comps.hour ?? 0) / 12) + ((minutes / 60.0) * (60.0 / 12))
-
-        // Hours
-        let hoursCenter = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
-                                  y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        drawStopwatchComplication(center: hoursCenter, ticks: Array(stride(from: 0, to: 59, by: 2)),
-                                  value: hours, handColor: style.secondColor, numbers: [30, 10, 20])
-
-        // Small Seconds
-        let smallSecondsCenter = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
-                                         y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
-        drawStopwatchComplication(center: smallSecondsCenter, ticks: Array(stride(from: 0, to: 59, by: 5)),
-                                  value: realSeconds, handColor: style.minuteColor, numbers: [60, 20, 40])
+        let minutes = (Double(comps.minute ?? 0) / 30) + (seconds / 60)
+        let hours = (Double(comps.hour ?? 0) / 12) + ((minutes / 60) * (60 / 12))
 
         // Minutes
-        let minutesCenter = CGPoint(x: clockFrame.midX,
-                                    y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
-        drawStopwatchComplication(center: minutesCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: minutes,
+        let topLeftCenter = CGPoint(x: clockFrame.midX - (CGFloat(complicationUpperXOffset) * clockWidth),
+                                    y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: topLeftCenter, ticks: Array(stride(from: 0, to: 59, by: 2)),
+                                  value: minutes, handColor: style.secondColor, numbers: [30, 10, 20])
+
+        // Small Seconds
+        let topRightCenter = CGPoint(x: clockFrame.midX + (CGFloat(complicationUpperXOffset) * clockWidth),
+                                     y: clockFrame.midY + (CGFloat(complicationUpperYOffset) * clockWidth))
+        drawStopwatchComplication(center: topRightCenter, ticks: Array(stride(from: 0, to: 59, by: 5)),
+                                  value: realSeconds, handColor: style.minuteColor, numbers: [60, 20, 40])
+
+        // Hours
+        let bottomCenter = CGPoint(x: clockFrame.midX,
+                                   y: clockFrame.midY - (CGFloat(complicationLowerYOffset) * clockWidth))
+        drawStopwatchComplication(center: bottomCenter, ticks: Array(stride(from: 0, to: 59, by: 5)), value: hours,
                                   handColor: style.secondColor, numbers: [12, 4, 8])
     }
 
