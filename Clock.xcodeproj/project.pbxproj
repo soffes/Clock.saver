@@ -511,6 +511,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ClockDemo/Resources/ClockTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MARKETING_VERSION = 0.6.0;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.samsoffes.clock-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -528,6 +529,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=1";
 				INFOPLIST_FILE = "$(SRCROOT)/ClockDemo/Resources/ClockTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MARKETING_VERSION = 0.6.0;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.samsoffes.clock-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
