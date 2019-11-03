@@ -142,13 +142,13 @@ Braun makes several [watch models](http://braun-clocks.com/watches).
 
 #### [Black Range](http://braun-clocks.com/watch/BN0095)
 
-- [ ] BN0095BKBKBTG: Steel
-- [ ] BN0095BKBKBKG: Rubber
+- [x] BN0095BKBKBTG: Steel
+- [x] BN0095BKBKBKG: Rubber
 
 #### [Steel Range](http://braun-clocks.com/watch/BN0095S)
 
-- [ ] BN0095BKSLBTG: Steel
-- [ ] BN0095BKSLBKG: Rubber
+- [x] BN0095BKSLBTG: Steel
+- [x] BN0095BKSLBKG: Rubber
 
 
 ### BN0106

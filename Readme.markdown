@@ -35,6 +35,9 @@ The following models are implemented:
 * [BN0032 Range](http://braun-clocks.com/watch/BN0032)
     * BN0032WHBKG: White
     * BN0032BKBKG: Black
+* [BN0095 Range](http://braun-clocks.com/watch/BN0095)
+    * BN0095BKBKBKG: Black
+    * BN0095BKSLBKG: Silver
 * [BN0111 Sports Range](http://braun-clocks.com/watch/BN0111)
     * BN0111WHBLG: Blue
     * BN0111BKORG: Orange
