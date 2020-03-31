@@ -38,7 +38,10 @@ final class PreferencesWindowController: NSWindowController {
 	}
 
 	@IBAction func close(_ sender: Any?) {
-		window?.close()
+// 		window?.close()
+		// Fix white screen error
+		guard let window = window else { return }
+	        window.sheetParent?.endSheet(window)
 	}
 
 	// MARK: - Private
