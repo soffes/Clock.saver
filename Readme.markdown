@@ -1,6 +1,6 @@
 # Clock.saver
 
-Just a little Mac screensaver inspired by the [Braun watches](http://braun-clocks.com/watches). You pick a model and style. Here’s a screenshot:
+Just a little Mac screensaver inspired by the [Braun watches](https://us.braun-clocks.com/pages/watches). You pick a model and style. Here’s a screenshot:
 
 [<img src="https://cdn.dribbble.com/users/1573/screenshots/1460483/clock.png" width="400" alt="Clock Saver Screenshot">](http://dribbble.com/shots/1460483-Clock-Screensaver)
 
