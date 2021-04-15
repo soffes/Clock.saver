@@ -11,7 +11,7 @@ Just a little Mac screensaver inspired by the [Braun watches](http://braun-clock
 
 Alternatively, if you're using [Homebrew](https://brew.sh), you can run:
 ```
-$ brew cask install clocksaver
+$ brew install --cask clocksaver
 ```
 
 
